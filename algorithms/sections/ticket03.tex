@@ -63,35 +63,22 @@ y_i = x_0 \odot x_1 \odot \cdots \odot x_i.
 \subsection*{Псевдокод \texttt{scan}}
 
 \begin{algorithm}[H]
-	\caption{\texttt{scan} (inclusive), схема upsweep/downsweep; параллельная модель}
+	\caption{\texttt{scan} (in-place), inclusive, по доске}
 	\begin{algorithmic}[1]
-		\Require массив $x[0..n-1]$, где $n=2^m$
-		\State $a = x$ \Comment{копия исходного массива}\\
-		\Comment{Upsweep: накапливаем суммы на концах блоков}
-		\For{$d=0$ \textbf{to} $\log_2 n - 1$}
-		\Comment{для фиксированного $d$ все итерации по $k$ выполняются одновременно (parallel)}
+		\Require массив $x[0..n-1]$, где $n=2^m$\\
+		\Comment{Upsweep: накапливаем суммы на концах блоков}\\
+		\For{$d=0$ \textbf{to} $\log_2 n - 1$} \Comment{для фиксированного $d$ все операции внутреннего цикла по $k$ выполняются параллельно}
 		\For{$k=0$ \textbf{to} $n-1$ \textbf{step} $2^{d+1}$}
-		\State $i = k + 2^{d} - 1$
-		\State $j = k + 2^{d+1} - 1$
-		\State $x[j] = x[j] + x[i]$
+		\State $x[k+2^{d+1}-1] = x[k+2^{d+1}-1] + x[k+2^{d}-1]$
 		\EndFor
 		\EndFor
-		\Comment{Downsweep: превращаем суммы в exclusive-префиксы}
-		\State $x[n-1] = 0$
-		\For{$d=\log_2 n - 1$ \textbf{downto} $0$}
-		\Comment{для фиксированного $d$ все итерации по $k$ выполняются одновременно (parallel)}
+		\Comment{Downsweep: добавляем префикс предыдущего блока к левому подблоку}
+		\For{$d=\log_2 n - 1$ \textbf{downto} $0$} \Comment{для фиксированного $d$ все операции внутреннего цикла по $k$ выполняются параллельно}
 		\For{$k=0$ \textbf{to} $n-1$ \textbf{step} $2^{d+1}$}
-		\State $i = k + 2^{d} - 1$
-		\State $j = k + 2^{d+1} - 1$
-		\State $t = x[i]$
-		\State $x[i] = x[j]$
-		\State $x[j] = x[j] + t$
+		\If{$k>0$}
+		\State $x[k+2^{d}-1] = x[k+2^{d}-1] + x[k-1]$
+		\EndIf
 		\EndFor
-		\EndFor
-		\Comment{Теперь $x[i]=\sum_{t=0}^{i-1} a[t]$ (exclusive). Делаем inclusive:}\\
-		\Comment{все итерации по $i$ выполняются одновременно (parallel)}
-		\For{$i=0$ \textbf{to} $n-1$}
-		\State $x[i] = x[i] + a[i]$
 		\EndFor
 	\end{algorithmic}
 \end{algorithm}

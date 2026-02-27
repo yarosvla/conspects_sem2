@@ -217,7 +217,7 @@ BoldItalicFont = cmunbso.otf
 
 % --- Команда создания обложки ---
 \newcommand{\makecover}[5]{%
-	\pagenumbering{gobble}%
+	\thispagestyle{empty}%
 	
 	\begin{titlepage}
 		\begingroup
@@ -276,12 +276,15 @@ BoldItalicFont = cmunbso.otf
 	\clearpage
 }
 
+
 % -------------------------------------------------
 % Документ
 % -------------------------------------------------
 \begin{document}
 	
 	\makecover{AlgosColor}{Математические \\ основы \; алгоритмов}{Конспект лекций}{Косолобов Д. А.}{....}
+	
+	\pagestyle{plain}
 	
 	\part*{Вторая часть курса}
 	

@@ -1,0 +1,655 @@
+% !TEX root = ../algebra_02.tex
+
+% Понадобится окружение для Следствий
+
+\section{Линейные отображения.}
+
+\subsection{Внешняя прямая сумма}
+
+\begin{Definition}{Внешняя прямая сумма}{}
+    $ V_1, \ldots, V_k$ ~--- линейные пространства над полем $K$
+
+    Внешняя прямая сумма $:=$ декартово произведение $V_1 \times \ldots \times V_k$
+
+    С операциями:
+    \begin{itemize}
+        \item $(v_1 , \ldots , v_k) + (v'_1 , \ldots , v'_k) = (v_1 + v'_1 , \ldots , v_k + v'_k) $
+        \item $ \lambda (v_1 , \ldots , v_k) = (\lambda v_1 , \ldots , \lambda v_k)$ 
+    \end{itemize}
+\end{Definition}
+
+\begin{Statement}{}{}
+    $V_1 \times \ldots \times V_k$~--- линейное пространство.
+\end{Statement}
+
+\subsubsection{Связь с внутренней суммой}
+
+$W_1 \ldots W_k \subset V$
+
+Тогда $\exists:$
+\[
+\vphi : W_1 \times \ldots \times W_k \longrightarrow V
+\]
+\[
+w_1 , \; \ldots , \; w_k \rightarrow w_1 + \ldots + w_k
+\]
+
+
+\begin{Proposition}{}{}
+    \begin{itemize}
+        \item $ V = W_1 \oplus \ldots \oplus W_k \Leftrightarrow \vphi $~--- биекция.
+        \item $ \vphi$~--- \textbf{всегда} линейное отображение
+    \end{itemize}
+\end{Proposition}
+
+\begin{proof}
+    \begin{enumerate}
+        \item Следует из определения внутренней суммы.
+        \item Для $\vphi$ Выполнены:
+            \begin{itemize}
+                \item $\vphi(w + w') = \vphi(w) + \vphi(w')$
+                \item $\vphi(\lambda w) = \lambda \vphi(w)$
+            \end{itemize}
+    \end{enumerate}
+    
+\end{proof}
+
+\begin{Definition}{Изоморфизм линейных пространств}{}
+    $V$ и $W$ над полем $K$ изоморфны $\Longleftrightarrow \exists \; \vphi : V \longrightarrow W , \vphi $ \; ~--- линейное биективное.
+\end{Definition}
+
+Следствие:
+
+$V$ изморфно своей внутренней сумме $\left(W_1 \oplus \ldots \oplus W_k \right)$
+
+\subsection{Линейные отображения}
+
+\begin{Definition}{Линейное отображение}{}
+    $V, \; W$ ~--- линейные пространства над полем $K$
+
+    $\mathcal{A}: \; V \longrightarrow W $ --- \textbf{линейное отображение}, если 
+
+    $\forall v_1, v_2 \in V, \; \lambda _1, \lambda _2 \in K$:
+    \[
+        \mathcal{A}(\lambda _1 v_1 + \lambda _2 v_2) = \lambda _1 \mathcal{A} v_1 + \lambda _2 \mathcal{A} v_2
+    \]
+\end{Definition}
+\vspace{1\baselineskip}
+
+\begin{Proposition}{}{}
+    $\mathcal{A}$~--- линейное $\Longleftrightarrow$ выполнены:
+    \begin{itemize}
+        \item $\mathcal{A}(v_1 + v_2) = \mathcal{A}v_1 + \mathcal{A}v_2$ (\textbf{аддитивность})
+        \item $\mathcal{A}(\lambda v) = \lambda \mathcal{A} v$ (\textbf{однородность})
+    \end{itemize}
+\end{Proposition}
+\begin{proof}
+
+    $'\Longrightarrow'$:
+    \begin{enumerate}
+        \item Положим $\lambda _1, \lambda _2 := 1$
+        \item $\mathcal{A}(\lambda v) = \mathcal{A}(\lambda \cdot v + 0 \cdot 0) =$
+        $\lambda _1 \mathcal{A}v_1 + 0 * \mathcal{A}(0) = \lambda _1 \mathcal{A} v_1$
+    \end{enumerate}
+
+    $'\Longleftarrow'$:
+    \[
+    \mathcal{A}(\lambda_1v_1 + \lambda_2v_2) \overset{\text{аддитивность}}{=} \mathcal{A}(\lambda_1v_1) + \mathcal{A}(\lambda_2v_2)
+    \overset{\text{однородность}}{=} \lambda_1 \mathcal{A} v_1 + \lambda_2 \mathcal{A} v_2
+    \]
+\end{proof}
+
+\begin{remark}
+    $\forall \; \text{Линейных отображений} \; \mathcal{A} \st V \longrightarrow W$ \; $\mathcal{A}(0 \in V) = 0 \in W$
+\end{remark}
+
+\vspace{1.5\baselineskip}
+
+\begin{Definition}{Множество линейных отображений}{}
+    $Hom(V, W) := \{ \mathcal{A} \st V \longrightarrow W | \mathcal{A}$~--- линейное \} 
+\end{Definition}
+
+\vspace{2\baselineskip}
+
+\begin{Example}{Линейные отображения}{}
+    \begin{enumerate} \setlength{\itemsep}{6pt}
+        \item 0 $ \st V \underset{v \rightarrow 0}{\longrightarrow} W \in Hom(V, W)$
+        \item $V$~--- любое, $\lambda \in K \;\; \lambda \cdot \eps_v \st V \rightarrow V [v \rightarrow \lambda \cdot v]$
+        \item Умножение матриц. $A \in K^{m \times n}$ 
+        \begin{itemize}
+            \item $A \cdot \st K^{n \times p} \longrightarrow K^{m \times p}$
+            ($B \longrightarrow A \cdot B$)
+            \item $\cdot A \st K^{p \times m} \longrightarrow K^{p \times n}$
+            ($B \longrightarrow B \cdot A$)
+        \end{itemize}
+        \item Транспонирование матриц.
+        \item Вычисление многочленов. 
+        \begin{itemize}
+            \item Фиксируем $\alpha \in K$.
+            \[
+                f \longrightarrow f(\alpha) \in Hom(K[x], K)
+            \]
+            \item Фиксируем $g \in K[x]$. 
+            \[
+                f \longrightarrow f \cdot g \in Hom(K[x], K[x])
+            \]
+        \end{itemize}
+    \end{enumerate}
+\end{Example}
+
+\begin{Proposition}{Разложение по базису}{}
+    $H := v_1 , \; \ldots \; v_n \in V$
+    
+    \begin{enumerate} \setlength{\itemsep}{7pt}
+        \item $ \eps_H \st K^n \longrightarrow V \in Hom(K^n, V)$ 
+        $ \begin{pmatrix} \alpha_1 \\ \vdots \\ \alpha_n \end{pmatrix}  \longrightarrow \alpha_1v_1 + \ldots + \alpha_nv_n$
+        \item $\eps_H$ - изоморфизм $\Leftrightarrow H$~--- базис V.
+    \end{enumerate}
+\end{Proposition}
+
+\vspace{1\baselineskip}
+
+\subsubsection{Изоморфизм}
+
+Является ли изоморфизм симметричным отношением?
+
+\begin{Proposition}{Симметричность изоморфизма}{}
+    \[
+    \mathcal{A} \in Hom(V, W) \Longleftrightarrow \mathcal{A}^{-1} \in Hom(W, V)
+    \]
+\end{Proposition}
+
+\begin{proof}
+    \[
+    \mathcal{A}^{-1}(\lambda_1w_1+\lambda_2w_2) \overset{?}{=} \lambda_1 \mathcal{A}^{-1} w_1 + \lambda_2 \mathcal{A}^{-1} w_2 
+    \]
+    L/S HS~--- Left / Right Hand Side 
+    \[
+    \mathcal{A}(LHS) = \lambda_1w_1 + \lambda_2w_2
+    \]
+    \[
+    \mathcal{A}(RHS) = \lambda_1 \mathcal{A} \mathcal{A}^{-1}w_1 + \lambda_2 \mathcal{A} \mathcal{A}^{-1} w_2 = \lambda_1 w_1 + \lambda_2 w_2
+    \]
+    $\mathcal{A}$~--- биекция $\Rightarrow LHS = RHS$
+\end{proof}
+
+\vspace{1\baselineskip}
+
+\begin{remark}
+На конкретном набор линейных пространств \textbf{изоморфизм}~--- отношение \textbf{эквивалентности}
+\end{remark}
+
+\vspace{1\baselineskip}
+
+Следствие: 
+
+$\forall \; V / K$
+\[ \dim V = n \Rightarrow V \; \text{изоморфно} \; K^n \]
+\begin{proof}
+
+    $H$~--- базис $V$, \; $\eps_H$~--- изоморфизм
+
+    $\eps^{-1}_H \st \underset{v \rightarrow [v]_H}{V \longrightarrow K^n}$~--- коэффициенты при разложении вектора по базису
+\end{proof}
+
+\vspace{1\baselineskip}
+
+\subsubsection{Универсальное свойство базиса}
+
+\begin{Proposition}{}{}
+    $V, W$~--- пространства над $K$
+    \[ e_1, \; \ldots, \; e_n - \text{базис} \; V; \;\; w_1, \; \ldots, \; w_n \in W \]
+     \[ \Longrightarrow \exists ! \; \mathcal{A} \st \mathop{V \longrightarrow W}_{\mathcal{A}(e_j) = w_j} \]
+
+\end{Proposition}
+
+\begin{proof}
+    \begin{enumerate}
+        \item $\exists$:
+        
+        Возьмем вектор, разложим по базису.
+        \[ \mathcal{A} \st V \longrightarrow W \]
+        \[
+        v \rightarrow \eps_H([v]_E)
+        \]
+        \[
+        \lambda_1e_1 + \; \ldots + \; \lambda_n e_n \longrightarrow \lambda_1 w_1 + \; \ldots + \; \lambda_n w_n
+        \mathcal{A}(e_j) = \eps_H \]
+        \[
+        \begin{pmatrix} 0 \\ | \\  1 \\ | \\ 0 \end{pmatrix} = w_j 
+        \]
+
+        \item $\exists \textbf{!}$:
+        
+        \[
+        \mathcal{A}' \in Hom(V, W)
+        \]
+        \[
+        \mathcal{A}' e_j = w_j
+        \]
+
+        $v \in V \Rightarrow v = \lambda_1 e_1 + \; \ldots \; + \lambda_n e_n$
+
+        $\mathcal{A}' v = \lambda_1 \mathcal{A}' e_1 + \; \ldots \; + \lambda_n \mathcal{A}' e_n =$
+
+        $ \lambda_1 w_1 + \; \ldots \; + \lambda_n w_n = \mathcal{A} v$
+        $\Rightarrow \mathcal{A} = \mathcal{A}'$
+    \end{enumerate}
+\end{proof}
+
+\subsection{Ядро и образ линейного отображения.}
+
+\[ 
+\mathcal{A} \in Hom(V, W)
+\]
+
+\begin{Definition}{Ядро линейного отображения}{}
+
+\[
+Ker \, \mathcal{A} := \{ v \; | \; \mathcal{A} v = 0\}
+\]
+\end{Definition}
+
+\begin{Definition}{Образ линейного отображения}{}
+\[
+Im \, \mathcal{A} = \{ w \in W \; | \; \exists v \in V \st w = \mathcal{A} v \}
+\]
+\end{Definition}
+
+\vspace{1.5\baselineskip}
+
+\begin{Proposition}{}{}
+    \begin{enumerate}
+        \item $Ker \, \mathcal{A}$~--- линейное подпространства в $\mathbf{V}$
+        \item $Im \, \mathcal{A}$~--- линейное подпространство в $\mathbf{W}$
+    \end{enumerate}
+\end{Proposition}
+
+\begin{proof}
+
+    $V' \subset V \Rightarrow$
+    \begin{itemize}
+        \item $0 \in V'$
+        \item $v_1, v_2 \in V' \Rightarrow \lambda_1 v_1 + \lambda_2 v_2 \in V'$ 
+    \end{itemize}
+
+    (определение подпространства)
+
+    \begin{enumerate}
+        \item 
+        \begin{itemize}
+            \item $0 \overset{?}{\in} Ker \mathcal{A}$
+            \[
+            \mathcal{A}(0) = 0 \; \text{(доказано ранее)} \Rightarrow 0 \in Ker \mathcal{A}
+            \]
+            \item $v_1, v_2 \in Ker \mathcal{A} \overset{?}{\Rightarrow} \lambda_1 v_1 + \lambda_2 v_2 \in Ker \mathcal{A}$
+
+            Положим $w := \lambda_1 v_1 + \lambda_2 v_2$
+            \[
+            \mathcal{A}(w) = \mathcal{A}(\lambda_1 v_1 + \lambda_2 v_2) = \lambda_1 \mathcal{A}v_1 + \lambda_2 \mathcal{A} v_2 =
+            \]
+            \[
+            \lambda_1 \cdot 0 + \lambda_2 \cdot 0 \; (\mathcal{A}v_1 = \mathcal{A}v_2 = 0 \; \text{по свойству ядра})
+            \]
+            \[
+            \mathcal{A}w = 0 \Rightarrow w \in Ker \, \mathcal{A} \; \text{(по определению)}
+            \]
+        \end{itemize} 
+        \item 
+        \begin{itemize}
+            \item $0 \overset{?}{\in} Im \mathcal{A}$
+            \[
+            \exists \, v \in V \; | \; \mathcal{A}(v) = 0. \; (v = 0)
+            \]
+            \item $w_1, w_2 \in Im \mathcal{A} \overset{?}{\Rightarrow} \lambda_1 w_1 + \lambda_2 w_2 \in Im \mathcal{A}$
+            \[
+                \mathcal{A}^{-1}(\lambda_1 w_1 + \lambda_2 w_2) \not = \varnothing \Leftrightarrow \lambda_1 w_1 + \lambda_2 w_2 \in Im \mathcal{A}
+            \]
+            (Если прообраз не пуст, то $\exists \; v \in V \st \mathcal{A}v = \lambda_1 w_1 + \lambda_2 w_2$)
+            \[
+            \mathcal{A}^{-1}(\lambda_1 w_1 + \lambda_2 w_2) = \lambda_1 \mathcal{A}^{-1}w_1 + \lambda_2 \mathcal{A}^{-1}w_2
+            \]
+            $w_1, w_2 \in Im \mathcal{A} \Rightarrow \mathcal{A}^{-1}w_i = v_i$
+            \[
+            \lambda_1 \mathcal{A}^{-1}w_1 + \lambda_2 \mathcal{A}^{-1}w_2 = \lambda_1 v_1 + \lambda_2 v_2 = v_3 \in V
+            \]
+            $\Rightarrow \lambda_1 w_1 + \lambda_2 w_2 \in Im \mathcal{A}, \; \text{так как} \; \exists \; v_3 \in V \st \mathcal{A}(v_3) = \lambda_1 w_1 + \lambda_2 w_2$
+        \end{itemize}
+    \end{enumerate}
+\end{proof}
+
+\begin{Proposition}{Конечномерность ядра и образа}{}
+    $V$~--- линейное пространство. $\dim V = n \, < \infty (!)$
+
+    Тогда $Ker \mathcal{A}, \, Im \mathcal{A}$~--- конечномерные.
+
+    \textbf{Причем:}
+
+    \[
+    \dim Ker \mathcal{A} + \dim (Im \mathcal{A}) = n
+    \]
+    $\dim Ker \, \mathcal{A} = \delta \mathcal{A}$~---$\textbf{дефект} \; \mathcal{A}$.
+
+    $\dim Im \,\mathcal{A} = rk \mathcal{A}$~--- \textbf{ранг} \; $\mathcal{A}$.
+\end{Proposition}
+
+\begin{proof}
+
+    $Ker \mathcal{A} \subset V \Rightarrow d := \dim Ker \, \mathcal{A} \, < \infty$
+
+    $e_1, \ldots, e_d$~--- базис ядра.
+
+    $e_1, \ldots, e_d$~--- ЛНС в $V$. Дополним до базиса $V$ векторами $e_{d+1}, \ldots, e_{n}$
+
+    Хотим: $\mathcal{A}e_{d+1}, \ldots, \mathcal{A}e_{n}$~--- базис $Im \mathcal{A}$
+
+    $w \in Im \mathcal{A} \Rightarrow w = \mathcal{A}v, v \in V$. Разложим $v$ по базису
+
+    \[
+    v = \alpha_1 e_1 + \ldots + \alpha_d e_d + \alpha_{d+1} e_{d+1} + \ldots + \alpha_n e_n \;\; \text{(и такое разложение единственно)}
+    \]
+    \[
+    \alpha_1 e_1 + \ldots + \alpha_d e_d = v' \in Ker \mathcal{A}, \Rightarrow v' = 0.
+    \]
+
+    Тогда:
+    \[
+    v = \alpha_1 e_1 + \ldots + \alpha_d e_d + \alpha_{d+1} e_{d+1} + \ldots + \alpha_n e_n = 0 + \alpha_{d+1} e_{d+1} + \ldots + \alpha_n e_n
+    \]
+    \[
+    \mathcal{A}(v) = \mathcal{A}(\alpha_{d+1} e_{d+1} + \ldots + \alpha_n e_n) \in Lin(\mathcal{A}e_{d+1}, \ldots, \mathcal{A}e_n)
+    \]
+
+    Так как $w$ - произвольный вектор из $Im \mathcal{A}$, то 
+    
+    \[
+    Lin(\mathcal{A}e_{d+1}, \ldots, \mathcal{A}e_n) = Im \mathcal{A}
+    \]
+
+    $\mathcal{A}e_{d+1}, \ldots, \mathcal{A}e_n$~--- системообразующие, но  
+    хотя $e_{d+1}, \ldots, e_n$~--- ЛНС, \\ это не означает линейную независимость $\mathcal{A}e_{d+1}, \ldots, \mathcal{A}e_n$
+
+    От противного: пусть $\exists$ \; не тривиальная комбинация $\lambda_1 \mathcal{A}e_{d+1} + \ldots + \lambda_{n-d} \mathcal{A}e_n = 0$ 
+
+    \[
+    \lambda_1 \mathcal{A}e_{d+1} + \ldots + \lambda_{n-d} \mathcal{A}e_n = 0 \Rightarrow \linebreak
+    \mathcal{A}(\lambda_1 e_{d+1} + \ldots + \lambda_{n-d} e_n) = 0 \linebreak 
+    \Rightarrow \lambda_1 e_{d+1} + \ldots + \lambda_{n-d} e_n \in Ker \mathcal{A}
+    \]
+    Разложим вектора $\lambda_1 e_{d+1} + \ldots + \lambda_{n-d} e_n$ по базису $Ker \mathcal{A}$
+    \[
+    \lambda_1 e_{d+1} + \ldots + \lambda_{n-d} e_n = \alpha_1 e_1 + \ldots + \alpha_d e_d
+    \]
+    \[
+    (-\alpha_1 e_1) + \ldots + (-\alpha_d e_d) + \lambda_1 e_{d+1} + \ldots + \lambda_{n-d} e_n = 0;
+    \]
+    \[
+    \Rightarrow \alpha_1 = \ldots = \alpha_d = \lambda_1 = \ldots = \lambda_{n - d} = 0 \; \text{(разложение нуля единственно)}
+    \]
+    Тогда комбинация тривиальная. (?!) $\Rightarrow e_{d+1}, \ldots, e_n$~--- базис $Im \mathcal{A}$ и $Im \mathcal{A} = n - d < \infty$.
+\end{proof}
+
+\subsubsection{Инъективность и сюрьективность линейного отображения.}
+
+\textbf{Образ} отображения~--- \textbf{мера сюрьективности} отображения.
+
+\textbf{Ядро} отображения~--- \textbf{мера инъективности} отображения.
+
+(Насколько отображение близко к сюрьективности / инъективности)
+
+\begin{Proposition}{}{}
+
+$\mathcal{A} \in Hom (V, W)$
+
+$\mathcal{A}$~--- инъективно $\Leftrightarrow Ker \mathcal{A} = \{ 0 \}$
+\end{Proposition}
+
+\begin{proof}
+    \begin{itemize}
+        \item $`\Rightarrow`$:
+        \[
+        | \mathcal{A}^{-1}(0) | \le 1, \; \mathcal{A}(0 \in V) \overset{\text{всегда}}{=} 0 \in W \Rightarrow
+        \]
+        \[
+         | \mathcal{A}^{-1}(0) | = 1, Ker \mathcal{A} = \{ 0 \}
+        \]
+
+        \item $`\Leftarrow`$:
+        \[
+        \mathcal{A}v_1 = \mathcal{A}v_2; \; \mathcal{A}v_1 - \mathcal{A}v_2 = 0; \; \mathcal{A}(v_1 - v_2) = 0
+        \]
+        \[
+        Ker \mathcal{A} = \{ 0 \} \Rightarrow v_1 - v_2 = 0 \Rightarrow v_1 = v_2 \Rightarrow
+        \]
+        инъективность.
+    \end{itemize}
+\end{proof}
+
+\begin{Definition}{}{}
+\begin{itemize}
+    \item Эпиморфизм~--- сюрьективное линейное отображение.
+    \item Мономорфизм~--- инъективное линейное отображение.
+    \item Изоморфизм~--- биективное линейное отображение.
+\end{itemize}
+\end{Definition}
+
+\begin{Proposition}{}{}
+    
+    $\mathcal{A} \in Hom (V, W); \; e_1 \ldots e_n \, \text{~--- базис} \, V$
+
+    Тогда
+
+    \begin{enumerate}
+        \item $\mathcal{A}$~--- инъективно $\Leftrightarrow \mathcal{A}e_1 \ldots \mathcal{A}e_n$~--- \textbf{ЛНС} в $W$
+        \item $\mathcal{A}$~--- сюрьективно $\Leftrightarrow \mathcal{A}e_1 \ldots \mathcal{A}e_n$~--- \textbf{ситемообразующие} в $W$
+        \item $\mathcal{A}$~--- биективно $\Leftrightarrow \mathcal{A}e_1 \ldots \mathcal{A}e_n$~--- \textbf{базис} в $W$
+    \end{enumerate} 
+\end{Proposition}
+
+\begin{proof}
+    \begin{enumerate}
+        \item \begin{itemize}
+            \item $`\Rightarrow`$:
+
+            Рассмотрим $\mathcal{A}(v) = 0$, так как $Ker \mathcal{A} = \{ 0 \}$
+            \[
+            \mathcal{A}(\lambda_1 v_1 + \ldots + \lambda_n v_n) = \lambda_1 \mathcal{A} e_1 + \ldots + \lambda_n \mathcal{A} e_n = 0
+            \]
+            \[
+            \lambda_1 e_1 + \ldots + \lambda_n e_n = 0 \Rightarrow \lambda_1 = \ldots = \lambda_n = 0 \Rightarrow
+            \]
+            \[
+            \lambda_1 \mathcal{A} e_1, \ldots, \lambda_n \mathcal{A} e_n \text{~--- ЛНС, так как возможна только тривиальная комбинация}
+            \]
+
+            \item $`\Leftarrow`$:
+            
+            Докажем, что $Ker \mathcal{A} = \{ 0 \}$:
+            \[
+            \mathcal{A}v = 0, \; v = \lambda_1 e_1 + \ldots + \lambda_n e_n \Rightarrow
+            \mathcal{A}v = \lambda_1 \mathcal{A} e_1 + \ldots + \lambda_n \mathcal{A} e_n \Rightarrow 
+            \]
+            \[
+            \lambda_1 = \ldots = \lambda_k = 0 \Rightarrow v = 0
+            \]
+        \end{itemize}
+        \item \begin{itemize}
+            \item $`\Rightarrow`$:
+            \[
+            w \in W \Rightarrow w = \mathcal{A}v = \mathcal{A}(\lambda_1 e_1 + \ldots + \lambda_n e_n) =
+            \lambda_1 \mathcal{A} e_1 + \ldots + \lambda_n \mathcal{A} e_n \Rightarrow
+            \]
+            \[
+            Lin(\mathcal{A} e_1, \ldots, \mathcal{A} e_n) = w
+            \]
+            \item $`\Leftarrow`$:
+            
+            \[
+            w \in W \Rightarrow w = \lambda_1 \mathcal{A} e_1 + \ldots + \lambda_n \mathcal{A} e_n = 
+            \mathcal{A}(\lambda_1 e_1 + \ldots + \lambda_n e_n) \in Im \mathcal{A}
+            \]
+        \end{itemize}
+        \item Следует из первых двух.
+    \end{enumerate}
+\end{proof}
+
+\begin{Statement}{}{}
+    $ \dim V = \dim W < \infty $
+    Если $\exists \mathcal{A} \in Hom(V, W)$, тогда эквивалентны:
+    \begin{enumerate}
+        \item $\mathcal{A}$~--- инъективно
+        \item $\mathcal{A}$~--- сюрьективно
+        \item $\mathcal{A}$~--- биективно 
+    \end{enumerate}
+\end{Statement}
+
+(Принцип Дирихле)
+
+\begin{proof}
+    \[
+    \dim Ker \mathcal{A} + \dim Im \mathcal{A} = n
+    \]
+    \[
+    Ker \mathcal{A} = \{ 0 \} = 0 \Leftrightarrow \dim Im \mathcal{A} = n \overset{\text{предложение}}{\Rightarrow} Im \mathcal{A} = W
+    \]
+\end{proof}
+
+\subsubsection{РСЛУ и ранг отображения.}
+
+\begin{Theorem}{Множество решений РСЛУ}{}
+    Пусть $A \in K^{m \times n}$.
+
+    Тогда \textbf{множество решений} однородной системы линейных уравнений с матрицей $A$~---
+     линейное \textbf{подпространство} в $K^n$ размерности $(\mathbf{n - rk A})$
+
+    ($A$~--- \textbf{расширенная} СЛУ, к матрице дописали столбец значений)
+\end{Theorem}
+
+\begin{proof}
+    Пусть $H$~--- множество решений СЛУ:
+    \[
+    H := \left\{ 
+    \begin{pmatrix} x_1 \\ | \\ x_n \end{pmatrix} \st
+    A \cdot 
+    \begin{pmatrix} x_1 \\ | \\ x_n \end{pmatrix} = 
+    \begin{pmatrix} 0 \\ | \\ 0 \end{pmatrix}
+    \right\} 
+    \] 
+
+    Пусть $\mathcal{A} := "A \cdot", \mathcal{A}$~--- линейное отображение (как утверждалось в примере).
+
+    Тогда
+
+    \[
+    A \cdot 
+    \begin{pmatrix} x_1 \\ | \\ x_n \end{pmatrix} = 
+    \mathcal{A}\left(\begin{pmatrix} x_1 \\ | \\ x_n \end{pmatrix}\right)
+    \]
+    \[
+    \mathcal{A}(\begin{pmatrix} x_1 \\ | \\ x_n \end{pmatrix}) = 0 = \begin{pmatrix} 0 \\ | \\ 0 \end{pmatrix} \Rightarrow
+    \begin{pmatrix} x_1 \\ | \\ x_n \end{pmatrix} \in Ker \mathcal{A}
+    \]
+
+    $\mathcal{A} = "A \cdot" \st K^n \longrightarrow K^m$
+    \[
+    \dim H = \dim Ker \mathcal{A} = \dim K^n - \dim Im (A \mathbf{\cdot}) =
+    n - \dim Lin\left(A[ , 1], \ldots, A[ , n] \right)
+    \]
+    
+    \[
+    A \cdot \begin{pmatrix} x_1 \\ | \\ x_n \end{pmatrix} = 
+    \begin{pmatrix}
+    \sum^n_{k=0}\left(x_k \cdot A[1,k] \right) \\
+    | \\
+    \sum^n_{k=0}\left(x_k \cdot A[n,k] \right)
+    \end{pmatrix} =
+    \]
+    \vspace{1\baselineskip}
+    \[
+    \sum^n_{k=0} x_k \cdot
+    \begin{pmatrix}
+     A[1,k] \\
+    | \\
+    A[n,k]
+    \end{pmatrix} =
+    x_1 \cdot A[, 1] + \ldots + x_n \cdot A[, n]
+    \]
+    Отсюда видно, что $A[ , 1], \ldots, A[ , n]$ (столбцы $A$) ~--- базисные векторы подпространства $K^n$. 
+    Их линейная оболочка~--- все возможные образы $\mathcal{A}v \Rightarrow Im \mathcal{A} = Lin\left(A[ , 1], \ldots, A[ , n] \right)$
+    
+    При этом $\dim Lin\left(A[ , 1], \ldots, A[ , n] \right)$~--- ранг матрицы $rk A$ по определению.
+
+    Получаем:
+
+    $\mathbf{dim H} = \dim Ker \mathcal{A} = \dim K^n - \dim Im \mathcal{A} = \mathbf{n - rk A}$
+\end{proof}
+
+\textbf{Следствие:}
+
+СЛУ~--- определенная $\Longleftrightarrow rk A =$ число неизвестных.
+
+(И. Б. Жуков доказательства не приводил)
+
+\begin{proof}
+
+    \begin{itemize}
+        \item `$\Rightarrow$`:
+        
+        \[
+        \begin{pmatrix} x_1 \\ | \\ x_n \end{pmatrix} \, \text{~--- решение} \; \Rightarrow
+        \alpha \cdot \begin{pmatrix} x_1 \\ | \\ x_n \end{pmatrix} \, \text{~--- также решение,} \Rightarrow
+        \]
+        \[ 
+        Lin \left(\begin{pmatrix} x_1 \\ | \\ x_n \end{pmatrix}\right) = H, \; \dim Lin \left( \begin{pmatrix} x_1 \\ | \\ x_n \end{pmatrix} \right) = 1 \overset{\text{теорема}}{=} n - rk A \Rightarrow
+        \]
+        \[
+        rk A = n - 1 = \; \text{количество неизвестных}
+        \]
+        $A \in K^{m \times n} \Rightarrow n = $ количество столбцов $=$ количество неизвестных $\mathbf{+ 1}$ (последний столбец~--- значения уравнений)
+        
+        \item $`\Leftarrow`:$
+        
+        $n = | \, \text{незвестных} \, | + 1 \Rightarrow n = rk A + 1 \Rightarrow$
+
+        \[
+        \dim H \overset{\text{теорема}}{=} n - rk A = 1
+        \]
+        Пусть $e$~--- базис H. Тогда любое решение $X \in H$ представляется в виде $\alpha \cdot e \Rightarrow e$~--- единственный вектор-решение, вплоть до умножения на скаляр.
+    \end{itemize}
+\end{proof}
+
+\subsubsection{Матрица линейного отображения.}
+
+Пусть $V, W$~--- линейные пространства. $\dim V < \infty, \dim W < \infty$
+
+Зададим отображение базисных векторов столбцами
+
+$n := \dim V (столбцов), m := \dim W (строк), \mathcal{A} \in Hom(V, W)$
+
+\begin{Definition}{}{}
+    Матрицей $A$ в базисах $E, F$ называется
+    
+    матрица, состоящая из столбцов $[\mathcal{A} e_1]_F, \ldots, [\mathcal{A} e_n]_F$
+
+    $E = (e_1, \ldots, e_n)$~--- базис $V$
+
+    $F$~--- базис $W$
+
+    Обозначим матрицу из таких столбцов как $[\mathcal{A}]_{E, F} = (a_{i, j}) \in K^{m \times n}$
+    $\mathcal{A}(E) = F \cdot [\mathcal{A}]_{E, F}$ ($E, F$~--- строки)
+    \[
+    \mathcal{A}(E) = \left(\mathcal{A} e_1, \ldots, \mathcal{A} e_n \right)
+    \]
+    \[
+    F = (f_1, \ldots, f_m)
+    \]
+    Положим
+    \[
+    F \cdot [\mathcal{A}]_{E, F} := \left[(a_{11}f_1 + \ldots + a_{m1}f_m), (a_{12}f_1 + \ldots + a_{m2}f_m), \ldots, (a_{1n}f_1 + \ldots + a_{mn}f_n) \right]
+    \]
+\end{Definition}
+
+$[\mathcal{A} e_1]_F$~--- взяли вектор $\mathcal{A} e_1 \in W$ и разложили его по базису пространства $W$,
+получили столбец коэффициентов $\begin{pmatrix}$
+    $\lambda_1 \\ | \\ \lambda_m$
+$\end{pmatrix}$

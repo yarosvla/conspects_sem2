@@ -38,6 +38,8 @@ BoldItalicFont = cmunbso.otf
 \setlength{\parindent}{0pt}
 \usepackage{tikz}
 \usetikzlibrary{arrows.meta,positioning,calc}
+\usetikzlibrary{calc}
+\usepackage{graphicx}
 
 % -------------------------------------------------
 % Математика
@@ -57,6 +59,15 @@ BoldItalicFont = cmunbso.otf
 \newcommand{\bigO}{\mathcal{O}}
 
 \DeclareMathOperator{\dist}{dist}
+
+\usepackage{algorithm}
+\usepackage{algpseudocode}
+\usepackage{float}
+
+\algtext*{EndFor}
+\algtext*{EndIf}
+\algtext*{EndWhile}
+\algtext*{EndLoop}
 
 % -------------------------------------------------
 % Цвета, ссылки, пастельная палитра
@@ -206,7 +217,7 @@ BoldItalicFont = cmunbso.otf
 
 % --- Команда создания обложки ---
 \newcommand{\makecover}[5]{%
-	\pagenumbering{gobble}%
+	\thispagestyle{empty}%
 	
 	\begin{titlepage}
 		\begingroup
@@ -265,6 +276,7 @@ BoldItalicFont = cmunbso.otf
 	\clearpage
 }
 
+
 % -------------------------------------------------
 % Документ
 % -------------------------------------------------
@@ -272,9 +284,13 @@ BoldItalicFont = cmunbso.otf
 	
 	\makecover{AlgosColor}{Математические \\ основы \; алгоритмов}{Конспект лекций}{Косолобов Д. А.}{....}
 	
+	\pagestyle{plain}
+	
 	\part*{Вторая часть курса}
 	
 	\ticket{sections/}{ticket01.tex}
+	
+	\ticket{sections/}{ticket03.tex}
 	
 	
 \end{document}

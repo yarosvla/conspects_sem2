@@ -42,6 +42,11 @@ BoldItalicFont = cmunbso.otf
 % -------------------------------------------------
 \usepackage{amsmath,amssymb,amsthm,mathtools}
 \usepackage{mathrsfs}
+ \usepackage{graphicx}
+ \usepackage{tikz}
+\usepackage{wrapfig}
+\setlength{\intextsep}{0.3em} 
+\setlength{\columnsep}{1em}  
 
 % Частые команды и символы  
 \newcommand{\NN}{\mathbb{N}}
@@ -148,6 +153,10 @@ BoldItalicFont = cmunbso.otf
 \definecolor{propBack}{HTML}{F1EEFF}
 \definecolor{propFrame}{HTML}{7A6FA6}
 
+% Замечание: серый
+\definecolor{remBack}{HTML}{F0F0F0}
+\definecolor{remFrame}{HTML}{888888}
+
 % -----------------------
 % Теоремные окружения
 % -----------------------
@@ -182,6 +191,11 @@ BoldItalicFont = cmunbso.otf
 	colback=exBack, colframe=exFrame
 }{ex}
 
+\newtcbtheorem{Remark}{Замечание}{
+	mybox,
+	colback=remBack, colframe=remFrame
+}{rem}
+
 % -------------------------------------------------
 % Импорт секций/билетов
 % -------------------------------------------------
@@ -204,7 +218,7 @@ BoldItalicFont = cmunbso.otf
 
 % --- Команда создания обложки ---
 \newcommand{\makecover}[5]{%
-	\pagenumbering{gobble}%
+	\thispagestyle{empty}
 	
 	\begin{titlepage}
 		\begingroup
@@ -263,6 +277,8 @@ BoldItalicFont = cmunbso.otf
 	\clearpage
 }
 
+\pagestyle{plain}
+
 % -------------------------------------------------
 % Начало документа
 % -------------------------------------------------
@@ -273,6 +289,6 @@ BoldItalicFont = cmunbso.otf
 	\part*{Второй семестр}
 	
 	\ticket{sections/}{ticket01.tex}
-	
+	\ticket{sections/}{ticket02.tex}
 	
 \end{document}

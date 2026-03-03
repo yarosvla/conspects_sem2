@@ -62,10 +62,10 @@ w_1 , \; \ldots , \; w_k \rightarrow w_1 + \ldots + w_k
 \begin{remark}
     Пока что линейное отображение понимаем как выполнение условий
     \begin{itemize}
-        \item $\vphi(x_1 + x_2) = \phi(x_1) + \vphi(x_2)$
+        \item $\vphi(x_1 + x_2) = \vphi(x_1) + \vphi(x_2)$
         \item $\vphi(\lambda x) = \lambda \vphi(x)$
     \end{itemize}
-    Конкретное определение линейного отображения определим ниже.
+    Конкретное определение линейного отображения введём ниже.
 \end{remark}
 
 \vspace{1\baselineskip}
@@ -144,13 +144,17 @@ $V$ изморфно своей внутренней сумме $\left(W_1 \oplu
         \begin{itemize}
             \item Фиксируем $\alpha \in K$.
             \[
-                \ f \longrightarrow f(\alpha)~--- \, \text{линейное из K[x] в K.}
+                \ f \longrightarrow f(\alpha) - \, \text{линейное из} \; K[x] \; \text{в} \; K.
             \]
             \item Фиксируем $g \in K[x]$. 
             \[
-                f \longrightarrow f \cdot g~--- \, \text{линейное из K[x] в K.}
+                f \longrightarrow f \cdot g - \, \text{линейное из} \; K[x] \; \text{в} \; K[x].
             \]
         \end{itemize}
+        \item Дифференцируемые функции на $\RR$
+        \[ D \st f \longrightarrow f'\]
+        $(\lambda_1 f_1 + \lambda_2 f_2)' = \lambda_1 f'_1 + \lambda_2 f'_2 \Rightarrow$
+        $D \in Hom(K[x], K[x])$
     \end{enumerate}
 \end{Example}
 
@@ -338,14 +342,17 @@ Im \, \mathcal{A} = \{ w \in W \; | \; \exists v \in V \st w = \mathcal{A} v \}
             \]
             \item $w_1, w_2 \in Im \mathcal{A} \overset{?}{\Rightarrow} \lambda_1 w_1 + \lambda_2 w_2 \in Im \mathcal{A}$
             
-            $w_1, w_2 \in Im \mathcal{A} \Rightarrow$
-            $\exists \; v_1, v_2 \in V \st \mathcal{A}v_1 = w_1, \, \mathcal{A}v_2 = w_2$
-            
-            $\lambda_1 v_1 + \lambda_2 v_2 \in V (V - \text{пространство})$
+            \[ 
+            w_1, w_2 \in Im \mathcal{A} \Rightarrow
+            \exists \; v_1, v_2 \in V \st \mathcal{A}v_1 = w_1, \, \mathcal{A}v_2 = w_2 \]
+            \[ 
+            \lambda_1 v_1 + \lambda_2 v_2 \in V (V - \text{пространство}) 
+            \]
             \[
                 \mathcal{A}(\lambda_1 v_1 + \lambda_2 v_2) = \lambda_1 \mathcal{A} v_1 + \lambda_2 \mathcal{A} v_2 = \lambda_1 w_1 + \lambda_2 w_2
             \]
-            Тогда $\lambda_1 v_1 + \lambda_2 v_2 \in \mathcal{A}^{-1}(\lambda_1 w_1 + \lambda_2 w_2) \Rightarrow$
+            Тогда 
+            \[ \lambda_1 v_1 + \lambda_2 v_2 \in \mathcal{A}^{-1}(\lambda_1 w_1 + \lambda_2 w_2) \Rightarrow \]
             \[ \lambda_1 w_1 + \lambda_2 w_2 \in Im \mathcal{A}\]
         \end{itemize}
     \end{enumerate}
@@ -376,7 +383,7 @@ Im \, \mathcal{A} = \{ w \in W \; | \; \exists v \in V \st w = \mathcal{A} v \}
 
     Хотим: $\mathcal{A}e_{d+1}, \ldots, \mathcal{A}e_{n}$~--- базис $Im \mathcal{A}$
 
-    $w \in Im \mathcal{A} \Rightarrow v \in V \st \mathcal{A}v = w$.
+    \[ w \in Im \mathcal{A} \Rightarrow \exists \; v \in V \st \mathcal{A}v = w. \]
 
     \begin{enumerate}
         \item Разложение существует:
@@ -400,9 +407,9 @@ Im \, \mathcal{A} = \{ w \in W \; | \; \exists v \in V \st w = \mathcal{A} v \}
     $\Rightarrow e_{d+1}, \ldots, e_n$~--- базис $Im \mathcal{A}$ и $Im \mathcal{A} = n - d < \infty$.
 \end{proof}
 
-\subsubsection{РСЛУ и ранг отображения.}
+\subsubsection{ОСЛУ и ранг отображения.}
 
-\begin{Theorem}{Множество решений РСЛУ}{}
+\begin{Theorem}{Множество решений ОСЛУ}{}
     Пусть $A \in K^{m \times n}$.
 
     Тогда \textbf{множество решений} однородной системы линейных уравнений с матрицей $A$~---
@@ -474,34 +481,10 @@ Im \, \mathcal{A} = \{ w \in W \; | \; \exists v \in V \st w = \mathcal{A} v \}
 
 СЛУ~--- определенная $\Longleftrightarrow rk A =$ число неизвестных.
 
-(И. Б. Жуков доказательства не приводил)
-
 \begin{proof}
-
-    \begin{itemize}
-        \item `$\Rightarrow$`:
-        
-        \[
-        \begin{pmatrix} x_1 \\ | \\ x_n \end{pmatrix} \, \text{~--- решение} \; \Rightarrow
-        \alpha \cdot \begin{pmatrix} x_1 \\ | \\ x_n \end{pmatrix} \, \text{~--- также решение,} \Rightarrow
-        \]
-        \[ 
-        Lin \left(\begin{pmatrix} x_1 \\ | \\ x_n \end{pmatrix}\right) = H, \; \dim Lin \left( \begin{pmatrix} x_1 \\ | \\ x_n \end{pmatrix} \right) = 1 \overset{\text{теорема}}{=} n - rk A \Rightarrow
-        \]
-        \[
-        rk A = n - 1 = \; \text{количество неизвестных}
-        \]
-        $A \in K^{m \times n} \Rightarrow n = $ количество столбцов $=$ количество неизвестных $\mathbf{+ 1}$ (последний столбец~--- значения уравнений)
-        
-        \item $`\Leftarrow`:$
-        
-        $n = | \, \text{незвестных} \, | + 1 \Rightarrow n = rk A + 1 \Rightarrow$
-
-        \[
-        \dim H \overset{\text{теорема}}{=} n - rk A = 1
-        \]
-        Пусть $e$~--- базис H. Тогда любое решение $X \in H$ представляется в виде $\alpha \cdot e \Rightarrow e$~--- единственный вектор-решение, вплоть до умножения на скаляр.
-    \end{itemize}
+    \[ \text{Однородная система~---} \; \textbf{определенная} \; \Leftrightarrow \] 
+    \[ \exists \textbf{!} \; \text{решение} = \begin{pmatrix} 0 \\ | \\ 0 \end{pmatrix} \Leftrightarrow \]
+    \[ \dim H = 0 \Leftrightarrow n - rk A = 0 \Leftarrow rk A = n \]
 \end{proof}
 
 
@@ -626,7 +609,8 @@ $\mathcal{A}$~--- инъективно $\Leftrightarrow Ker \mathcal{A} = \{ 0 \
     \dim Ker \mathcal{A} + \dim Im \mathcal{A} = n
     \]
     \[
-    Ker \mathcal{A} = \{ 0 \} = 0 \Leftrightarrow \dim Im \mathcal{A} = n \overset{\text{предложение}}{\Rightarrow} Im \mathcal{A} = W
+    Ker \mathcal{A} = \{ 0 \} = 0 \Leftrightarrow \dim Im \mathcal{A} =
+    n \overset{\text{предложение}}{\Leftrightarrow} Im \mathcal{A} = W
     \]
 \end{proof}
 
@@ -634,7 +618,7 @@ $\mathcal{A}$~--- инъективно $\Leftrightarrow Ker \mathcal{A} = \{ 0 \
 
 Пусть $V, W$~--- линейные пространства. $\dim V < \infty, \dim W < \infty$
 
-Зададим отображение базисных векторов столбцами
+Зададим отображение базисных векторов столбцами.
 
 $n := \dim V (столбцов), m := \dim W (строк), \mathcal{A} \in Hom(V, W)$
 
@@ -645,15 +629,13 @@ $n := \dim V (столбцов), m := \dim W (строк), \mathcal{A} \in Hom(V
 
     $E = (e_1, \ldots, e_n)$~--- базис $V$
 
-    $F$~--- базис $W$
+    $F = (f_1, \ldots, f_m)$~--- базис $W$
 
     Обозначим матрицу из таких столбцов как $[\mathcal{A}]_{E, F} = (a_{i, j}) \in K^{m \times n}$
-    $\mathcal{A}(E) = F \cdot [\mathcal{A}]_{E, F}$ ($E, F$~--- строки)
+
+    \[ \mathcal{A}(E) = F \cdot [\mathcal{A}]_{E, F} \]
     \[
     \mathcal{A}(E) = \left(\mathcal{A} e_1, \ldots, \mathcal{A} e_n \right)
-    \]
-    \[
-    F = (f_1, \ldots, f_m)
     \]
     Положим
     \[

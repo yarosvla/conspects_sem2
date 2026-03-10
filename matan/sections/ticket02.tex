@@ -1,0 +1,475 @@
+% !TEX root = ../matan.tex
+
+\section{Неравенства. Кривые в пространстве.}
+
+\subsection{Неравенства.}
+
+\begin{Theorem}{Коши-Буняковского-Шварца}{}
+    \[
+    \left(\int^b_a | (f \cdot g) (x) | dx \right)^2 \le \int^b_a |f(x)|^2 dx \cdot \int^b_a |g(x)|^2 dx
+    \]
+\end{Theorem}
+\begin{proof}
+
+    Из неравенства Юнга:
+    \[ 
+    a^{\frac{1}{p}} \cdot b^{\frac{1}{q}} \le \frac{a}{p} + \frac{b}{q} \Leftrightarrow 
+    a \cdot b \le \frac{a^p}{p} +\frac{b^q}{q}, \qquad a, b > 0 
+    \]
+    \begin{remark}
+        $a$ и $b$ могут принимать $+\infty$, если принято соглашение $+\infty \cdot 0 = 0$
+    \end{remark}
+
+    Положим теперь 
+    
+    $a := \frac{|f(x)|}{\left(\int^b_a |f(x)|^p dx \right)^{\frac{1}{p}}} \qquad$
+    $b := \frac{|g(x)|}{\left(\int^b_a |g(x)|^q dx \right)^{\frac{1}{q}}}$
+
+    Случай $\left(\int^b_a |f(x)|^p dx \right)^{\frac{1}{p}} = 0$ рассмотрим позже. Пока что считаем $\not = 0$
+
+    Фиксируем $x \in <a, b>$. Для этого $x$ и наших $a, b$ запишем неравенство Юнга:
+
+    \[
+    a \cdot b = \frac{|f(x)| \ \ \cdot \ \ |g(x)|}
+    { \left(\int^b_a |f(x)|^p dx \right)^{\frac{1}{p}} \cdot \left( \int^b_a |g(x)|^q dx \right)^{\frac{1}{q}} } \le 
+    \]
+
+    Возведем $a^p$ и $b^q$
+
+    \[
+    \le \frac{|f(x)|^p}{p\cdot \int^b_a |f(x)|^p dx } +
+        \frac{|g(x)|^q}{q\cdot \int^b_a |g(x)|^q dx }
+    \]
+
+    Обе части неравенства интегрируемы.
+
+    Проинтегрируем по промежутку $[c, d] \subset \ \ <a, b>$
+
+    \[
+    \frac{ \int^d_c |f(x) \ \ \cdot \ \ g(x)| dx } { \left(\int^b_a |f(x)|^p dx \right)^{\frac{1}{p}} \cdot \left( \int^b_a |g(x)|^q dx \right)^{\frac{1}{q}} } \le 
+    \frac{\int^d_c |f(x)|^p dx }{p\cdot \int^b_a |f(x)|^p dx } + \frac{\int^d_c |g(x)|^q dx}{q\cdot\int^b_a |g(x)|^q dx }
+    \]
+    (Интегралы в знаменателе - числа)
+
+    $d \longrightarrow b, c \longrightarrow a:$
+    \[
+    \frac{ \int^b_a |f(x) \ \ \cdot \ \ g(x)| dx } { \left(\int^b_a |f(x)|^p dx \right)^{\frac{1}{p}} \cdot \left( \int^b_a |g(x)|^q dx \right)^{\frac{1}{q}}}
+    \le \frac{1}{p} + \frac{1}{q} = 1
+    \]
+    $\Rightarrow$
+    \[
+    \int^b_a |f(x) \cdot g(x)| dx \le  \left(\int^b_a |f(x)|^p dx \right)^{\frac{1}{p}} \cdot \left( \int^b_a |g(x)|^q dx \right)^{\frac{1}{q}}
+    \]
+
+    Теперь если один из знаменателей правой части обращается в 0:
+
+    Пусть $\left(\int^b_a |f(x)|^p dx \right)^{\frac{1}{p}} = 0$
+
+    Докажем, что тогда
+    \[
+    \int^b_a |f(x) \cdot g(x)| dx = 0
+    \]
+    
+    Д-во:
+    \[
+    \forall [c, d] \subset <a, b>, g - \ \ \text{интегрируема на} \ \ [c, d] \Rightarrow 
+    \exists \ \ M(c, d) \st \underset{x \in [c, d]}{sup |g(x)|} \le M(c, d) < \infty
+    \]
+    \[
+    \int^d_c |f(x)g(x)| dx \le M(c, d) \cdot \int^d_c |f(x)| dx \le M(c, d) \cdot \int^b_a |f(x)| dx = 0
+    \]
+    \[
+    \lim_{c \rightarrow a, d \rightarrow b} \int^d_c |f(x) \cdot g(x)| dx \longrightarrow \int^b_a |f(x) \cdot g(x)| dx = 0
+    \]
+    ч.т.д.
+    \vspace{\baselineskip}
+
+    Неравенство Гельдера выполняется и при интеграле $\rightarrow +\infty$:
+
+    \[
+    \left(\int^b_a |f(x)|^p dx \right)^{\frac{1}{p}} = +\infty
+    \]
+    Тогда правая часть $= +\infty$, которая $\ge$ чего угодно (по соглашению)
+
+\end{proof}
+
+\textbf{Следствие:}
+
+\[
+\int^b_a |f(x)| dx \le (b-a) \cdot \int^b_a |f(x)|^2 dx
+\]
+(Положим f = g, p = q = 2, возведем левую часть в квадрат)
+
+(Отрезок от a до b конечный. Иначе тоже будет выполнено, но в этом нет смысла так как $+\infty$ и так больше чего угодно)
+
+\begin{Theorem}{Неравенство Минковского}{}
+
+    Пусть $<a, b> \subset \overline{RR} = [-\infty; +\infty]$~--- промежуток
+
+    $f, g$~--- интегрируемы на $[c, d] \subset <a, b> \forall c, d$
+
+    Положим: норма $||f||_{L^p} := \left( \int^b_a |f(x)|^p dx \right)^{\frac{1}{p}}$
+
+    $||g||_{L^q} := \left( \int^b_a |g(x)|^q dx \right)^{\frac{1}{q}}$
+
+    $||f||_{L^p} , ||g||_{L^q} \in [0; +\infty]$
+
+    Тогда \[ ||f||_{L^p} + ||g||_{L^p} \ge ||f + g||_{L^p} \]
+    для $p \in [1; +\infty)$
+
+\end{Theorem}
+Неравенство Минковского по своей сути~--- обобщенное неравенство треугольника.
+\begin{proof}
+
+    $p = 1$:
+
+    Получаем
+    \[ \int^b_a |f(x)| dx + \int^b_a | g(x) | dx \ge \int^b_a |f + g| (x) dx \]
+    Что верно для интегралов
+
+    $p \in (1; +\infty)$:
+
+    Пусть $||f||_{L^p}, ||g||_{L^p} < +\infty$ (иначе выполнено автоматически)
+
+    Тогда \[ \forall x |f(x) + g(x) | ^p \le 2^{p-1}\cdot(|f(x)|^p+{g(x)}^p) \]
+
+    \[ \rightarrow (a + b)^p \le 2^{p-1}\cdot(a^p+b^p) \qquad a, b \ge 0 - \text{"неравенство на положительные числа"} \]
+
+    \[ \int^b_a |f+g|(x) dx = ||f+g||^p_{L^p} < +\infty \] (если левая часть конечна, то правая конечна)
+
+    \textbf{Докажем} $(a + b)^p \le 2^{p-1}(a^p+b^p)$
+
+    \[ \int^b_a |f+g|(x)dx \le ||f+g||_{L^p} < + \infty \]
+    --- выпуклость
+
+    Функция $t^p, \ \ p > 1$ выпуклая вниз на $[0; +\infty)$
+
+    Для двух точек $\alpha, \beta$ среднее значение $\ge$ реальное значение на выпуклости:
+
+    \[ \frac{\alpha^p}{2} + \frac{\beta^p}{2} \ge \left( \frac{\alpha + \beta}{2} \right)^p \]
+
+    Теперь к доказательству:
+
+    Норма $f + g \not = 0$, иначе нечего доказывать
+
+    \[
+    ||f+g||^p_{L^p} = \int^b_a |f+g|^p(x) dx = \int^b_a |f+g|^{p-1}(x) \cdot |f+g|(x) dx \overset{\text{нер-во тр-ка}}{\le}  
+    \]
+    \[
+    \le \int^b_a |f+g|^{p-1}(x)\cdot (|f(x)|+|g(x)|) dx = 
+    \]
+    \[
+    = \int^b_a|f(x)|\cdot |f+g|^{p-1}(x) dx + \int^b_a |g(x)||f + g|^{-1}(x) dx
+    \]
+
+    Оценим эти интегралы по отдельности:
+
+    Первый интеграл оценивается по неравенству Гельдера: возьмем показатели $p$ и $\frac{1}{1 - \frac{1}{p}}$
+
+    \[ 
+    \int^b_a|f(x)|\cdot |f+g|^{p-1}(x) dx \le 
+    \]
+    \[
+    \le \left(\int^b_a \left(|f+g|^{p-1}(x)\right)^{\frac{1}{1 - \frac{1}{p}}} dx \right)^{1-\frac{1}{p}}
+    \cdot \left( \int^b_a |f(x)|^p dx \right)^{\frac{1}{p}} =
+    \]
+    \[
+    = \left(\int^b_a \left(|f+g|^p(x)\right)^{\frac{p-1}{p}} dx \right)^{1-\frac{1}{p}}
+    \cdot \left( \int^b_a |f(x)|^p dx \right)^{\frac{1}{p}} = ||f+g||^{p-1}_{L^p}\cdot ||f||_{L^p}
+    \]
+
+    Оценка второго:
+    \[
+    \int^b_a |g(x)||f + g|^{-1}(x) dx \le ||f+g||^{p-1}_{L^p}\cdot||f||_{L^p} + ||f+g||^{p-1}_{L^p}\cdot||g||_{L^p}
+    \]
+    \[
+     0 \not = ||f+g||_{L^p} \le ||f+g||^{p-1}_{L^p}\cdot||f||_{L^p} + ||f+g||^{p-1}_{L^p}\cdot||g||_{L^p} \Rightarrow
+    \]
+    $||f+g||_{L^p} \le ||f||_{L^p}+||g||_{L^p}$
+\end{proof}
+
+\textbf{Следствие:}
+
+\begin{Proposition}{Неравенство Гельдера и Минковского для сумм}{}
+    
+    Пусть $a_k, b_k \ge 0 \qquad k = 1 \ldots N$
+
+    Тогда для $p, q \st \frac{1}{p} + \frac{1}{q} = 1:$
+    \[
+    \sum^N_{k=1}a_k \cdot b_k \le (\sum^N_{k=1}a^p_k)^{\frac{1}{p}}\cdot(\sum^N_{k=1}b^q_k)^{\frac{1}{q}}
+    \]
+\end{Proposition}
+
+\begin{proof}
+
+    Минковский:
+
+    \[
+    (\sum^N_{k=1}a^p_k)^{\frac{1}{p}} + (\sum^N_{k=1}b^p_k)^{\frac{1}{p}} \ge
+    (\sum^N_{k=1}(a_k + b_k)^p)^{\frac{1}{p}}
+    \]
+    Берем промежуток от 0 до $N$. Тогда $\int^N_0 f = \sum^N_{k=1}$
+
+    \begin{remark}
+        Сумма - интеграл подходяще выверенной функции.
+    \end{remark}
+\end{proof}
+
+\begin{Theorem}{Неравенство Йенсена}{}
+
+    Пусть $f, g$~--- интегрируемы на $[c, d] \subset <a, b> \forall c, d$ и несобственные интегралы сходятся
+
+    Также пусть $g(x) \ge 0, \int^b_a g(x) dx = 1$ (можно нормировать функцию для такого значения)
+
+    (можно заметить отношение к теории вероятности)
+
+    Пусть $\vphi \st \RR \rightarrow \RR$~--- выпуклая вниз функция. Тогда
+    \[
+    \vphi\left(\int^b_a g(x)f(x) dx\right) \le \int^b_a \vphi(f(x))g(x) dx
+    \]
+
+    ($\vphi$ от мат ожидания = мат ожидание от $\vphi$)
+
+    В частности, если $<a, b> \subset (-\infty, +\infty):$
+    \[
+    \vphi\left( \frac{1}{b-1}\cdot\int^b_af(x)dx\right) \le \frac{1}{b-a}\cdot \int^b_a \vphi(f(x))dx
+    \]
+
+\end{Theorem}
+
+\begin{proof}
+
+    На самом деле доказываем:
+    $a_k \ge 0, \qquad x=1\ldots N, \qquad \sum^N_{k=1}a_k > 0$
+
+    $-\infty < x_1 \le x_2 \le \ldots \le x_n < +\infty$
+
+    Сразу для сумм 
+    \[ 
+    \vphi\left(\frac{\sum^N_{k=1}a_kx_k}{\sum^N_{k=1}a_k}\right) \le \frac{\sum^N_{k=1}a_k\vphi(x_k)}{\sum^N_{k=1}a_k}
+    \]
+
+    $\alpha := \frac{a_k}{\sum^N_{k=1}a_k}$, тогда $\alpha_k \ge 0$~--- выпуклая комбинация. $\sum^N_{k=1}\alpha_k = 1$
+
+    $\vphi \left(\sum^N_{k=1}\alpha_kx_k\right) \le \sum^N_{k=1}\alpha_k\vphi(x_k)$
+
+    Вследствие выпуклости: среднее значение $ = \sum\alpha_k\vphi(x_k)$,
+    реальное значение $= \vphi(\sum\alpha_kx_k)$
+
+    Перейдем к пределу и получим неравенство
+
+    \[
+    \vphi\left(\sum^N_{k=1}\alpha_kx_k\right) \le \sum^N_{k=1}\alpha_k \vphi(x_k) \Rightarrow 
+    \vphi\left(\int^b_a g(x)f(x) dx\right) \le \int^b_a \vphi(f(x))g(x) dx 
+    \]
+\end{proof}
+
+
+
+\subsection{Кривые в пространстве.}
+
+Рассматрим вопросы:
+
+\begin{itemize}
+    \item Что такое длина кривой $\gamma$?
+    \item Что такое кривая $\gamma$?
+\end{itemize}
+
+$\RR^d = \{ \left( x_1, \ldots, x_d \right) \st x_k \in \RR, \ \ k = 1, \ldots, d \} \qquad d \in \NN$
+
+Введем метрику:
+
+$x, y \in \RR^d. x = \left(x_1, \ldots, x_d \right),  y = \left(y_1, \ldots, y_d \right)$
+\[
+|x - y| := \sqrt{\sum^d_{k=1}(x_k - y_k)^2}
+\]
+
+\begin{proof}
+    \begin{itemize}
+        \item $\ge 0$ так как $\sqrt{()} \ge 0$
+        \item $|y - x| = \sqrt{\sum^d_{k=1}(y_k - x_k)^2} = \sqrt{\sum^d_{k=1}(x_k - y_k)^2} = |x - y|$
+        \item $|x - y| = 0 \Leftrightarrow \sum^d_{k=1}(x_k - y_k)^2 = 0 \Leftrightarrow (x_k - y_k)^2 = 0 \ \ \forall \ \ k$
+        
+        $\Leftrightarrow x_k = y_k \ \ \forall k \Leftrightarrow x = y$
+        \item $|x - y| + |y - z| \ge |x - z|$ (.)
+        
+    \end{itemize}
+\end{proof}
+
+\begin{Definition}{Кривая в $\RR^d$}{}
+
+    Кривая в $\RR^d$~--- множество точек $\Gamma$ в пространстве $\RR^d$,
+    
+    $\Gamma = \{ \vphi_1(t), \ldots, \vphi_d(t) \}_{t \in I} \qquad I \subset \RR$~--- промежуток.
+
+    $\vphi_k \st I \longrightarrow \RR$~--- непрерывна.
+    
+    $\vphi_k$~--- \textbf{параметризация} точек.
+\end{Definition}
+
+\begin{Definition}{Кратная точка}{}
+
+    Точка $x \in \RR^d$~--- кратная точка кривой, если $\exists \ \ \ge 2$ точек $t \in I \st$
+     $t_1 \not = t_2$
+     \[ x = \vphi(t_1)=\vphi(t_2); \qquad \vphi = (\vphi_1, \ldots, \vphi_d) \]
+\end{Definition}
+
+\begin{Definition}{}{}
+
+    Кривая без кратных точек (не учитывая концы)~--- \textbf{простая} кривая.
+
+    Если концы совпадают~--- \textbf{замкнутая}.
+
+    Если конечное число кратных точек, то \textbf{параметризуемая}.
+\end{Definition}
+
+\begin{Definition}{Ломаная}{}
+
+    \textbf{Ломаная}~--- кривая, что отрезок $I = [t_0; t_N]$ \textbf{разбивается} на конечное число отрезков, таких что
+
+    \[
+    \forall \ \ k \vphi_k(t) \qquad t_j \le t \le t_{j+1}
+    \]
+    --- \textbf{линейная} функция.
+\end{Definition}
+
+\begin{remark}
+    Звенья ломаной понимаем интуитивно.
+\end{remark}
+
+\begin{Definition}{Вписанная ломаная}{}
+
+    $\Gamma$~--- кривая в $\RR^d$
+
+    $\Gamma'$~--- ломаная, соотвествующая разбиению $\tau = \{ t_0, t_1, \ldots, t_N \}$ отрезка $I$.
+
+    $\Gamma'$~--- \textbf{вписана} в $\Gamma$, если 
+    \[ \widetilde{\vphi}{(t_j)} = \vphi (t_j ) \qquad 0 \le j \le N \] 
+
+    \vspace{1.5\baselineskip}
+    Длина ломаной $\Gamma'$ = длина звеньев $\Gamma' = |\Gamma'| = l(\Gamma') = \Lambda_l(\Gamma')$
+
+    \[
+    l(\Gamma') := \sum^{N-1}_{j=0}{\sqrt{\sum^d_{k=1}{\left[\widetilde{\vphi_k}(t_j) - \widetilde{\vphi_k}(t_{j+1})\right]^2}}}
+    \]
+
+\end{Definition}
+
+\begin{Definition}{Спрямляемая прямая}{}
+    Кривая $\Gamma$~--- \textbf{спрямляемая}, если
+    \[
+    \sup \{ l(\Gamma') \st \Gamma' - \text{вписаная в } \ \ \Gamma \} < +\infty
+    \]
+\end{Definition}
+
+Пример:
+
+$I = (0, 1], \qquad \vphi(t) = (t, \sin{\frac{1}{t}})$~--- не спрямляема.
+
+
+\begin{Proposition}{}{}
+    Если $\Gamma$~--- спрямляемая кривая в $\RR^d$, то 
+    \[
+    l(\Gamma) := sup \{ l(\Gamma') \st \Gamma' - \text{ломаная, вписанная в } \ \ \Gamma \}
+    \]
+\end{Proposition}
+
+
+\begin{Theorem}{Длина спрямляемой прямой}{}
+    Пусть $\Gamma$~--- "главная" кривая в $\RR^d$, то есть 
+
+    $\Gamma=\vphi(I),\ \ I=[a,b]\ \ \vphi=(\vphi_1, \ldots, \vphi_d)\ \ $
+    $\vphi_k: I \rightarrow \RR,\ \ 1 \le k \le d$
+
+    и $\vphi'_k \in C([a, b])$. На концах подразумевается односторонняя производная:
+
+    \[ \vphi'_k(a) = \lim_{t \rightarrow a+} \frac{\vphi_k(a) - \vphi_k(t)}{a-t} \]
+    \[ \vphi'_k(b) = \lim_{t \rightarrow a-} \frac{\vphi_k(a) - \vphi_k(t)}{a-t} \]
+
+    Тогда $\Gamma$~--- спрямляется и 
+    \[ 
+    l(\Gamma)=\int^b_a \sqrt{\sum^d_{k=1} (\vphi'_k(t))^2} dt 
+    \]
+\end{Theorem}
+
+\begin{remark}
+    Важно, чтобы ломаная была \textbf{вписанная} в кривую, иначе легко можно получить неверный результат или бесконечность.
+
+    Вообще идеологически правильнее, выбрав точки на кривой, построить касательные в этих точках и суммировать отрезки касательных,
+    устремив мелкость $\rightarrow 0$. Но сильно проще расписать выражение для ломаной, поэтому рассмотрим именно такой подход.
+\end{remark}
+
+\begin{proof}
+    \[
+    \int^b_a \sqrt{\sum^d_{k=1}\ \ (\vphi'(t))^2}\ \ dt\ \ \le \qquad l(\Gamma) \qquad \le\ \ \int^b_a \sqrt{\sum^d_{k=1}\ \ (\vphi'(t))^2}\ \ dt
+    \]
+    $l(\Gamma) = \sup \{ l(\Gamma') \st \Gamma' - \; \text{вписанная} \}$
+
+    $\forall \text{вписанной} \; \Gamma'$
+
+    \[ l(\Gamma') \ \ \le \int^b_a \sqrt{\sum^d_{k=1}\ \ (\vphi'_k(t))^2}\ \ dt \]
+
+    Значит нужно доказать $\int^b_a \sqrt{\sum^d_{k=1}\ \ (\vphi'(t))^2}\ \ dt\ \ \le \ \ l(\Gamma)$
+
+    Пусть $\Gamma'$~--- вписанная в $\Gamma$ ломаная. Она соотвествует разбиению
+    \[
+    \tau = \{ t_0 = a < t_1 < \ldots < t_{N-1} < t_N = b \}
+    \]
+
+    Тогда:
+
+    \[
+    l(\Gamma') \overset{\text{definition}}{=} 
+    \sum^{N-1}_{j=1} \sqrt{\sum^d_{k=1} (\vphi_k(t_{j+1}) - \vphi_k(t_j))^2 } =
+    \]
+    \[
+    = \sum^{N-1}_{j=0} | \vphi (t_{j+1}) - \vphi(t_j) | ()\text{метрика d-мерного пространства})
+    \]
+
+    \textbf{Claim:}
+
+    \[
+    l(\Gamma' |_{[t_j; t_{j+1}]}) \; \le \; \int^{t_{j+1}}_{t_j} \sqrt{\sum^d_{k=1} (\vphi'_k(t))^2}\ \ dt \; \ge \; |\vphi(t_{j+1}) - \vphi(t_j) |
+    \]
+    $\forall 0 \le j \le N - 1$
+
+    (Длина кривой на отрезке между точками разбиения $\le$ длины любой вписанной ломанной на этом же отрезке)
+
+    Докажем:
+
+    \[
+    | \vphi(t_{j+1}) - \vphi(t_j) | =
+    \]
+    \[
+    = \sqrt{(\vphi_1(t_{j+1}) - \vphi_1(t_j))^2 + \ldots + (\vphi_d(t_{j+1}) - \vphi_d(t_j))^2} \overset{\text{Ньютон-Лейбниц}}{=}
+    \]
+    \[
+    = \sqrt{\left(\int^{t_{j+1}}_{t_j} \vphi'_1(t) dt\right)^2 + \ldots + \left(\int^{t_{j+1}}_{t_j} \vphi'_d(t) dt\right)^2} \le 
+    \]
+    \[
+    \le \sqrt{\left(\int^{t_{j+1}}_{t_j} | \vphi'_1(t) | dt\right)^2 + \ldots + \left(\int^{t_{j+1}}_{t_j} | \vphi'_d(t) | dt\right)^2} \overset{\text{КБШ?}}{\le}
+    \]
+    По индукции распространяем КБШ
+    \[
+    \le \int^{t_{j+1}}_{t_j} \sqrt{(\vphi'_1(t))^2 + \ldots + (\vphi'_d(t))^2} \ \ dt
+    \]
+    Получаем кусок, соотвествующий хорде $[t_j; t_{j+1}]$
+    
+    Суммируя:
+    \[
+    l(\Gamma') \le \int^b_a \sqrt{(\vphi'_1(t))^2 + \ldots + (\vphi'_d(t))^2} \ \ dt
+    \]
+
+    Надо доказать, что $\exists$ \; последовательность $\{ \Gamma'_k \}$ вписанных в $\Gamma$, т.ч.:
+    \[
+    l(\Gamma') \underset{k \rightarrow +\infty}{\longrightarrow} 
+    \int^b_a \sqrt{\sum^d_{i=1} (\vphi'_i(t))^2 } \ \ dt
+    \]
+    Берем дробление ранга $k$, длина звена $=\int$. (здесь еще раз видно, что правильнее брать касательные)
+    $k \rightarrow +\infty:$
+    \[
+    |\vphi(t_{j+1}) - \vphi(t_j)| = \int^{t_{j+1}}_{t_j} \sqrt{} dt + o(|t_j - t_{j+1}|)
+    \]
+    $\sum \underset{k \rightarrow +\infty}{\longrightarrow} \sum$
+
+\end{proof}

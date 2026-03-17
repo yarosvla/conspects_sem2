@@ -125,6 +125,7 @@
 
 (Отрезок от a до b конечный. Иначе тоже будет выполнено, но в этом нет смысла так как $+\infty$ больше чего угодно)
 
+\vspace{3\baselineskip}
 \begin{Theorem}{Неравенство Минковского}{}
 
     Пусть $<a, b> \subset \overline{\RR} = [-\infty; +\infty]$~--- промежуток
@@ -233,21 +234,31 @@
 
 \end{proof}
 
-\begin{remark}
-
-    Существует "обратное" неравенство Минковсокго, которое доказаывается точно также:
-\end{remark}
-
 \begin{Proposition}{Обратное неравенство Минковского}{}
 
     $<a, b> \subset \overline{\RR} = [-\infty; +\infty]$~--- промежуток.
 
     $f, g$~--- интегрируемы на $[c, d] \subset <a, b> \forall c, d$
 
+    $\forall \ \ x \ \in <a, b> \st \qquad f(x) \ge 0, g(x) \ge 0$
+
     $0 < p \le 1$:
 
     \[ ||f+g||_{L^p} \ge ||f||_{L^p} + ||g||_{L^p}. \]
 \end{Proposition}
+
+\begin{proof}
+
+    Аналогично доказательству для прямого неравенства.
+
+    Отметим только, что добавляется условие $f \ge 0, g \ge 0$:
+
+    Это можно заметить из того, что выше мы использовали неравенство треугольника ($|f+g| \le |f|+|g|$).
+    Если мы хотим доказать обратное неравенство, то нужен знак в другую сторону($|f+g| \ge |f|+|g|$).
+    Ясно, что такое бывает только при одинаковом знаке функций.
+
+    Можно также привести контрпример: $f \not = 0, g = -f$. Получаем $0 >= 2\cdot ||f||_{L^p} > 0$~--- противоречие.
+\end{proof}
 
 \begin{remark}
     По индукции несложно показать, что неравенство минковского работает для любого количества слагаемых.
@@ -498,16 +509,16 @@ $I = (0, 1], \qquad \vphi(t) = (t, \sin{\frac{1}{t}})$~--- не спрямляе
     Пусть $\Gamma$~--- гладкая кривая (можем брать производные) в $\RR^d$, то есть 
 
     $\Gamma=\vphi(I),\ \ I=[a,b]\ \ \vphi=(\vphi_1, \ldots, \vphi_d)\ \ $
-    $\vphi_k: I \rightarrow \RR,\ \ 1 \le k \le d$
+    $\vphi_n: I \rightarrow \RR,\ \ 1 \le n \le d$
 
-    и $\vphi'_k \in C([a, b])$. На концах подразумевается односторонняя производная:
+    и $\vphi'_n \in C([a, b])$. На концах подразумевается односторонняя производная:
 
-    \[ \vphi'_k(a) = \lim_{t \rightarrow a+} \frac{\vphi_k(a) - \vphi_k(t)}{a-t} \]
-    \[ \vphi'_k(b) = \lim_{t \rightarrow a-} \frac{\vphi_k(a) - \vphi_k(t)}{a-t} \]
+    \[ \vphi'_n(a) = \lim_{t \rightarrow a+} \frac{\vphi_n(a) - \vphi_n(t)}{a-t} \]
+    \[ \vphi'_n(b) = \lim_{t \rightarrow a-} \frac{\vphi_n(a) - \vphi_n(t)}{a-t} \]
 
     Тогда $\Gamma$~--- спрямляется и 
     \[ 
-    l(\Gamma)=\int^b_a \sqrt{\sum^d_{k=1} (\vphi'_k(t))^2} dt 
+    l(\Gamma)=\int^b_a \sqrt{\sum^d_{n=1} (\vphi'_n(t))^2} dt 
     \]
 \end{Theorem}
 
@@ -518,9 +529,73 @@ $I = (0, 1], \qquad \vphi(t) = (t, \sin{\frac{1}{t}})$~--- не спрямляе
     устремив мелкость $\rightarrow 0$. Но сильно проще расписать выражение для ломаной, поэтому рассмотрим именно такой подход.
 \end{remark}
 
+Далее все $\Gamma'$ считаем вписанными в кривую $\Gamma$ ломаными.
+
 \begin{proof}
 
-    Построим последовательность $\{l(\Gamma'_k)\}$, предел который будет равен $l(\Gamma) = \sup(l(\Gamma'))$.
+    Положим
+    \[
+    L := \int_{a}^{b}{\sqrt{\sum_{n=1}^d{(\vphi_n'(t))^2}} \ \ dt}
+    \]
+
+    Докажем два неравенства:
+
+    \begin{enumerate}
+        \item Покажем, что $\ \ \forall \ \ \Gamma' \st l(\Gamma') \le L$.
+    
+        $\Rightarrow \sup \{l(\Gamma')\} = l(\Gamma) \le L$.
+        \item Явно предъявим последовательность $\{l(\Gamma'_k)\}$ такую, что $\lim_{k \rightarrow +\infty}l(\Gamma') = L$:
+        
+        Для $\{l(\Gamma'_k)\} \subset \{l(\Gamma')\} \qquad \sup \{l(\Gamma'_k)\} = L$
+
+        $\Rightarrow \sup \{l(\Gamma')\} = l(\Gamma) \ge L$. 
+    \end{enumerate}
+    Из этого получим $l(\Gamma) = L$.
+
+    \vspace{2\baselineskip}
+    
+    $\ \ \forall \ \ \Gamma' \st l(\Gamma') \le L$:
+
+    Пусть $\{t_j\}_1^N$~--- точки параметризации ломаной.
+
+    \[ l(\Gamma') \overset{(!)}{\le} L \Leftrightarrow \]
+    \[ 
+    \sum_{j=1}^{N-1} \sqrt{\sum_{n=1}^d (\vphi_n(t_{j+1}) - \vphi_n(t_j))^2} \qquad \overset{(!)}{\le} \qquad \int_{a}^{b}{\sqrt{\sum_{n=1}^d{(\vphi_n'(t))^2}} \ \ dt} 
+    = \sum_{j=1}^{N-1} \int_{t_j}^{t_j+1}{\sqrt{\sum_{n=1}^d{(\vphi_n'(t))^2}} \ \ dt} 
+    \]
+    \[ 
+    \Leftarrow \sqrt{\sum_{n=1}^d (\vphi_n(t_{j+1}) - \vphi_n(t_j))^2} \qquad \overset{(!)}{\le} \qquad \int_{t_j}^{t_{j+1}}{\sqrt{\sum_{n=1}^d{(\vphi_n'(t))^2}} \ \ dt} 
+    \]
+    \[ 
+    \Leftrightarrow \sum_{n=1}^d (\vphi_n(t_{j+1}) - \vphi_n(t_j))^2 \qquad \overset{(!)}{\le} \qquad \left(\int_{t_j}^{t_{j+1}}{\sqrt{\sum_{n=1}^d{(\vphi_n'(t))^2}} \ \ dt} \right)^2
+    \]
+    По формуле Ньютона-Лейбница $\vphi_n(t_{j+1}) - \vphi_n(t_j) = \int_{t_j}^{t_{j+1}} \vphi_n'(t) \ \ dt$
+
+    \[ 
+    \Leftrightarrow \sum_{n=1}^d \left(\int_{t_j}^{t_{j+1}} \vphi_n'(t) \ \ dt\right)^2 \qquad \overset{(!)}{\le} \qquad \left(\int_{t_j}^{t_{j+1}}{\sqrt{\sum_{n=1}^d{(\vphi_n'(t))^2}} \ \ dt} \right)^2
+    \]
+
+    Пусть $f_i(t) := (\vphi_i'(t))^2$
+
+    \[ 
+    \Leftarrow \sum_{n=1}^d \left(\int_{t_j}^{t_{j+1}} (f_n(t))^\frac{1}{2} \ \ dt\right)^2 \qquad \overset{(!)}{\le} \qquad \left(\int_{t_j}^{t_{j+1}}{ \left( \sum_{n=1}^d f_n(t) \right)^\frac{1}{2}} \ \ dt  \right)^2
+    \]
+
+    $f_i = (\vphi_i')^2 \ge 0$
+
+    Последнее неравенство выполнено, так как удовлетворяет условию обратного неравенства Минковского для $p = \frac{1}{2}$.
+
+    Доказанное неравенство сильнее требуемого изначально, так как:
+
+    \[
+    \sum_{n=1}^d \left(\int_{t_j}^{t_{j+1}} \vphi_n'(t) \ \ dt\right)^2 \le \sum_{n=1}^d \left(\int_{t_j}^{t_{j+1}} |\vphi_n'(t)| \ \ dt\right)^2 = \sum_{n=1}^d \left(\int_{t_j}^{t_{j+1}} (f_n(t))^\frac{1}{2} \ \ dt\right)^2
+    \]
+
+    \vspace{1\baselineskip}
+    Итак, $l(\Gamma') \le L \ \ \Leftrightarrow \ \ \sup \{l(\Gamma')\} = l(\Gamma) \le L$
+    \vspace{2\baselineskip}
+
+    Теперь построим последовательность $\{l(\Gamma'_k)\}$, предел который будет равен $L$.
 
     Возьмем диадическое дробление отрезка параметризации $I$ ранга $k$:
 
@@ -562,31 +637,34 @@ $I = (0, 1], \qquad \vphi(t) = (t, \sin{\frac{1}{t}})$~--- не спрямляе
     Сумма длин звеньев ломаной
     \[ l(\Gamma'_k) = \sum_{j=0}^{N_k-1}{\sqrt{\sum_{n=1}^d{(\vphi_n(t_{k, j+1}) - \vphi_n(t_{k, j}))^2}} \ \ dt } \]
 
-    Чтобы дальнейшие выкладки были немного чище, опустим символы диффернциала и подстановки переменной.
-
-    Оценим разность 
+    Оценим разность $L - l(\Gamma'_k)$:
 
     \[
-    \int_a^b{\sqrt{\sum_{n=1}^d{|\vphi_n'|^2}}} - l(\Gamma_k') =
+    \int_a^b{\sqrt{\sum_{n=1}^d{|\vphi_n'|^2(t)}} \ \ dt} - l(\Gamma_k') =
     \]
+    \vspace{\baselineskip}
     \[
-    = \int_a^b{\sqrt{\sum_{n=1}^d{|\vphi_n'|^2}}} - 
+    = \int_a^b{\sqrt{\sum_{n=1}^d{|\vphi_n'|^2(t)}} \ \ dt} - 
     \sum_{j=0}^{N_k-1}\sqrt{\sum_{n=1}^d{(\vphi_n(t_{k, j+1}) - \vphi_n(t_{k, j}))^2}} = 
     \]
-
+    \vspace{\baselineskip}
     \[
-    = \sum_{j=0}^{N_k-1} \int_{t_{k, j}}^{t_{k,j+1}}{\sqrt{\sum_{n=1}^d{|\vphi_n'|^2}}} -
+    = \sum_{j=0}^{N_k-1} \int_{t_{k, j}}^{t_{k,j+1}}{\sqrt{\sum_{n=1}^d{|\vphi_n'|^2(t)}}\ \ dt} -
     \sum_{j=0}^{N_k-1}\left(|t_{k, j+1} - t_{k, j}| \cdot \sqrt{\frac{\sum_{n=1}^d{(\vphi_n(t_{k, j+1}) - \vphi_n(t_{k, j}))^2}}{|t_{k, j+1} - t_{k, j}|^2}}\right) =
     \]
+
+    \vspace{\baselineskip}
     $|t_{k, j+1} - t_{k, j}| = \int_{t_{k, j}}^{t_{k,j+1}} 1 \ \ dt$ 
+    \vspace{\baselineskip}
     \[
     = \sum_{j=0}^{N_k-1}\int_{t_{k, j}}^{t_{k,j+1}}\left( \sqrt{\sum_{n=1}^d{|\vphi_n'|^2(t)}} - \sqrt{\sum_{n=1}^d \frac{{(\vphi_n(t_{k, j+1}) - \vphi_n(t_{k, j}))^2}}{|t_{k, j+1} - t_{k, j}|^2}} \right) dt \le
     \]
 
     $p := 2$, применим неравенство Минковского для сумм:
-    
-    $|\sqrt{\sum_{n=1}^d\alpha_n^2} - \sqrt{\sum_{n=1}^d\beta_n^2}| \le \sqrt{\sum_{n=1}^d(\alpha_n - \beta_n)^2}$ 
+    \vspace{\baselineskip}
 
+    $|\sqrt{\sum_{n=1}^d\alpha_n^2} - \sqrt{\sum_{n=1}^d\beta_n^2}| \le \sqrt{\sum_{n=1}^d(\alpha_n - \beta_n)^2}$ 
+    \vspace{\baselineskip}
     \[
     \le \sum_{j=0}^{N_k-1}\int_{t_{k, j}}^{t_{k,j+1}} \sqrt{\sum_{k=1}^d \left( |\vphi_n'|^2(t) -  \frac{(\vphi_n(t_{k, j+1}) - \vphi_n(t_{k, j}))^2}{|t_{k, j+1} - t_{k, j}|^2} \right) } =
     \]
@@ -596,7 +674,7 @@ $I = (0, 1], \qquad \vphi(t) = (t, \sin{\frac{1}{t}})$~--- не спрямляе
     \[
     \frac{(\vphi_n(t_{k, j+1}) - \vphi_n(t_{k, j}))}{|t_{k, j+1} - t_{k, j}|} = \vphi_n'(\tau_{k,j}^n) \qquad \tau_{k,j}^n \in [t_{k, j}; t_{k,j+1}]
     \]    
-
+    \vspace{\baselineskip}
     \[
     = \sum_{j=0}^{N_k-1}\int_{t_{k, j}}^{t_{k,j+1}} \sqrt{\sum_{n=1}^d \left( \vphi_n'(t) - \vphi'(\tau_{k,j}^n) \right)^2} dt \overset{k \ge k_0(\eps)}{\le}
     \]
@@ -605,6 +683,7 @@ $I = (0, 1], \qquad \vphi(t) = (t, \sin{\frac{1}{t}})$~--- не спрямляе
     \le \sum_{j=0}^{N_k-1}\int_{t_{k, j}}^{t_{k,j+1}} \sqrt{\sum_{n=1}^d \left( \eps \right)^2} dt =
     \sum_{j=0}^{N_k-1}\int_{t_{k, j}}^{t_{k,j+1}} \eps \cdot \sqrt{\sum_{n=1}^d 1} \ \ dt =
     \]
+    \vspace{\baselineskip}
     \[
     \sum_{j=0}^{N_k-1}\eps \cdot \int_{t_{k, j}}^{t_{k,j+1}}\sqrt{d} = \sum_{j=0}^{N_k-1} \eps \cdot  \sqrt{d} \cdot |t_{k, j+1}-t_{k,j}| = \eps \cdot  \sqrt{d} \cdot (b-a)
     \]
@@ -612,5 +691,31 @@ $I = (0, 1], \qquad \vphi(t) = (t, \sin{\frac{1}{t}})$~--- не спрямляе
     \[
     = (\sqrt{d} \cdot (b-a)) \cdot \eps = const \cdot \eps \overset{k \rightarrow +\infty}{\longrightarrow} 0
     \]
+    А значит, $\lim_{k \rightarrow +\infty} l(\Gamma'_k) = L$
+
+    \vspace{\baselineskip}
+
+    \[
+    L \le l(\Gamma) \le L \Rightarrow
+    \]
+    \[
+    l(\Gamma) = L = \int_a^b (\sqrt{\sum_{n=1}^d |\vphi_n'(t)|^2}\ \ dt)
+    \]
 
 \end{proof}
+
+\begin{Example}{Параметризация окружности}{}
+
+    Для оркужностей радиуса $r > 0$:
+
+    \[
+    \vphi_1(t) = r \cdot \cos{2\pi t} \qquad \vphi_2(t) = r \cdot \sin{2\pi t}, \qquad t \in [0; 1]
+    \]
+
+    $\pi$ можно понимать как абстрактное число, полученное, например, из формулы Валлиса.
+
+    Тогда:
+    \[
+    l(\Gamma) = \int_{0}^{1} \sqrt{r^2(2\pi)^2\cdot((-\sin)^2(2\pi t) + \cos^2(2\pi t))} \ \ dt = 2\pi r.
+    \]
+\end{Example}

@@ -4,17 +4,28 @@
 
 \subsection{Факторгруппы}
 
-\begin{Definition}{Фактормножество и факторгруппа}{def:quotient-set}
-	Пусть $G$ --- группа, $H \triangleleft G$. Фактор\-множество $G/H$ определяется как множество левых смежных классов по $H$:
+\begin{Definition}{Фактормножество}{def:quotient-set}
+	Пусть на множестве $X$ задано отношение эквивалентности $\sim$. Тогда \emph{фактормножество} $X/{\sim}$ определяется как множество всех классов эквивалентности:
 	\[
-	G/H := \{gH \mid g \in G\}.
+	X/{\sim}:=\{[x] \mid x\in X\}.
+	\]
+\end{Definition}
+
+\begin{Remark}{Фактормножество группы по нормальной подгруппе}{rem:group-quotient-set}
+	Пусть $G$ --- группа, $H \triangleleft G$. Тогда на $G$ задано отношение эквивалентности
+	\[
+	g_1\sim g_2 \Longleftrightarrow g_1^{-1}g_2\in H.
+	\]
+	Его классы эквивалентности --- это левые смежные классы по $H$, поэтому соответствующее фактормножество имеет вид
+	\[
+	G/H:=\{gH\mid g\in G\}.
 	\]
 	На $G/H$ задаётся операция
 	\[
-	(gH)\cdot(g'H) := (gg')H.
+	(gH)\cdot(g'H):=(gg')H.
 	\]
-	Так как $H$ нормальна, левые и правые смежные классы совпадают: $gH = Hg$ для всех $g \in G$.
-\end{Definition}
+	Так как $H$ нормальна, левые и правые смежные классы совпадают: $gH=Hg$ для всех $g\in G$.
+\end{Remark}
 
 \begin{Proposition}{Корректность умножения смежных классов}{prop:well-defined}
 	Если $H \triangleleft G$, то операция
@@ -65,16 +76,7 @@
 	Следовательно, $G/H$ --- группа.
 \end{proof}
 
-\begin{Example}{Простейшие примеры факторгрупп}{ex:trivial-quotients}
-	Имеют место изоморфизмы
-	\[
-	G/\{e\} \cong G, \qquad G/G \cong \{e\}.
-	\]
-	Если группа записана аддитивно, то факторгруппа тоже записывается аддитивно. Например,
-	\[
-	\ZZ/m\ZZ = \{[a]_m \mid a\in \ZZ\}, \qquad [a]_m + [b]_m := [a+b]_m.
-	\]
-\end{Example}
+По определению эта группа называется \emph{факторгруппой} группы $G$ по нормальной подгруппе $H$.
 
 \begin{Remark}{}{rem:not-subgroup}
 	Вообще говоря, $G/H$ не является подмножеством группы $G$. Это новая группа, элементы которой --- смежные классы. Исключения возникают лишь в тривиальных случаях $H=\{e\}$ и $H=G$.
@@ -83,10 +85,7 @@
 \subsection{Гомоморфизмы групп}
 
 \begin{Definition}{Гомоморфизм групп}{def:hom}
-	Пусть $G$ и $G'$ --- группы. Отображение
-	\[
-	\varphi\colon G \to G'
-	\]
+	Пусть $G$ и $G'$ --- группы. Отображение $\varphi\colon G \to G'$
 	называется \emph{гомоморфизмом групп}, если для всех $g_1,g_2\in G$ выполнено
 	\[
 	\varphi(g_1g_2)=\varphi(g_1)\varphi(g_2).
@@ -185,6 +184,15 @@
 	Первая часть следует из пункта 1) предложения~\ref{prop:image-preimage}, вторая --- из пункта 3) того же предложения, поскольку $\{e_{G'}\} \triangleleft G'$.
 \end{proof}
 
+\begin{Example}{}{ex:alternating}
+	Имеем $A_n = \Ker(\sgn) \triangleleft S_n.$
+	
+	Поэтому знак перестановки даёт изоморфизм
+	\[
+	S_n/A_n \cong \{\pm 1\}.
+	\]
+\end{Example}
+
 \begin{Proposition}{Критерий инъективности}{prop:inj-kernel}
 	Пусть $\varphi\colon G\to G'$ --- гомоморфизм. Тогда
 	\[
@@ -239,6 +247,17 @@
 	Значит, $\varphi^{-1}$ --- гомоморфизм, а потому изоморфизм.
 \end{proof}
 
+\begin{Example}{Простейшие примеры факторгрупп}{ex:trivial-quotients}
+	Имеют место изоморфизмы
+	\[
+	G/\{e\} \cong G, \qquad G/G \cong \{e\}.
+	\]
+	Если группа записана аддитивно, то факторгруппа тоже записывается аддитивно. Например,
+	\[
+	\ZZ/m\ZZ = \{[a]_m \mid a\in \ZZ\}, \qquad [a]_m + [b]_m := [a+b]_m.
+	\]
+\end{Example}
+
 \subsection{Канонические гомоморфизмы и индуцированные отображения}
 
 \begin{Definition}{Канонические гомоморфизмы}{def:canonical-homs}
@@ -280,47 +299,77 @@
 	\[
 	\varphi\colon G\to G'.
 	\]
-	Пусть $H\triangleleft G$, причём $H\subseteq \Ker\varphi$. Пусть также $H'\le G'$ и $\Im\varphi\subseteq H'$. Тогда существует единственный гомоморфизм
+	Пусть $H\triangleleft G$ и $H\subseteq \Ker\varphi$. Пусть также $H'\le G'$ и
+	$\Im\varphi\subseteq H'$. Тогда отображение
 	\[
 	\widetilde\varphi\colon G/H\to H', \qquad \widetilde\varphi(gH):=\varphi(g),
 	\]
-	для которого коммутативна следующая диаграмма:
+	корректно определено и является гомоморфизмом. Более того, это единственный гомоморфизм для которого коммутирует диаграмма
 	\[
 	\begin{tikzcd}[column sep=large, row sep=large]
 		G \arrow[r, "\varphi"] \arrow[d, "\pi_H"'] & G' \\
 		G/H \arrow[r, "\widetilde{\varphi}"'] & H' \arrow[u, "i_{H'}"']
 	\end{tikzcd}
 	\]
-	То есть
+	то есть
 	\[
 	\varphi = i_{H'}\circ \widetilde\varphi\circ \pi_H.
 	\]
 \end{Theorem}
 
 \begin{proof}
-	Сначала докажем корректность. Если $g_1H=g_2H$, то $g_2=g_1h$ для некоторого $h\in H$. Так как $H\subseteq \Ker\varphi$, имеем $\varphi(h)=e$, и потому
+	Сначала докажем корректность.
+	Если $g_1H=g_2H$, то $g_2=g_1h$ для некоторого $h\in H$. Так как
+	$H\subseteq \Ker\varphi$, имеем $\varphi(h)=e$, и потому
 	\[
 	\varphi(g_2)=\varphi(g_1h)=\varphi(g_1)\varphi(h)=\varphi(g_1).
 	\]
 	Значит, значение $\widetilde\varphi(gH)$ не зависит от выбора представителя класса.
 	
-	Далее,
-	\[
-	\widetilde\varphi\bigl((g_1H)(g_2H)\bigr)=\widetilde\varphi(g_1g_2H)=\varphi(g_1g_2)=\varphi(g_1)\varphi(g_2)=\widetilde\varphi(g_1H)\widetilde\varphi(g_2H).
-	\]
-	Следовательно, $\widetilde\varphi$ --- гомоморфизм.
+	Так как $\Im\varphi\subseteq H'$, действительно $\widetilde\varphi(gH)=\varphi(g)\in H',$ то есть отображение $\widetilde\varphi$ принимает значения в $H'$.
 	
-	Наконец, для любого $g\in G$
+	Проверим, что $\widetilde\varphi$ является гомоморфизмом:
 	\[
-	(i_{H'}\circ \widetilde\varphi\circ \pi_H)(g)=i_{H'}\bigl(\widetilde\varphi(gH)\bigr)=i_{H'}(\varphi(g))=\varphi(g).
+	\widetilde\varphi\bigl((g_1H)(g_2H)\bigr)
+	=
+	\widetilde\varphi(g_1g_2H)
+	=
+	\varphi(g_1g_2)
+	=
+	\varphi(g_1)\varphi(g_2)
+	=
+	\widetilde\varphi(g_1H)\widetilde\varphi(g_2H).
 	\]
-	Значит, диаграмма коммутирует.
 	
-	Единственность очевидна: если $\psi\colon G/H\to H'$ и $\varphi=i_{H'}\circ\psi\circ\pi_H$, то для любого $gH\in G/H$
+	Теперь проверим коммутативность диаграммы. Для любого $g\in G$ имеем
 	\[
-	\psi(gH)=\psi(\pi_H(g))=\varphi(g)=\widetilde\varphi(gH).
+	(i_{H'}\circ \widetilde\varphi\circ \pi_H)(g)
+	=
+	i_{H'}\bigl(\widetilde\varphi(gH)\bigr)
+	=
+	i_{H'}(\varphi(g))
+	=
+	\varphi(g).
 	\]
-	Следовательно, $\psi=\widetilde\varphi$.
+	Следовательно, 	$\varphi = i_{H'}\circ \widetilde\varphi\circ \pi_H.$
+	
+	Докажем единственность. Пусть $\psi\colon G/H\to H'$ --- гомоморфизм такой, что $\varphi = i_{H'}\circ \psi\circ \pi_H.$
+	
+	Тогда для любого $g\in G$
+	\[
+	i_{H'}\bigl(\psi(gH)\bigr)
+	=
+	(i_{H'}\circ \psi\circ \pi_H)(g)
+	=
+	\varphi(g)
+	=
+	i_{H'}\bigl(\widetilde\varphi(gH)\bigr).
+	\]
+	Так как $i_{H'}\colon H'\hookrightarrow G'$ --- вложение, оно инъективно. Значит,
+	\[
+	\psi(gH)=\widetilde\varphi(gH)
+	\]
+	для всех $g\in G$, откуда $\psi=\widetilde\varphi$.
 \end{proof}
 
 \begin{Theorem}{Первая теорема об изоморфизме}{thm:first-iso}
@@ -429,7 +478,7 @@
 \begin{Theorem}{Теорема соответствия}{thm:correspondence}
 	Пусть $H\triangleleft G$ и $\pi_H\colon G\to G/H$ --- каноническая проекция. Тогда отображения
 	\[
-	\alpha\colon \{P\le G\mid H\subseteq P\}\to \{Q\le G/H\}, \qquad \alpha(P)=P/H,
+	\alpha\colon \{P\le G\mid H\subseteq P\}\to \{Q\le G/H\}, \qquad \alpha(P)=\pi_H(P),
 	\]
 	\[
 	\beta\colon \{Q\le G/H\}\to \{P\le G\mid H\subseteq P\}, \qquad \beta(Q)=\pi_H^{-1}(Q)
@@ -440,7 +489,7 @@
 \begin{proof}
 	Покажем, что $\alpha$ и $\beta$ корректны и взаимно обратны.
 	
-	Если $P\le G$ и $H\subseteq P$, то $P/H$ является подгруппой группы $G/H$, поскольку это образ подгруппы $P$ при гомоморфизме $\pi_H|_P\colon P\to G/H$.
+	Если $P\le G$ и $H\subseteq P$, то $\pi_H(P)$ является подгруппой группы $G/H$, поскольку это образ подгруппы $P$ при гомоморфизме $\pi_H|_P\colon P\to G/H$.
 	
 	Если $Q\le G/H$, то $\pi_H^{-1}(Q)\le G$ по предложению~\ref{prop:image-preimage}; кроме того, $H=\pi_H^{-1}(\{eH\})\subseteq \pi_H^{-1}(Q)$.
 	
@@ -454,11 +503,11 @@
 	
 	Для $P\le G$ при $H\subseteq P$ имеем
 	\[
-	(\beta\circ\alpha)(P)=\pi_H^{-1}(P/H)=\{g\in G\mid gH\in P/H\}.
+	(\beta\circ\alpha)(P)=\pi_H^{-1}(\pi_H(P))=\{g\in G\mid gH\in \pi_H(P)\}.
 	\]
-	Но условие $gH\in P/H$ означает, что существует $p\in P$ такое, что $gH=pH$. Тогда $p^{-1}g\in H\subseteq P$, значит, $g\in P$. Итак,
+	Но условие $gH\in \pi_H(P)$ означает, что существует $p\in P$ такое, что $gH=pH$. Тогда $p^{-1}g\in H\subseteq P$, значит, $g\in P$. Итак,
 	\[
-	\pi_H^{-1}(P/H)=P.
+	\pi_H^{-1}(\pi_H(P))=P.
 	\]
 	Следовательно, $\alpha$ и $\beta$ взаимно обратны.
 \end{proof}
@@ -466,30 +515,30 @@
 \begin{Statement}{нормальность в факторгруппе}{normality-correspondence}
 	Пусть $H\triangleleft G$, $P\le G$ и $H\subseteq P$. Тогда
 	\[
-	P/H \triangleleft G/H \Longleftrightarrow P \triangleleft G.
+	\pi_H(P) \triangleleft G/H \Longleftrightarrow P \triangleleft G.
 	\]
 \end{Statement}
 
 \begin{proof}
 	Поскольку $\pi_H\colon G\to G/H$ --- сюръективный гомоморфизм и
 	\[
-	\pi_H^{-1}(P/H)=P,
+	\pi_H^{-1}(\pi_H(P))=P,
 	\]
 	одна импликация сразу следует из свойства прообраза нормальной подгруппы:
-	если $P/H\triangleleft G/H$, то
+	если $\pi_H(P)\triangleleft G/H$, то
 	\[
-	P=\pi_H^{-1}(P/H)\triangleleft G.
+	P=\pi_H^{-1}(\pi_H(P))\triangleleft G.
 	\]
 	
-	Обратно, пусть $P\triangleleft G$. Рассмотрим ограничение проекции на $P$. Тогда $P/H$ --- подгруппа в $G/H$ по теореме соответствия. Для любого $gH\in G/H$ и любого $pH\in P/H$ имеем
+	Обратно, пусть $P\triangleleft G$. Рассмотрим ограничение проекции на $P$. Тогда $\pi_H(P)$ --- подгруппа в $G/H$ по теореме соответствия. Для любого $gH\in G/H$ и любого $pH\in \pi_H(P)$ имеем
 	\[
 	(gH)(pH)(gH)^{-1}=(gpg^{-1})H.
 	\]
 	Так как $P\triangleleft G$, элемент $gpg^{-1}$ принадлежит $P$. Значит,
 	\[
-	(gpg^{-1})H\in P/H.
+	(gpg^{-1})H\in \pi_H(P).
 	\]
-	Следовательно, $P/H\triangleleft G/H$.
+	Следовательно, $\pi_H(P)\triangleleft G/H$.
 \end{proof}
 
 \begin{Theorem}{Третья теорема об изоморфизме}{thm:third-iso}
@@ -501,26 +550,3 @@
 
 	\end{enumerate}
 \end{Theorem}
-
-\begin{proof}
-	Пункты 1) и 2) следуют соответственно из включения $H\subseteq P\subseteq G$ и утверждения~\ref{stmt:normality-correspondence}.
-	
-	Определим отображение
-	\[
-	\Psi\colon G/H \to G/P, \qquad \Psi(gH):=gP.
-	\]
-	Проверим корректность. Если $g_1H=g_2H$, то $g_2=g_1h$ для некоторого $h\in H\subseteq P$, следовательно, $g_1P=g_2P.$
-	Значит, $\Psi$ корректно определено.
-	
-	Это гомоморфизм, поскольку
-	\[
-	\Psi\bigl((g_1H)(g_2H)\bigr)=\Psi(g_1g_2H)=g_1g_2P=(g_1P)(g_2P)=\Psi(g_1H)\Psi(g_2H).
-	\]
-	Он сюръективен, так как любой класс $gP\in G/P$ имеет прообраз $gH$.
-	
-	Ядро этого гомоморфизма равно
-	\[
-	\Ker\Psi=\{gH\in G/H\mid gP=P\}=\{gH\in G/H\mid g\in P\}=P/H.
-	\]
-	По первой теореме об изоморфизме получаем $(G/H)/(P/H)\cong G/P.$
-\end{proof}

@@ -27,6 +27,12 @@
 	Так как $H$ нормальна, левые и правые смежные классы совпадают: $gH=Hg$ для всех $g\in G$.
 \end{Remark}
 
+\begin{Definition}{Факторгруппа}{def:quotient-group}
+	Пусть $G$ — группа, $H \triangleleft G$. 
+	
+	Множество левых смежных классов $G/H$ с операцией $(gH) \cdot (g'H) = (gg')H$ называется \emph{факторгруппой} группы $G$ по нормальной подгруппе $H$.
+\end{Definition}
+
 \begin{Proposition}{Корректность умножения смежных классов}{prop:well-defined}
 	Если $H \triangleleft G$, то операция
 	\[
@@ -185,12 +191,11 @@
 \end{proof}
 
 \begin{Example}{}{ex:alternating}
-	Имеем $A_n = \Ker(\sgn) \triangleleft S_n.$
-	
-	Поэтому знак перестановки даёт изоморфизм
+	Поскольку знак перестановки $\sgn \colon S_n \to (\{ \pm 1 \}, \cdot)$ является гомоморфизмом, то его ядро
 	\[
-	S_n/A_n \cong \{\pm 1\}.
+	A_n = \Ker(\sgn) \triangleleft S_n
 	\]
+	является нормальной подгруппой.
 \end{Example}
 
 \begin{Proposition}{Критерий инъективности}{prop:inj-kernel}

@@ -56,12 +56,21 @@ BoldItalicFont = cmunbso.otf
 
 \DeclareMathOperator{\dist}{dist}
 \DeclareMathOperator{\Lin}{Lin}
+\DeclareMathOperator{\Ker}{Ker}
+\renewcommand{\Im}{\operatorname{Im}}
+\DeclareMathOperator{\id}{id}
+\DeclareMathOperator{\Aut}{Aut}
+\DeclareMathOperator{\End}{End}
+\DeclareMathOperator{\sgn}{sgn}
+\newcommand{\GL}{\mathrm{GL}}
+\newcommand{\SL}{\mathrm{SL}}
 
 % -------------------------------------------------
 % Цвета, ссылки, пастельная палитра
 % -------------------------------------------------
 \usepackage[dvipsnames]{xcolor}
-
+\usepackage{enumitem}
+\usepackage{microtype}
 \definecolor{linkcolor}{HTML}{47528F}
 
 \usepackage{hyperref}
@@ -153,6 +162,10 @@ BoldItalicFont = cmunbso.otf
 \definecolor{remBack}{HTML}{F0F0F0}
 \definecolor{remFrame}{HTML}{888888}
 
+% Следствие: мягкий розово-коралловый
+\definecolor{corBack}{HTML}{F8E8EA}
+\definecolor{corFrame}{HTML}{F08080}
+
 % -----------------------
 % Теоремные окружения
 % -----------------------
@@ -177,21 +190,27 @@ BoldItalicFont = cmunbso.otf
 	colback=stmtBack, colframe=stmtFrame
 }{stmt}
 
-\newtcbtheorem{Definition}{Определение}{
+\newtcbtheorem[no counter]{Definition}{Определение}{
 	mybox,
 	colback=defBack, colframe=defFrame
 }{def}
 
-\newtcbtheorem{Example}{Пример}{
+\newtcbtheorem[no counter]{Example}{Пример}{
 	mybox,
 	colback=exBack, colframe=exFrame
 }{ex}
 
 
-\newtcbtheorem{Remark}{Замечание}{
+\newtcbtheorem[no counter]{Remark}{Замечание}{
     mybox,
     colback=remBack, colframe=remFrame
 }{rem}
+
+\newtcbtheorem[no counter]{Corollary}{Следствие}{
+	mybox,
+	colback=corBack,
+	colframe=corFrame
+}{cor}
 
 % -------------------------------------------------
 % Импорт секций/билетов
@@ -205,6 +224,8 @@ BoldItalicFont = cmunbso.otf
 
 \usepackage{anyfontsize}  
 \usepackage{tikz}
+\usepackage{tikz-cd}
+\usetikzlibrary{babel}
 \usetikzlibrary{calc}
 
 % ---  палитра  ---
@@ -291,7 +312,19 @@ BoldItalicFont = cmunbso.otf
 	\part*{Второй семестр}
 	
 	\ticket{sections/}{ticket01.tex}
-    \ticket{sections/}{ticket02.tex}
+	\ticket{sections/}{ticket02.tex}
+	\ticket{sections/}{ticket03.tex}
+	\ticket{sections/}{ticket04.tex}
+	\ticket{sections/}{ticket05.tex}
 	\ticket{sections/}{ticket06.tex}
+	\ticket{sections/}{ticket07.tex}
+	\ticket{sections/}{ticket08.tex}
+	\ticket{sections/}{ticket09.tex}
+	\ticket{sections/}{ticket10.tex}
+	\ticket{sections/}{ticket11.tex}
+	\ticket{sections/}{ticket12.tex}
+	\ticket{sections/}{ticket13.tex}
+	\ticket{sections/}{ticket14.tex}
+	\ticket{sections/}{ticket15.tex}
 	
 \end{document}

@@ -1,0 +1,557 @@
+% !TEX root = ../algebra_02.tex
+
+\section{Факторгруппы, гомоморфизмы и циклические группы}
+
+\subsection{Факторгруппы}
+
+\begin{Definition}{Фактормножество}{def:quotient-set}
+	Пусть на множестве $X$ задано отношение эквивалентности $\sim$. Тогда \emph{фактормножество} $X/{\sim}$ определяется как множество всех классов эквивалентности:
+	\[
+	X/{\sim}:=\{[x] \mid x\in X\}.
+	\]
+\end{Definition}
+
+\begin{Remark}{Фактормножество группы по нормальной подгруппе}{rem:group-quotient-set}
+	Пусть $G$ --- группа, $H \triangleleft G$. Тогда на $G$ задано отношение эквивалентности
+	\[
+	g_1\sim g_2 \Longleftrightarrow g_1^{-1}g_2\in H.
+	\]
+	Его классы эквивалентности --- это левые смежные классы по $H$, поэтому соответствующее фактормножество имеет вид
+	\[
+	G/H:=\{gH\mid g\in G\}.
+	\]
+	На $G/H$ задаётся операция
+	\[
+	(gH)\cdot(g'H):=(gg')H.
+	\]
+	Так как $H$ нормальна, левые и правые смежные классы совпадают: $gH=Hg$ для всех $g\in G$.
+\end{Remark}
+
+\begin{Definition}{Факторгруппа}{def:quotient-group}
+	Пусть $G$ — группа, $H \triangleleft G$. 
+	
+	Множество левых смежных классов $G/H$ с операцией $(gH) \cdot (g'H) = (gg')H$ называется \emph{факторгруппой} группы $G$ по нормальной подгруппе $H$.
+\end{Definition}
+
+\begin{Proposition}{Корректность умножения смежных классов}{prop:well-defined}
+	Если $H \triangleleft G$, то операция
+	\[
+	(gH)(g'H) := (gg')H
+	\]
+	корректно определена, то есть не зависит от выбора представителей смежных классов.
+\end{Proposition}
+
+\begin{proof}
+	Пусть $g_1H=g_2H, \qquad g_1'H=g_2'H$.
+	
+	Тогда существуют $h,h'\in H$ такие, что $g_2=g_1h, \qquad g_2'=g_1'h'$.
+
+	Следовательно, $g_2g_2' = g_1 h g_1' h' = g_1 g_1'\bigl((g_1')^{-1} h g_1'\bigr)h'$.
+
+	Так как $H \triangleleft G$, имеем $(g_1')^{-1} h g_1' \in H$. Поэтому $\bigl((g_1')^{-1} h g_1'\bigr)h' \in H,$ и значит, $g_2g_2'H = g_1g_1'H.$
+
+	Следовательно, $(g_2H)(g_2'H)=(g_1H)(g_1'H).$
+
+	Корректность доказана.
+\end{proof}
+
+\begin{Theorem}{Групповая структура на $G/H$}{thm:quotient-group}
+	Если $H \triangleleft G$, то множество $G/H$ с операцией
+	\[
+	(gH)(g'H)=(gg')H
+	\]
+	является группой.
+\end{Theorem}
+
+\begin{proof}
+	Проверим аксиомы группы.
+	\begin{enumerate}
+		\item Ассоциативность:
+		\[
+		\bigl((g_1H)(g_2H)\bigr)(g_3H) = (g_1g_2g_3)H = (g_1H)\bigl((g_2H)(g_3H)\bigr).
+		\]
+		\item Нейтральный элемент: $eH=H$, и для любого $g\in G$
+		\[
+		(eH)(gH)=gH=(gH)(eH).
+		\]
+		\item Обратимый элемент: для $gH\in G/H$
+		\[
+		(gH)(g^{-1}H)=eH=(g^{-1}H)(gH).
+		\]
+	\end{enumerate}
+	Следовательно, $G/H$ --- группа.
+\end{proof}
+
+По определению эта группа называется \emph{факторгруппой} группы $G$ по нормальной подгруппе $H$.
+
+\begin{Remark}{}{rem:not-subgroup}
+	Вообще говоря, $G/H$ не является подмножеством группы $G$. Это новая группа, элементы которой --- смежные классы. Исключения возникают лишь в тривиальных случаях $H=\{e\}$ и $H=G$.
+\end{Remark}
+
+\subsection{Гомоморфизмы групп}
+
+\begin{Definition}{Гомоморфизм групп}{def:hom}
+	Пусть $G$ и $G'$ --- группы. Отображение $\varphi\colon G \to G'$
+	называется \emph{гомоморфизмом групп}, если для всех $g_1,g_2\in G$ выполнено
+	\[
+	\varphi(g_1g_2)=\varphi(g_1)\varphi(g_2).
+	\]
+\end{Definition}
+
+\begin{Example}{}{ex:hom-examples}
+	\begin{enumerate}
+		\item Определитель:
+		\[
+		\det\colon \GL_n(K) \to K^{\times}, \qquad \det(AB)=\det(A)\det(B).
+		\]
+		\item Знак перестановки:
+		\[
+		\sgn\colon S_n \to \{\pm 1\}, \qquad \sigma \mapsto \sgn(\sigma).
+		\]
+		\item Тождественный и нулевой гомоморфизмы:
+		\[
+		\id_G\colon G\to G, \quad g\mapsto g;
+		\qquad
+		0\colon G\to G', \quad g\mapsto e_{G'}.
+		\]
+		\item Логарифм как гомоморфизм между мультипликативной и аддитивной группами:
+		\[
+		\ln\colon (\RR_{>0},\cdot) \to (\RR,+), \qquad a\mapsto \ln a.
+		\]
+	\end{enumerate}
+\end{Example}
+
+\begin{Lemma}{Сохранение единицы и обратного элемента}{lem:unit-inverse}
+	Пусть $\varphi\colon G\to G'$ --- гомоморфизм. Тогда
+	\begin{enumerate}
+		\item $\varphi(e_G)=e_{G'}$;
+		\item для любого $g\in G$ выполнено
+		\[
+		\varphi(g^{-1})=\varphi(g)^{-1}.
+		\]
+	\end{enumerate}
+\end{Lemma}
+
+\begin{proof}
+	Так как $e_Ge_G=e_G$, имеем
+	\[
+	\varphi(e_G)\varphi(e_G)=\varphi(e_G).
+	\]
+	Умножая это равенство слева на $\varphi(e_G)^{-1}$, получаем $\varphi(e_G)=e_{G'}$.
+	
+	Далее,
+	\[
+	\varphi(g^{-1})\varphi(g)=\varphi(g^{-1}g)=\varphi(e_G)=e_{G'},
+	\]
+	и аналогично
+	\[
+	\varphi(g)\varphi(g^{-1})=e_{G'}.
+	\]
+	Следовательно, $\varphi(g^{-1})=\varphi(g)^{-1}$.
+\end{proof}
+
+\begin{Proposition}{Образы и прообразы подгрупп}{image-preimage}
+	Пусть $\varphi\colon G\to G'$ --- гомоморфизм.
+	\begin{enumerate}
+		\item Если $H\le G$, то $\varphi(H)\le G'$.
+		\item Если $H'\le G'$, то $\varphi^{-1}(H')\le G$.
+		\item Если $H'\triangleleft G'$, то $\varphi^{-1}(H')\triangleleft G$.
+	\end{enumerate}
+\end{Proposition}
+
+\begin{proof}
+	\begin{enumerate}
+		\item Пусть $g_1',g_2'\in \varphi(H)$. Тогда существуют $g_1,g_2\in H$ такие, что $g_1'=\varphi(g_1)$ и $g_2'=\varphi(g_2)$. Поскольку $H$ --- подгруппа, $g_1g_2\in H, \qquad g_1^{-1}\in H.$\\
+		Следовательно, $g_1'g_2' = \varphi(g_1)\varphi(g_2)=\varphi(g_1g_2)\in \varphi(H),$ и по лемме $(g_1')^{-1}=\varphi(g_1)^{-1}=\varphi(g_1^{-1})\in \varphi(H).$\\
+		Значит, $\varphi(H)\le G'$.
+		
+		\item Пусть $g_1,g_2\in \varphi^{-1}(H')$. Тогда $\varphi(g_1),\varphi(g_2)\in H'$.\\
+		Так как $H'$ --- подгруппа, $\varphi(g_1g_2)=\varphi(g_1)\varphi(g_2)\in H',$ то есть $g_1g_2\in \varphi^{-1}(H')$.\\
+		Кроме того, $\varphi(g_1^{-1})=\varphi(g_1)^{-1}\in H',$ поэтому $g_1^{-1}\in \varphi^{-1}(H')$. Значит, $\varphi^{-1}(H')\le G$.
+		
+		\item Пусть $g\in G$ и $h\in \varphi^{-1}(H')$. Тогда $\varphi(h)\in H'$. Поскольку $H'\triangleleft G'$, имеем
+		\[
+		\varphi(ghg^{-1})=\varphi(g)\varphi(h)\varphi(g)^{-1}\in H'.
+		\]
+		Следовательно, $ghg^{-1}\in \varphi^{-1}(H')$. Значит, $\varphi^{-1}(H')\triangleleft G$.
+	\end{enumerate}
+\end{proof}
+
+\begin{Corollary}{Образ и ядро}{prop:image-kernel}
+	Для любого гомоморфизма $\varphi\colon G\to G'$ имеем
+	\[
+	\Im \varphi := \varphi(G) \le G',
+	\qquad
+	\Ker \varphi := \varphi^{-1}(\{e_{G'}\}) = \{g\in G \mid \varphi(g)=e_{G'}\} \triangleleft G.
+	\]
+\end{Corollary}
+
+\begin{proof}
+	Первая часть следует из пункта 1) предложения~\ref{prop:image-preimage}, вторая --- из пункта 3) того же предложения, поскольку $\{e_{G'}\} \triangleleft G'$.
+\end{proof}
+
+\begin{Example}{}{ex:alternating}
+	Поскольку знак перестановки $\sgn \colon S_n \to (\{ \pm 1 \}, \cdot)$ является гомоморфизмом, то его ядро
+	\[
+	A_n = \Ker(\sgn) \triangleleft S_n
+	\]
+	является нормальной подгруппой.
+\end{Example}
+
+\begin{Proposition}{Критерий инъективности}{prop:inj-kernel}
+	Пусть $\varphi\colon G\to G'$ --- гомоморфизм. Тогда
+	\[
+	\varphi \text{ инъективен } \Longleftrightarrow \Ker\varphi = \{e_G\}.
+	\]
+\end{Proposition}
+
+\begin{proof}
+	Предположим, что $\varphi$ инъективен. 
+	
+	Если $h\in \Ker\varphi$, то $\varphi(h)=e_{G'}=\varphi(e_G).$
+	
+	Из инъективности следует $h=e_G$, значит, $\Ker\varphi=\{e_G\}$.
+	
+	Обратно, пусть $\Ker\varphi=\{e_G\}$ и $\varphi(h_1)=\varphi(h_2).$
+
+	Тогда $\varphi(h_1h_2^{-1})=\varphi(h_1)\varphi(h_2)^{-1}=e_{G'},$ то есть $h_1h_2^{-1}\in \Ker\varphi$. Следовательно, $h_1h_2^{-1}=e_G,$ откуда $h_1=h_2$. Значит, $\varphi$ инъективен.
+\end{proof}
+
+\begin{Definition}{Специальные виды гомоморфизмов}{def:special-homs}
+	\begin{enumerate}
+		\item Инъективный гомоморфизм называется \emph{мономорфизмом}.
+		\item Сюръективный гомоморфизм называется \emph{эпиморфизмом}.
+		\item Биективный гомоморфизм называется \emph{изоморфизмом}.
+		\item Гомоморфизм $G\to G$ называется \emph{эндоморфизмом}.
+		\item Изоморфизм $G\to G$ называется \emph{автоморфизмом}.
+	\end{enumerate}
+\end{Definition}
+
+\begin{Proposition}{Обратное отображение к изоморфизму}{prop:inverse-iso}
+	Если $\varphi\colon G\to G'$ --- изоморфизм, то обратное отображение
+	\[
+	\varphi^{-1}\colon G'\to G
+	\]
+	тоже является изоморфизмом.
+\end{Proposition}
+
+\begin{proof}
+	Так как $\varphi$ биективно, отображение $\varphi^{-1}$ существует и биективно. Для любых $g_1',g_2'\in G'$ положим
+	\[
+	A:=\varphi^{-1}(g_1'g_2'), \qquad B:=\varphi^{-1}(g_1')\varphi^{-1}(g_2').
+	\]
+	Тогда
+	\[
+	\varphi(A)=g_1'g_2'=
+	\varphi\bigl(\varphi^{-1}(g_1')\bigr)\,\varphi\bigl(\varphi^{-1}(g_2')\bigr)=\varphi(B).
+	\]
+	Из инъективности $\varphi$ следует $A=B$. Следовательно,
+	\[
+	\varphi^{-1}(g_1'g_2')=\varphi^{-1}(g_1')\varphi^{-1}(g_2').
+	\]
+	Значит, $\varphi^{-1}$ --- гомоморфизм, а потому изоморфизм.
+\end{proof}
+
+\begin{Example}{Простейшие примеры факторгрупп}{ex:trivial-quotients}
+	Имеют место изоморфизмы
+	\[
+	G/\{e\} \cong G, \qquad G/G \cong \{e\}.
+	\]
+	Если группа записана аддитивно, то факторгруппа тоже записывается аддитивно. Например,
+	\[
+	\ZZ/m\ZZ = \{[a]_m \mid a\in \ZZ\}, \qquad [a]_m + [b]_m := [a+b]_m.
+	\]
+\end{Example}
+
+\subsection{Канонические гомоморфизмы и индуцированные отображения}
+
+\begin{Definition}{Канонические гомоморфизмы}{def:canonical-homs}
+	Пусть $H\le G$.
+	\begin{enumerate}
+		\item \textbf{Гомоморфизм включения:}
+		\[
+		i_H\colon H\to G, \qquad h\mapsto h.
+		\]
+		Он инъективен, причём
+		\[
+		\Im i_H = H, \qquad \Ker i_H = \{e\}.
+		\]
+		\item Если дополнительно $H\triangleleft G$, то \textbf{канонический эпиморфизм} (проекция) задаётся формулой
+		\[
+		\pi_H\colon G\to G/H, \qquad g\mapsto gH.
+		\]
+		Это сюръективный гомоморфизм, причём
+		\[
+		\Im \pi_H = G/H, \qquad \Ker \pi_H = H.
+		\]
+	\end{enumerate}
+\end{Definition}
+
+\begin{proof}
+	Гомоморфность проекции следует из равенства
+	\[
+	\pi_H(g_1g_2)=g_1g_2H=(g_1H)(g_2H)=\pi_H(g_1)\pi_H(g_2).
+	\]
+	Кроме того,
+	\[
+	\pi_H(g)=eH \Longleftrightarrow gH=H \Longleftrightarrow g\in H.
+	\]
+	Значит, $\Ker \pi_H=H$.
+\end{proof}
+
+\begin{Theorem}{Индуцированный гомоморфизм}{induced-hom}
+	Пусть дан гомоморфизм
+	\[
+	\varphi\colon G\to G'.
+	\]
+	Пусть $H\triangleleft G$ и $H\subseteq \Ker\varphi$. Пусть также $H'\le G'$ и
+	$\Im\varphi\subseteq H'$. Тогда отображение
+	\[
+	\widetilde\varphi\colon G/H\to H', \qquad \widetilde\varphi(gH):=\varphi(g),
+	\]
+	корректно определено и является гомоморфизмом. Более того, это единственный гомоморфизм для которого коммутирует диаграмма
+	\[
+	\begin{tikzcd}[column sep=large, row sep=large]
+		G \arrow[r, "\varphi"] \arrow[d, "\pi_H"'] & G' \\
+		G/H \arrow[r, "\widetilde{\varphi}"'] & H' \arrow[u, "i_{H'}"']
+	\end{tikzcd}
+	\]
+	то есть
+	\[
+	\varphi = i_{H'}\circ \widetilde\varphi\circ \pi_H.
+	\]
+\end{Theorem}
+
+\begin{proof}
+	Сначала докажем корректность.
+	Если $g_1H=g_2H$, то $g_2=g_1h$ для некоторого $h\in H$. Так как
+	$H\subseteq \Ker\varphi$, имеем $\varphi(h)=e$, и потому
+	\[
+	\varphi(g_2)=\varphi(g_1h)=\varphi(g_1)\varphi(h)=\varphi(g_1).
+	\]
+	Значит, значение $\widetilde\varphi(gH)$ не зависит от выбора представителя класса.
+	
+	Так как $\Im\varphi\subseteq H'$, действительно $\widetilde\varphi(gH)=\varphi(g)\in H',$ то есть отображение $\widetilde\varphi$ принимает значения в $H'$.
+	
+	Проверим, что $\widetilde\varphi$ является гомоморфизмом:
+	\[
+	\widetilde\varphi\bigl((g_1H)(g_2H)\bigr)
+	=
+	\widetilde\varphi(g_1g_2H)
+	=
+	\varphi(g_1g_2)
+	=
+	\varphi(g_1)\varphi(g_2)
+	=
+	\widetilde\varphi(g_1H)\widetilde\varphi(g_2H).
+	\]
+	
+	Теперь проверим коммутативность диаграммы. Для любого $g\in G$ имеем
+	\[
+	(i_{H'}\circ \widetilde\varphi\circ \pi_H)(g)
+	=
+	i_{H'}\bigl(\widetilde\varphi(gH)\bigr)
+	=
+	i_{H'}(\varphi(g))
+	=
+	\varphi(g).
+	\]
+	Следовательно, 	$\varphi = i_{H'}\circ \widetilde\varphi\circ \pi_H.$
+	
+	Докажем единственность. Пусть $\psi\colon G/H\to H'$ --- гомоморфизм такой, что $\varphi = i_{H'}\circ \psi\circ \pi_H.$
+	
+	Тогда для любого $g\in G$
+	\[
+	i_{H'}\bigl(\psi(gH)\bigr)
+	=
+	(i_{H'}\circ \psi\circ \pi_H)(g)
+	=
+	\varphi(g)
+	=
+	i_{H'}\bigl(\widetilde\varphi(gH)\bigr).
+	\]
+	Так как $i_{H'}\colon H'\hookrightarrow G'$ --- вложение, оно инъективно. Значит,
+	\[
+	\psi(gH)=\widetilde\varphi(gH)
+	\]
+	для всех $g\in G$, откуда $\psi=\widetilde\varphi$.
+\end{proof}
+
+\begin{Theorem}{Первая теорема об изоморфизме}{thm:first-iso}
+	Пусть $\varphi\colon G\to G'$ --- гомоморфизм. Тогда индуцированный гомоморфизм
+	\[
+	\overline\varphi\colon G/\Ker\varphi \to \Im\varphi,
+	\qquad
+	\overline\varphi(g\Ker\varphi)=\varphi(g)
+	\]
+	является изоморфизмом. В частности,
+	\[
+	G/\Ker\varphi \cong \Im\varphi.
+	\]
+\end{Theorem}
+
+\begin{proof}
+	Существование и гомоморфность следуют из теоремы~\ref{thm:induced-hom}. По определению
+	\[
+	\Im\overline\varphi=\Im\varphi.
+	\]
+	Кроме того,
+	\[
+	\Ker\overline\varphi = \{g\Ker\varphi \mid \varphi(g)=e\} = \{g\Ker\varphi \mid g\in \Ker\varphi\} = \{\Ker\varphi\}.
+	\]
+	Следовательно, $\overline\varphi$ инъективен. Значит, $\overline\varphi$ --- изоморфизм.
+\end{proof}
+
+\begin{Example}{Применение первой теоремы об изоморфизме}{ex:sln}
+	Определитель задаёт сюръективный гомоморфизм
+	\[
+	\det\colon \GL_n(K)\to K^{\times}.
+	\]
+	Его ядро равно
+	\[
+	\Ker(\det)=\SL_n(K)=\{A\in \GL_n(K)\mid \det A=1\}.
+	\]
+	Поэтому
+	\[
+	\SL_n(K)\triangleleft \GL_n(K),
+	\qquad
+	\GL_n(K)/\SL_n(K)\cong K^{\times}.
+	\]
+\end{Example}
+
+\subsection{Циклические группы}
+
+\begin{Definition}{Циклическая группа}{def:cyclic}
+	Группа $G$ называется \emph{циклической}, если существует элемент $g\in G$ такой, что
+	\[
+	G=\langle g\rangle = \{g^k\mid k\in \ZZ\}.
+	\]
+	Элемент $g$ называется \emph{образующим} группы $G$.
+\end{Definition}
+
+\begin{Theorem}{Все подгруппы группы $\ZZ$}{subgroups-Z}
+	Всякая подгруппа $H\le \ZZ$ имеет вид
+	\[
+	H=n\ZZ=\langle n\rangle
+	\]
+	для некоторого $n\ge 0$.
+\end{Theorem}
+
+\begin{proof}
+	Если $H=\{0\}$, то утверждение верно при $n=0$.
+	
+	Пусть теперь $H\ne\{0\}$. Тогда в $H$ есть положительные элементы. Пусть $n$ --- наименьший положительный элемент из $H$. Покажем, что $H=n\ZZ$.
+	
+	Во-первых, $n\ZZ\subseteq H$, поскольку $H$ замкнута относительно сложения и взятия противоположного.
+	
+	Во-вторых, пусть $x\in H$. По алгоритму деления существует представление
+	\[
+	x=qn+r, \qquad 0\le r<n.
+	\]
+	Так как $x\in H$ и $qn\in H$, получаем $r=x-qn\in H.$
+	По минимальности $n$ имеем $r=0$. Значит, $x\in n\ZZ$.
+	
+	Следовательно, $H=n\ZZ$.
+\end{proof}
+
+\begin{Theorem}{Классификация циклических групп}{thm:cyclic-classification}
+	Пусть $G=\langle g\rangle$ --- циклическая группа.
+	\begin{enumerate}
+		\item Если $|G|=\infty$, то $G\cong \ZZ$.
+		\item Если $|G|=n<\infty$, то $G\cong \ZZ/n\ZZ$.
+	\end{enumerate}
+\end{Theorem}
+
+\begin{proof}
+	Рассмотрим гомоморфизм
+	\[
+	\varphi\colon \ZZ \to G, \qquad k\mapsto g^k.
+	\]
+	Он сюръективен, поскольку $G=\langle g\rangle$. По теореме~\ref{thm:subgroups-Z} существует $n\ge 0$ такое, что $\Ker\varphi=n\ZZ.$
+
+	Если $n=0$, то $\Ker\varphi=\{0\}$, и потому $\varphi$ инъективен. Следовательно, $G\cong \ZZ$.
+	
+	Если $n>0$, то по первой теореме об изоморфизме
+	\[
+	\ZZ/n\ZZ = \ZZ/\Ker\varphi \cong \Im\varphi = G.
+	\]
+	Если при этом $|G|<\infty$, то обязательно $n=|G|$.
+\end{proof}
+
+\subsection{Теоремы соответствия и об изоморфизме}
+
+\begin{Theorem}{Теорема соответствия}{thm:correspondence}
+	Пусть $H\triangleleft G$ и $\pi_H\colon G\to G/H$ --- каноническая проекция. Тогда отображения
+	\[
+	\alpha\colon \{P\le G\mid H\subseteq P\}\to \{Q\le G/H\}, \qquad \alpha(P)=\pi_H(P),
+	\]
+	\[
+	\beta\colon \{Q\le G/H\}\to \{P\le G\mid H\subseteq P\}, \qquad \beta(Q)=\pi_H^{-1}(Q)
+	\]
+	взаимно обратны. Следовательно, между подгруппами группы $G$, содержащими $H$, и подгруппами факторгруппы $G/H$ существует биекция.
+\end{Theorem}
+
+\begin{proof}
+	Покажем, что $\alpha$ и $\beta$ корректны и взаимно обратны.
+	
+	Если $P\le G$ и $H\subseteq P$, то $\pi_H(P)$ является подгруппой группы $G/H$, поскольку это образ подгруппы $P$ при гомоморфизме $\pi_H|_P\colon P\to G/H$.
+	
+	Если $Q\le G/H$, то $\pi_H^{-1}(Q)\le G$ по предложению~\ref{prop:image-preimage}; кроме того, $H=\pi_H^{-1}(\{eH\})\subseteq \pi_H^{-1}(Q)$.
+	
+	Теперь вычислим композиции.
+	
+	Для $Q\le G/H$ имеем
+	\[
+	(\alpha\circ\beta)(Q)=\alpha\bigl(\pi_H^{-1}(Q)\bigr)=\pi_H\bigl(\pi_H^{-1}(Q)\bigr)=Q,
+	\]
+	поскольку $\pi_H$ сюръективна.
+	
+	Для $P\le G$ при $H\subseteq P$ имеем
+	\[
+	(\beta\circ\alpha)(P)=\pi_H^{-1}(\pi_H(P))=\{g\in G\mid gH\in \pi_H(P)\}.
+	\]
+	Но условие $gH\in \pi_H(P)$ означает, что существует $p\in P$ такое, что $gH=pH$. Тогда $p^{-1}g\in H\subseteq P$, значит, $g\in P$. Итак,
+	\[
+	\pi_H^{-1}(\pi_H(P))=P.
+	\]
+	Следовательно, $\alpha$ и $\beta$ взаимно обратны.
+\end{proof}
+
+\begin{Statement}{нормальность в факторгруппе}{normality-correspondence}
+	Пусть $H\triangleleft G$, $P\le G$ и $H\subseteq P$. Тогда
+	\[
+	\pi_H(P) \triangleleft G/H \Longleftrightarrow P \triangleleft G.
+	\]
+\end{Statement}
+
+\begin{proof}
+	Поскольку $\pi_H\colon G\to G/H$ --- сюръективный гомоморфизм и
+	\[
+	\pi_H^{-1}(\pi_H(P))=P,
+	\]
+	одна импликация сразу следует из свойства прообраза нормальной подгруппы:
+	если $\pi_H(P)\triangleleft G/H$, то
+	\[
+	P=\pi_H^{-1}(\pi_H(P))\triangleleft G.
+	\]
+	
+	Обратно, пусть $P\triangleleft G$. Рассмотрим ограничение проекции на $P$. Тогда $\pi_H(P)$ --- подгруппа в $G/H$ по теореме соответствия. Для любого $gH\in G/H$ и любого $pH\in \pi_H(P)$ имеем
+	\[
+	(gH)(pH)(gH)^{-1}=(gpg^{-1})H.
+	\]
+	Так как $P\triangleleft G$, элемент $gpg^{-1}$ принадлежит $P$. Значит,
+	\[
+	(gpg^{-1})H\in \pi_H(P).
+	\]
+	Следовательно, $\pi_H(P)\triangleleft G/H$.
+\end{proof}
+
+\begin{Theorem}{Третья теорема об изоморфизме}{thm:third-iso}
+	Пусть $H\triangleleft G$, $P\triangleleft G$ и $H\subseteq P$. Тогда
+	\begin{enumerate}
+		\item $H\triangleleft P$;
+		\item $P/H\triangleleft G/H$;
+		\item $(G/H)/(P/H) \cong G/P.$
+
+	\end{enumerate}
+\end{Theorem}

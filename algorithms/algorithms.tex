@@ -37,11 +37,25 @@ BoldItalicFont = cmunbso.otf
 \setlength{\parskip}{6pt}
 \setlength{\parindent}{0pt}
 \usepackage{tikz}
-\usetikzlibrary{arrows.meta,positioning,calc}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.18}
+\usetikzlibrary{arrows.meta,positioning,calc,decorations.pathreplacing,
+	fit,backgrounds,patterns,shapes.geometric}
 \usetikzlibrary{calc}
 \usepackage{graphicx}
 \usepackage{enumitem}
 \usepackage{bm}
+\usepackage{caption}
+\usepackage{subcaption}
+% -------------------------------------------------------
+% Общие стили для сортирующих сетей
+% -------------------------------------------------------
+\tikzset{
+	netcomp/.style={very thick},
+	netwire/.style={thin},
+	block/.style={draw,thick,rounded corners=4pt,minimum width=2.6cm,
+		minimum height=1.0cm,align=center,fill=white,font=\small},
+}
 
 % -------------------------------------------------
 % Математика
@@ -104,6 +118,15 @@ BoldItalicFont = cmunbso.otf
 
 \theoremstyle{remark}
 \newtheorem{remark}[theorem]{Замечание}
+\newcommand{\cP}{\mathcal{P}}
+\newcommand{\cD}{\mathcal{D}}
+\newcommand{\cE}{\mathcal{E}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\1}{\mathbf{1}}
+\newcommand{\argmax}{\mathop{\mathrm{arg\,max}}}
+\newcommand{\argmin}{\mathop{\mathrm{arg\,min}}}
+\newcommand{\diag}{\mathop{\mathrm{diag}}}
 
 \renewcommand\qedsymbol{$\blacksquare$}
 
@@ -192,17 +215,18 @@ BoldItalicFont = cmunbso.otf
 	colback=stmtBack, colframe=stmtFrame
 }{stmt}
 
-\newtcbtheorem{Definition}{Определение}{
+\newtcbtheorem[no counter]{Definition}{Определение}{
 	mybox,
-	colback=defBack, colframe=defFrame
+	colback=defBack,
+	colframe=defFrame
 }{def}
 
-\newtcbtheorem{Example}{Пример}{
+\newtcbtheorem[no counter]{Example}{Пример}{
 	mybox,
 	colback=exBack, colframe=exFrame
 }{ex}
 
-\newtcbtheorem{Remark}{Замечание}{
+\newtcbtheorem[no counter]{Remark}{Замечание}{
 	mybox,
 	colback=remBack, colframe=remFrame
 }{rem}

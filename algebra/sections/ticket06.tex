@@ -1,3 +1,390 @@
 % !TEX root = ../algebra_02.tex
 
-\section{TODO}
+\section{Смежные классы, нормальные подгруппы.}
+
+\subsection{Порожденная подгруппа.}
+
+\begin{Definition}{Операции с подгруппами}{}
+    
+    $G$~--- группа.
+    
+    $P, Q \subset G$:
+    \[
+        P\cdot Q := \{p\cdot q\ \ | \ \ p \in P, q \in Q \}        
+    \]
+    $p \in P$:
+    \[
+        p\cdot Q := \{p\cdot q \ \ |\ \  q \in Q \}
+    \]
+    \[
+        Q\cdot p := \{ q\cdot p\ \ | \ \ q \in Q \}
+    \]
+
+    $P \subset G$
+    \[
+        P^{-1} := \{ p^{-1} \ \ | \ \ p \in P \}
+    \]
+\end{Definition}
+
+\begin{Definition}{Порожденная подгруппа}{}
+
+    $M \subset G, G$~--- группа.
+    \textbf{Подгруппа, порожденная} $M$~--- $H_0 < G$, т.ч.:
+
+    \begin{enumerate}
+        \item $M \subset H_0$
+        \item $H < G, M \subset H \Rightarrow H_0 \subset H$
+    \end{enumerate}
+
+    $<M> :=$ подгруппа, порожденная $M$.
+    
+\end{Definition}
+
+\begin{remark}
+
+    Если $H_0, H_1$ удовлетворяют условиям 1 и 2, то 
+    \[ H_0 \subset H_1, H_1 \subset H_0 \Leftrightarrow H_0 = H_1 \]
+\end{remark}
+
+\begin{Proposition}{}{}
+    $G$~--- группа. $M < G \Rightarrow$
+    \[ \bigcap_{\substack{ H < G \\ M \subset H}} H =: <M> \]
+\end{Proposition}
+
+\begin{proof}
+    \[ H_0 := \bigcap_{\substack{ H < G \\ M \subset H}} H \]
+    \begin{enumerate}
+        \item $H_0 < G$
+        
+        (пересечение любого количества подгрупп - подгруппа)
+        \item $M \subset H_0$
+        
+        (т.к. $M \subset H \ \ \forall \ \ H$)
+
+        \item $\forall H < G, M \subset H \Rightarrow H \supset H_0$
+        
+        (т.к. $H_0$~--- пересечение всех таких H)
+    \end{enumerate}   
+\end{proof}
+
+\begin{Proposition}{}{}
+    \[
+    <\{g_1, g_2, \ldots, g_n \} > =: <g_1, g_2, \ldots, g_n>
+    \]
+\end{Proposition}
+
+\begin{remark}
+    Легко видеть, что $<g_0>$~--- подгруппа порожденная $\{g_0\}$.
+\end{remark}
+
+\begin{Proposition}{}{}
+
+    $G$~--- группа. $M < G$, тогда:
+    \[
+    <M> = \{ g_1\cdot g_2\textsc{} \cdot \ldots \cdot g_n \ \ | \ \ n \ge 0; \ \ g_i \in M \cup M^{-1} \} 
+    \]
+
+    \begin{remark}
+        $(n = 0 \Rightarrow g_1 \cdot \ldots \cdot g_n = e)$
+    \end{remark}
+\end{Proposition}
+
+\begin{proof}
+    \[
+    H_0 := <M> = \{ g_1\cdot g_2\textsc{} \cdot \ldots \cdot g_n \ \ | \ \ n \ge 0; \ \ g_i \in M \cup M^{-1} \} 
+    \]
+
+    \begin{itemize}
+        \item Очевидно $M \subset H_0$
+        \item Проверим $H_0 < G$:
+
+        \begin{enumerate}
+            \item $e \in H_0$ (в силу замечания)
+            \item $g, g' \in H_0 \Rightarrow$
+            \[ g = g_1\cdot \ldots \cdot g_n \in M \cup M^{-1}; \qquad g' = g'_1\cdot \ldots g'_m \in M \cup M^{-1} \]
+            \[ g\cdot g' = g_1\cdot \ldots \cdot g_n \cdot g'_1 \cdot \ldots \cdot g'_m \in M \cup M^{-1} \]
+            \item $g \in H_0 \Rightarrow$
+            \[ g = g_1 \cdot \ldots \cdot g_n, \ \ g_i \in M \cup M^{-1} \Rightarrow \]
+            \[ g^{-1} = g_n^{-1} \cdot \ldots \cdot g^{-1}_1, g^{-1}_i \in M^{-1} \cup M = M \cup M^{-1} \Rightarrow \]
+            $g^{-1} \in H_0$
+        \end{enumerate}
+
+        \item $H < G, M \subset H \Rightarrow H \supset H_0$:
+
+        \[ H \supset M \Rightarrow H \supset M^{-1} \Rightarrow H \ni g_1\cdot \ldots \cdot g_n \qquad g_i \in M \cup M^{-1} \Rightarrow H \supset H_0 \]
+    \end{itemize}
+\end{proof}
+
+\begin{remark}
+
+    Так как в общем случае элементы не коммутируют, подгруппы, порожденные из двух элементов уже могут давать довольно сложные комбинации:
+
+    $<s, t> \ni s^5\cdot t^{-2} \cdot s \cdot t^3 \cdot s^{-1}$
+\end{remark}
+
+\begin{Example}{Группа симметрий правильного n-угольника}{}
+
+    Группа $D_n$ порождена двумя элементами: $S_n = <R_n, S_n>$ (поворот на $k\cdot \frac{2\pi}{n}$ радиан и осевая симметрия)
+
+    \[   
+    D_n = \{ R_i, S_i \ \ | \ \ 0 \le i \le n-1 \}
+    \]
+
+    $R_k = R^k_1 \Rightarrow R_i \circ R_j = R_{i+j}$
+
+    Из геометрии можно увидеть: $S_i \circ S_j = R_{i-j}$
+
+    Построив Латинский квадрат, получим, что $R_i \circ S_j = S_x$ (т.к. $R_i \circ R_j$ = $R_{i+j}$)
+    
+    \[  
+    R_i \circ S_j = S_x \Rightarrow R_{-i} \circ R_i \circ S_j \circ S_x = R_{-i} \circ S_x \circ S_x
+    \]
+    \[
+    R_{j-x} = S_j \circ S_x = R_{-i} \Rightarrow -i = j - x \Rightarrow x = i +j
+    \]
+
+    $R_i \circ S_j = S_{i+j}$
+
+    $(S_i \circ R_j)^{-1} = R^{-1}_j \circ S^{-1}_i = R_{-j} \circ S_i = S_{i-j}$
+    
+    \[ H_0 = <R_1, S_0> \qquad \forall \ \ k \st R^k_1 \in H_0 \qquad R^k_1\circ S_0 = S_k \in H_0 \Rightarrow H_0 = D_n \]
+\end{Example}
+
+\begin{Example}{Перестановки}{}
+
+    $H_0 = <\sigma_1, \tau>, \qquad \tau = (12)$
+
+    $\sigma \tau \sigma^{-1} = (23)\Rightarrow$
+
+    \[ \tau' = (k, k+1) = \sigma^{k-1}\tau \sigma^{1-k} \in H_0 \qquad \forall \ \ k \Rightarrow \]
+    $H_0 = <\sigma, \tau> = S_n$
+\end{Example}
+
+\subsection{Смежные классы.}
+
+Мотивация~--- хотим научиться понимать, насколько один элемент "отличается" от другого.
+
+Для двух элементов $g', g \in G$, если $g' = g \cdot h$ для некоторого $h \in H < G$ - $g'$ "отличается" от $g$ на $h$.
+
+Теперь формально:
+
+$H < G$. Введем на $G$ отношение $\sim$:
+
+\[
+g' \sim g \Leftrightarrow g' = gh, \qquad h \in H
+\]
+
+\begin{Statement}{$\sim$~--- отношение эквивалентности}{}
+    
+    Проверим:
+
+    \begin{enumerate}
+        \item $g \sim g \st g = g\cdot e, \qquad e \in H$ (т.к. $H < G$)
+        \item $g' \sim g \Rightarrow g \sim g' \st g' = gh \Rightarrow g = g'h^{-1}$ (т.к. $h\in H \Rightarrow h^{-1} \in H$)
+        \item $g_1 \sim g_2, \ \ g_2 \sim g_3 \Rightarrow g_1 \sim g_3 \st$
+        \[ g_1 = g_2h, \ \ g_2 = g_3h', \qquad h, h' \in H\]
+        \[ g_1 = g_3\cdot h\cdot h', \qquad h\cdot h' = \tilde{h} \in H\]
+        \[ g_1 = g_3 \tilde{h} \Leftrightarrow g_1 \sim g_3 \]
+    \end{enumerate}
+\end{Statement}
+
+Рассмотрим множество элементов, эквивалентных $g$: 
+
+\begin{Definition}{Класс эквивалентности}{}
+
+    Класс эквивалентности $g$ (на $G$) = $[g]$ = $\{ gh \ \ | \ \ h \in H \} := gH$
+\end{Definition}
+
+В общем случае $gh \not = hg$, поэтому в нашем случае:
+
+$\sim$~--- \textbf{отношение левой смежности по подгруппе} $H$
+
+\begin{Definition}{Смежный класс}{}
+
+    $gH$~--- \textbf{левый смежный класс} $g$ по $H$, или же \textbf{левый класс смежности}.
+\end{Definition}
+
+\begin{Definition}{Множжество классов смежности}{}
+
+    $G/H = G/\sim := \{ gH \ \ | \ \ g \in G \}$~--- множество всех левых смежных классов по $H$.
+\end{Definition}
+
+\begin{Definition}{Индекс подгруппы}{}
+    
+    Количество левых классов смежности в группе:
+
+    $|G/H| =: (G:H)$~--- \textbf{индекс подгруппы $H$ в группе $G$}.
+\end{Definition}
+
+\begin{Example}{}{}
+
+    $\ZZ/_{n\ZZ}$~--- класс вычетов по модулю n.
+    
+    Индекс = $(\ZZ : n\ZZ) = n$.
+\end{Example}
+
+\begin{Definition}{Правый класс смежности}{}
+
+    Правый класс смежности $g$ по $H =: Hg$
+
+    Множество правых смежных классов $= \{ Hg \ \ | \ \ g \in G\} =: H \backslash G$
+\end{Definition}
+
+(Стоит обращать внимание на контекст, чтобы различать операцию разности множеств $H \setminus G$ и множество правых классов смежности $H \backslash G$)
+
+\begin{remark}
+    Разные авторы могут определять левые и правые классы смежности наоборот.
+\end{remark}
+
+\begin{Proposition}{}{}
+    $|H \backslash G| = (G:H) = |G \slash H|$
+\end{Proposition}
+
+\begin{proof}
+
+    $\alpha: \underset{p \rightarrow p^{-1}}{G \slash H \longrightarrow H \backslash G}$
+
+    Проверим $p \in G \slash H \Rightarrow p^{-1} \in H \backslash G \st$
+
+    \[
+     p = gH \Rightarrow p^{-1} = H^{-1}g^{-1} = Hg^{-1} \in H \backslash G \ \ (g^{-1} \in G)
+    \]
+
+    Аналогично построим корректное отображение
+
+    $\beta: \underset{q^{-1} \leftarrow q}{G \slash H \longleftarrow H \backslash G}$
+
+    $\beta \circ \alpha =: id_{G \slash H}, \qquad \alpha \circ \beta = id_{H \backslash G}$
+
+    Существует обратное отображение $\beta, \Rightarrow \alpha$~--- биекция, а значит множества равномощны.  
+\end{proof}
+
+\textbf{Следствие:} выводы для левой группы смежности будут работать и для правой.
+
+\begin{Theorem}{Теорема Лагранжа}{}
+
+    $|G| < \infty, \qquad H < G \Rightarrow$
+    \[ |G| = |H|\cdot (G:H) \]
+\end{Theorem}
+\begin{proof}
+    \[ |G| = \sum_{P \in G \slash H } |P| \]
+    $P = gH$, построим отображение $\eps \st H \longrightarrow gH, h \rightarrow gh$
+
+    $\eps$~--- сюрьективно по определению $gH$. При этом $gh_1 = gh_2 \overset{\text{сокращение в группе}}{\Rightarrow} h_1 = h_2$
+
+    $\Rightarrow \eps$~--- биекция. Тогда $|gH| = |H|$
+
+    \[ |G| = \sum_{P \in G \slash H } |P| = \sum_{P ]in G \slash H} |H| = |H| \cdot |G \slash H| \]
+\end{proof}
+
+\textbf{Следствия:}
+
+\begin{enumerate}
+    \item $H < G$, \ \ $|G| < \infty \Rightarrow |H| | |G|$
+    \item $g \in G, \ \ |G| < \infty \Rightarrow (ord(g) = |<g>| = ord(H) = |H|) | |G|$
+    \item $g \in G, \ \ |G| < \infty \Rightarrow g^{|G|} = e$
+    \item $P \ni p = |G| \Rightarrow G$~--- цикл.
+    \[ g \in G \setminus \{e\}, \qquad ord(g) | |G| \Rightarrow ord(g) | p \]
+    \[ g \not = e \Rightarrow ord(g) \not = 1, ord(g) = P \Rightarrow ord(g) = |G| \Rightarrow\]
+    $G$~--- цикл и порождается каждым своим элементом.
+\end{enumerate}
+
+\begin{Example}{Применение к теории чисел}{}
+    Используем следствие 3:
+
+    $G = (\ZZ \slash n\ZZ)^*$
+
+    $|G| = \vphi(n)$~--- количество обратимых классов
+
+    По следствию: $(\overline{a})^{\vphi(n)} = \overline{1} = e$
+    \[\overline{a^{\vphi(n)}} = \overline{1} \Rightarrow a^{\vphi(n)} = 1 \mod n \qquad (\gcd(a, n) = 1) \]~--- теорема Эйлера.
+\end{Example}
+
+\subsection{Нормальные подгруппы.}
+
+Мотивация:
+
+Получить свойство $(g_1H)\cdot (g_2H) = g_1g_2H$
+
+\[ (g_1H)\cdot (g_2H) = g_1g_2H \]
+\[ g_1(Hg_2)H = g_1g_2H \]
+\[ (Hg_2)H = g_2H \Leftrightarrow Hg_2 = g_2H \]
+
+~--- полезно получить $Hg_2 = g_2H$
+
+\begin{Proposition}{}{}
+
+    $H$~--- подгруппа $G$. Тогда эквивалентны:
+
+    \begin{enumerate}
+        \item $\forall \ \ g \in G, \ \ \forall \ \ h \in H \st gh = h'g$ для некоторого $h' \in H$
+        \item $\forall \ \ g \in G, \ \ \forall h \in  H \st ghg^{-1} \in H$~--- сопряженный к $h$ при помощи $g$ содержится в $H$.
+        \item $\forall g \in G \st Hg = gH$
+        \item $\forall \ \ g \in G, \st gHg^{-1} \subset H$
+        \item $\forall \ \ g \in G, \st gHg^{-1} = H$
+    \end{enumerate}
+\end{Proposition}
+
+\begin{proof}
+    
+    $1 \rightarrow 2$:
+
+    \[ gh = h'g, \ \ h' \in H \Rightarrow ghg^{-1} = h' \in H \]
+    $2 \rightarrow 4$:
+
+    \[ gHg^{-1} = \{ ghg^{-1}, h \in H \} \] (по введеной операции произведения элемента на множество)
+
+    \[ ghg^{-1} \in H \Rightarrow gHg^{-1} \subset H \]
+
+    $4 \rightarrow 5$:
+
+    \[ gHg^{-1} < H; \qquad g' := g^{-1} \Rightarrow g'^{-1}Hg' \subset H \Rightarrow \]
+    \[ H \subset g'Hg'^{-1} \Rightarrow gHg^{-1} = H \]
+
+    $5 \rightarrow 3$:
+
+    \[ gHg^{-1} = H \Rightarrow gHg^{-1}\cdot g = Hg \Rightarrow gH = Hg \]
+
+    $3 \rightarrow 1$:
+
+    \[ gh \in gH = Hg \Rightarrow gh \in Hg \Rightarrow gh = h'g, \qquad h' \in H \]
+
+\end{proof}
+
+\begin{Definition}{Нормальная подгруппа}{}
+    Подгруппу $H < G$ с свойства 1-5 назовем \textbf{нормальной подгруппой}.
+
+    $H \vartriangleleft G$
+\end{Definition}
+
+\begin{Example}{}{}
+    \begin{enumerate}
+        \item $\{e\} \vartriangleleft G \qquad (g\{e\} = \{g\} = \{e\}g)$
+        \item $G \vartriangleleft G$
+        \item Любая подгруппа $G$, если $G$~--- Абелева.
+        \item $A_n$ (знакопеременная группа степени n~--- четные перестановки)
+    \end{enumerate}
+\end{Example}
+
+\begin{Lemma}{}{}
+    $(G:H) = 2 \Rightarrow H \vartriangleleft G$
+\end{Lemma}
+
+\begin{proof}
+
+    $g \in G, \ \ g \in H \Rightarrow gH = H = h'g$
+
+    $g \not \in gH \not = H \underset{\text{классов всего 2}}{\Rightarrow} gH = G \underset{\text{разность}}{\setminus} H = Hg$
+\end{proof}
+
+\begin{Example}{Не нормальная группа}{}
+
+    $G := S_3$ (перестановки из трех элементов)
+
+    $H = <(1, 2)> = \{(1,2),e\}$
+
+    $h = (1, 2), g = (1, 2, 3)$
+
+    $ghg^{-1} = (23) \not \in H \Rightarrow H$~--- не нормальная группа в $G$.
+
+\end{Example}

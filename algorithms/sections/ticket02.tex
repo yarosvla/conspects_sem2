@@ -31,11 +31,11 @@
 \end{Example}
 
 
-% ===========================================================
-% Рис. 1. Пример вычислительной схемы
-% ===========================================================
-\begin{figure}[H]\centering
+\begin{figure}[H]
+	\centering
 	\begin{tikzpicture}[
+		scale=0.86,
+		transform shape,
 		>=Stealth, font=\small,
 		iv/.style={circle,draw,minimum size=7mm,inner sep=1pt},
 		op/.style={circle,draw,minimum size=9mm,inner sep=1pt},
@@ -46,17 +46,24 @@
 		\node[iv] (x2) at (1.8,0) {$x_2$};
 		\node[iv] (x3) at (3.6,0) {$x_3$};
 		\node[iv] (x4) at (5.4,0) {$x_4$};
+		
 		% внутренние вершины
 		\node[op] (plus) at (0.9,-1.8)  {$+$};
 		\node[op] (sub)  at (4.5,-1.8)  {$-$};
 		\node[op] (mul)  at (2.7,-3.6)  {$\times$};
+		
 		% выходная вершина
 		\node[ov] (y) at (2.7,-5.2) {$y$};
+		
 		% рёбра
-		\draw[->] (x1)--(plus); \draw[->] (x2)--(plus);
-		\draw[->] (x3)--(sub);  \draw[->] (x4)--(sub);
-		\draw[->] (plus)--(mul); \draw[->] (sub)--(mul);
+		\draw[->] (x1)--(plus);
+		\draw[->] (x2)--(plus);
+		\draw[->] (x3)--(sub);
+		\draw[->] (x4)--(sub);
+		\draw[->] (plus)--(mul);
+		\draw[->] (sub)--(mul);
 		\draw[->] (mul)--(y);
+		
 		% аннотации
 		\node[font=\scriptsize,gray,above left=1pt] at (x1.north) {$\operatorname{indeg}=0$};
 		\node[font=\scriptsize,gray,below=4pt] at (y.south) {$\operatorname{outdeg}=0$};

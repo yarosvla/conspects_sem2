@@ -313,22 +313,31 @@ BoldItalicFont = cmunbso.otf
 % Обложка
 % -------------------------------------------------
 
-\usepackage{anyfontsize}  
+\usepackage{anyfontsize}
 \usepackage{tikz}
 \usetikzlibrary{calc}
+\usepackage{xcolor}
+\usepackage{ragged2e}
+\usepackage{tabularx}
+\usepackage{array}
 
-\definecolor{AlgosColor}{HTML}{15162B}    %  темно-фиолетово-синий
-\definecolor{AlgebraColor}{HTML}{301010}  % Темный бордовый
-\definecolor{AnalysisColor}{HTML}{102619} % Темная хвоя
-\definecolor{DiscreteColor}{HTML}{231030} % Темный баклажан
+\definecolor{AlgosColor}{HTML}{15162B}
+\definecolor{AlgebraColor}{HTML}{301010}
+\definecolor{AnalysisColor}{HTML}{102619}
+\definecolor{DiscreteColor}{HTML}{231030}
+\definecolor{MetaColor}{HTML}{7E86C9}
+\definecolor{SoftGray}{HTML}{CFCFE6}
 
-\newcommand{\makecover}[5]{%
+% -------------------------------------------------
+% Обложка
+% -------------------------------------------------
+
+\newcommand{\makecover}[4]{%
 	\thispagestyle{empty}
 	
 	\begin{titlepage}
 		\begingroup
 		\sffamily
-		\renewcommand{\arraystretch}{1.4}%
 		
 		\begin{tikzpicture}[remember picture, overlay]
 			\fill[#1] (current page.south west) rectangle (current page.north east);
@@ -348,27 +357,52 @@ BoldItalicFont = cmunbso.otf
 				}
 			\end{scope}
 			
-			\node[anchor=north west, white, inner sep=0pt]
+			% Верхняя строка
+			\node[
+			anchor=north west,
+			white,
+			inner sep=0pt
+			]
 			at ($(current page.north west)+(2cm,-1.5cm)$) {%
-				\fontsize{16}{18}\selectfont\sffamily\bfseries
+				\fontsize{16}{18}\selectfont\bfseries
 				СПбГУ \ $\cdot$ \ МКН \ $\cdot$ \ СП \ $\cdot$ \ 1 КУРС
 			};
 			
-			\node[anchor=west, white, inner sep=0pt, text width=18cm]
+			% Заголовок
+			\node[
+			anchor=west,
+			white,
+			inner sep=0pt,
+			text width=18cm,
+			align=left
+			]
 			at ($(current page.west)+(2cm,5cm)$) {%
 				{\fontsize{52}{58}\fontseries{bx}\selectfont #2\par}
 				\vspace{0.7cm}
 				{\fontsize{30}{36}\selectfont\bfseries #3\par}
 			};
 			
-			\node[anchor=south west, white, inner sep=0pt]
-			at ($(current page.south west)+(2cm,2cm)$) {%
-				\fontsize{20}{24}\selectfont\sffamily\bfseries
-				\begin{tabular}{@{}l}
-					Лектор: #4 \\
-					Составители: #5 \\
-					\fontsize{18}{20}\selectfont Санкт-Петербург, 2026
-				\end{tabular}
+			% Лектор
+			\node[
+			anchor=west,
+			white,
+			inner sep=0pt,
+			text width=10cm,
+			align=left
+			]
+			at ($(current page.west)+(2cm,1.1cm)$) {%
+				{\fontsize{20}{20}\selectfont\bfseries Лектор}
+				{\fontsize{22}{24}\selectfont #4}
+			};
+			
+			% Город и год
+			\node[
+			anchor=south,
+			white,
+			inner sep=0pt
+			]
+			at ($(current page.south)+(0,2cm)$) {%
+				{\fontsize{18}{20}\selectfont Санкт-Петербург, 2026}
 			};
 		\end{tikzpicture}
 		\endgroup
@@ -376,20 +410,135 @@ BoldItalicFont = cmunbso.otf
 	
 	\clearpage
 }
+
+\usepackage{xcolor}
+
+\definecolor{MetaColor}{HTML}{6672B8}
+\definecolor{LineColor}{HTML}{D8D8E6}
+\definecolor{SoftText}{HTML}{7A7A92}
+
+\newcommand{\leadperson}[3]{%
+	\begin{minipage}[t]{0.42\textwidth}
+		\centering
+		\parbox[t][2.7em][t]{0.95\linewidth}{%
+			\centering
+			{\fontsize{10.5}{12.5}\selectfont\color{SoftText} #3\par}
+		}%
+		
+		\vspace{0.08cm}
+		{\fontsize{15.5}{18}\selectfont #1\par}
+		\vspace{0.10cm}
+		{\fontsize{12}{14}\selectfont\color{MetaColor}\href{https://github.com/#2}{@#2}\par}
+	\end{minipage}%
+}
+
+\newcommand{\nameghblock}[2]{%
+	\begin{minipage}[t]{0.30\textwidth}
+		\centering
+		{\fontsize{14.5}{17}\selectfont #1\par}
+		\vspace{0.08cm}
+		{\fontsize{11.5}{13}\selectfont\color{MetaColor}\href{https://github.com/#2}{@#2}\par}
+	\end{minipage}%
+}
+
+\newcommand{\nameonlyblock}[1]{%
+	\begin{minipage}[t]{0.30\textwidth}
+		\centering
+		{\fontsize{14.5}{17}\selectfont #1\par}
+	\end{minipage}%
+}
+
+\newcommand{\makestaffandcontents}{%
+	\clearpage
+	\thispagestyle{empty}
+	\begingroup
+	\sffamily
+	
+	{\centering
+		{\fontsize{22}{26}\selectfont\bfseries Составители\par}
+		\par}
+	
+	\vspace{0.72cm}
+	
+	% Верхние роли
+	\begin{center}
+		\leadperson
+		{Ярослав Власов}
+		{yarosvla}
+		{координация проекта, техническая редакция, вёрстка}
+		\hspace{0.05\textwidth}
+		\leadperson
+		{Никита Бекоев}
+		{vzialvsosh}
+		{проверка и научное редактирование}
+	\end{center}
+	
+	\vspace{0.62cm}
+	
+	\begin{center}
+		\nameghblock{Владимир Кравцов}{tortedCtrl}
+		\hspace{0.05\textwidth}
+		\nameghblock{Александр Поданёв}{alex-pods}
+	\end{center}
+	
+	\vspace{0.28cm}
+	
+	\begin{center}
+		\nameghblock{Даниил Лысый}{DanLyss}
+		\hspace{0.035\textwidth}
+	\nameghblock{Кирилл Пирогов}{NothingToThink}
+		\hspace{0.035\textwidth}
+		\nameghblock{Варвара Сарычева}{Margaritca2008}
+	\end{center}
+	
+	\vspace{0.28cm}
+	
+	\begin{center}
+		\nameghblock{Дмитрий Брит}{pe5ok}
+		\hspace{0.05\textwidth}
+		\nameghblock{Валентина Малтыхян}{robertvlasov}
+	\end{center}
+	
+	\vspace{0.92cm}
+	
+	% Разделитель
+	\noindent{\color{LineColor}\rule{\textwidth}{0.55pt}}
+	
+	\vspace{0.62cm}
+	
+	{\fontsize{13}{16}\selectfont
+		\setcounter{tocdepth}{1}
+		\tableofcontents
+	}
+	
+	\vfill
+	
+	{\centering
+		{\fontsize{11.5}{13}\selectfont\color{SoftText} Санкт-Петербург, 2026\par}
+		\par}
+	
+	\endgroup
+	\clearpage
+}
 \pagestyle{plain}
 
 % -------------------------------------------------
 % Документ
 % -------------------------------------------------
+
 \begin{document}
 	
-	\makecover{AlgosColor}{Математические \\ основы \; алгоритмов}{Конспект лекций}{Косолобов Д. А.}{....}
-	\setcounter{tocdepth}{1}
-	\tableofcontents
+	\makecover
+	{AlgosColor}
+	{Математические \\ основы \; алгоритмов}
+	{Конспект лекций}
+	{Косолобов Д.\,А.}
+	
+	\makestaffandcontents
 	
 	\newpage
 	
-	\part*{Вторая часть курса}
+	\part*{Второй семестр}
 	
 	\ticket{sections/}{ticket01.tex}
 	\ticket{sections/}{ticket02.tex}

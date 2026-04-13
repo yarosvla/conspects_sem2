@@ -45,6 +45,8 @@ BoldItalicFont = cmunbso.otf
  \usepackage{graphicx}
  \usepackage{tikz}
 \usepackage{wrapfig}
+ \usepackage{xcolor}
+  \usepackage{enumitem}
 \setlength{\intextsep}{0.3em} 
 \setlength{\columnsep}{1em}  
 
@@ -108,93 +110,148 @@ BoldItalicFont = cmunbso.otf
 \makeatother
 
 % -------------------------------------------------
-% Пастельные блоки 
+% theorem-like блоки для конспекта
 % -------------------------------------------------
-\usepackage{tcolorbox}
+\usepackage[most]{tcolorbox}
 \tcbuselibrary{breakable,skins,theorems}
+\usepackage{enumitem}
 
+% -----------------------
+% палитра
+% -----------------------
+\definecolor{thmBack}{HTML}{FCF8F9}
+\definecolor{thmFrame}{HTML}{8D4455}
+
+\definecolor{lemBack}{HTML}{FCF8FA}
+\definecolor{lemFrame}{HTML}{B56C89}
+
+\definecolor{stmtBack}{HTML}{F7FAFD}
+\definecolor{stmtFrame}{HTML}{5279A5}
+
+\definecolor{exBack}{HTML}{F7FBF8}
+\definecolor{exFrame}{HTML}{5A8F75}
+
+\definecolor{defBack}{HTML}{FFFDF8}
+\definecolor{defFrame}{HTML}{B68A2E}
+
+\definecolor{propBack}{HTML}{FAF8FE}
+\definecolor{propFrame}{HTML}{7769A8}
+
+\definecolor{remBack}{HTML}{FAFAFA}
+\definecolor{remFrame}{HTML}{7E7E7E}
+
+\definecolor{corBack}{HTML}{FDF8F8}
+\definecolor{corFrame}{HTML}{C48383}
+
+% -----------------------
+% базовый стиль
+% -----------------------
 \tcbset{
-	mybox/.style={
+	conspectbox/.style={
 		enhanced,
 		breakable,
-		boxrule=0.7pt,
-		arc=2.5mm,
-		left=6pt,right=6pt,top=6pt,bottom=6pt,
-		coltitle=white,
+		colback=white,
+		boxrule=0.8pt,
+		arc=2.8mm,
+		outer arc=2.8mm,
+		left=8pt,
+		right=8pt,
+		top=6pt,
+		bottom=6pt,
+		before skip=10pt,
+		after skip=10pt,
 		fonttitle=\bfseries,
+		coltitle=white,
+		attach boxed title to top left={
+			xshift=6pt,
+			yshift*=-\tcboxedtitleheight/2
+		},
+		boxed title style={
+			boxrule=0pt,
+			arc=3mm,
+			outer arc=3mm,
+			left=7pt,
+			right=7pt,
+			top=2.3pt,
+			bottom=2.3pt,
+		},
 	}
 }
-
 % -----------------------
-% пастельная палитра
+% теоремные окружения
 % -----------------------
-
-% Теорема:  бордовый
-\definecolor{thmBack}{HTML}{F7E6EA}
-\definecolor{thmFrame}{HTML}{8E3B4F}
-
-% Лемма:  розовый
-\definecolor{lemBack}{HTML}{FCE8F1}
-\definecolor{lemFrame}{HTML}{C26A8A}
-
-% Утверждение:  синий
-\definecolor{stmtBack}{HTML}{E8F1FF}
-\definecolor{stmtFrame}{HTML}{4E79A7}
-
-% Пример: зелёный
-\definecolor{exBack}{HTML}{E9F6EF}
-\definecolor{exFrame}{HTML}{4C8C72}
-
-% Определение: тёплый песочный
-\definecolor{defBack}{HTML}{FFF4DE}
-\definecolor{defFrame}{HTML}{C89B3C}
-
-% Предложение:  лавандово-серый
-\definecolor{propBack}{HTML}{F1EEFF}
-\definecolor{propFrame}{HTML}{7A6FA6}
-
-% Замечание: серый
-\definecolor{remBack}{HTML}{F0F0F0}
-\definecolor{remFrame}{HTML}{888888}
-
-% -----------------------
-% Теоремные окружения
-% -----------------------
-\newtcbtheorem{Theorem}{Теорема}{
-	mybox,
-	colback=thmBack,
-	colframe=thmFrame
+\newtcbtheorem[auto counter, number within=section]{Theorem}{Теорема}{
+	conspectbox,
+	colback=thmFrame!7!white,
+	colframe=thmFrame,
+	colbacktitle=thmFrame,
+	borderline west={1.1pt}{0pt}{thmFrame}
 }{thm}
 
-\newtcbtheorem{Lemma}{Лемма}{
-	mybox,
-	colback=lemBack, colframe=lemFrame
+\newtcbtheorem[auto counter, number within=section]{Lemma}{Лемма}{
+	conspectbox,
+	colback=lemFrame!7!white,
+	colframe=lemFrame,
+	colbacktitle=lemFrame,
+	borderline west={1.1pt}{0pt}{lemFrame}
 }{lem}
 
-\newtcbtheorem{Proposition}{Предложение}{
-	mybox,
-	colback=propBack, colframe=propFrame,
+\newtcbtheorem[auto counter, number within=section]{Proposition}{Предложение}{
+	conspectbox,
+	colback=propFrame!7!white,
+	colframe=propFrame,
+	colbacktitle=propFrame,
+	borderline west={1.1pt}{0pt}{propFrame}
 }{prop}
 
-\newtcbtheorem{Statement}{Утверждение}{
-	mybox,
-	colback=stmtBack, colframe=stmtFrame
+\newtcbtheorem[auto counter, number within=section]{Statement}{Утверждение}{
+	conspectbox,
+	colback=stmtFrame!7!white,
+	colframe=stmtFrame,
+	colbacktitle=stmtFrame,
+	borderline west={1.1pt}{0pt}{stmtFrame}
 }{stmt}
 
-\newtcbtheorem{Definition}{Определение}{
-	mybox,
-	colback=defBack, colframe=defFrame
+\newtcbtheorem[no counter]{Definition}{Определение}{
+	conspectbox,
+	colback=defFrame!7!white,
+	colframe=defFrame,
+	colbacktitle=defFrame,
+	borderline west={1.1pt}{0pt}{defFrame}
 }{def}
 
-\newtcbtheorem{Example}{Пример}{
-	mybox,
-	colback=exBack, colframe=exFrame
+\newtcbtheorem[no counter]{Example}{Пример}{
+	conspectbox,
+	colback=exFrame!7!white,
+	colframe=exFrame,
+	colbacktitle=exFrame,
+	borderline west={1.1pt}{0pt}{exFrame}
 }{ex}
 
-\newtcbtheorem{Remark}{Замечание}{
-	mybox,
-	colback=remBack, colframe=remFrame
+\newtcbtheorem[no counter]{Remark}{Замечание}{
+	conspectbox,
+	colback=remFrame!7!white,
+	colframe=remFrame,
+	colbacktitle=remFrame,
+	borderline west={1.1pt}{0pt}{remFrame}
 }{rem}
+
+\newtcbtheorem[no counter]{Corollary}{Следствие}{
+	conspectbox,
+	colback=corFrame!7!white,
+	colframe=corFrame,
+	colbacktitle=corFrame,
+	borderline west={1.1pt}{0pt}{corFrame}
+}{cor}
+
+% -----------------------
+% интервалы
+% -----------------------
+\setlength{\abovedisplayskip}{6pt}
+\setlength{\belowdisplayskip}{6pt}
+\setlength{\abovedisplayshortskip}{4pt}
+\setlength{\belowdisplayshortskip}{4pt}
+\setlist[enumerate]{itemsep=3pt, topsep=3pt}
 
 % -------------------------------------------------
 % Импорт секций/билетов
@@ -285,10 +342,27 @@ BoldItalicFont = cmunbso.otf
 \begin{document}
 	
 	\makecover{DiscreteColor}{Конспект  \: лекций \: по Дискретной \: математике}{}{Ненашев Г. В.}{....}
+	\setcounter{tocdepth}{1}
+	\tableofcontents
+	
+	\newpage
 	
 	\part*{Второй семестр}
 	
 	\ticket{sections/}{ticket01.tex}
 	\ticket{sections/}{ticket02.tex}
+	\ticket{sections/}{ticket03.tex}
+	\ticket{sections/}{ticket04.tex}
+	\ticket{sections/}{ticket05.tex}
+	\ticket{sections/}{ticket06.tex}
+	\ticket{sections/}{ticket07.tex}
+	\ticket{sections/}{ticket08.tex}
+	\ticket{sections/}{ticket09.tex}
+	\ticket{sections/}{ticket10.tex}
+	\ticket{sections/}{ticket11.tex}
+	\ticket{sections/}{ticket12.tex}
+	\ticket{sections/}{ticket13.tex}
+	\ticket{sections/}{ticket14.tex}
+	\ticket{sections/}{ticket15.tex}
 	
 \end{document}

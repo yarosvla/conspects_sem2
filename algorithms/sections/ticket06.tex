@@ -1,3 +1,519 @@
 % !TEX root = ../algorithms.tex
 
-\section{TODO}
+\section{Основы линейного программирования}
+
+\newcommand{\exercise}{\par\noindent\textbf{Упражнение.}\par}
+
+\begin{Definition}{Множество допустимых решений}{}
+	Множество
+	\[
+	P = \{x \in \RR^n : Ax \le b\}
+	\]
+	называется \textbf{множеством допустимых решений}.
+	
+	Оно является \textbf{выпуклым}, то есть
+	\[
+	\forall x,y \in P \ \forall \lambda \in (0,1)
+	\quad
+	\lambda x + (1-\lambda)y \in P.
+	\]
+	Это верно, поскольку $P$ есть пересечение полупространств, а каждое полупространство выпукло.
+\end{Definition}
+
+\exercise
+Докажите, что пересечение выпуклых множеств выпукло.
+
+\begin{Definition}{Оптимальное решение}{}
+	Точка
+	\[
+	x^* \in \arg\max_{x \in P} c^T x
+	\]
+	называется \textbf{оптимальным решением} задачи линейного программирования.
+\end{Definition}
+
+\subsection{Ограниченность и вершины}
+
+\begin{Definition}{Ограниченная задача линейного программирования}{}
+	Задача линейного программирования называется \textbf{ограниченной}, если
+	\[
+	P \neq \varnothing
+	\quad \text{и} \quad
+	\exists M \in \RR \ \forall x \in P \colon c^T x \le M.
+	\]
+	Для задачи на минимум аналогично требуется
+	\[
+	\exists M \in \RR \ \forall x \in P \colon c^T x \ge M.
+	\]
+\end{Definition}
+
+\begin{Definition}{Вершина}{}
+	Точка $x \in P$ называется \textbf{вершиной}, если её нельзя представить в виде нетривиальной выпуклой комбинации двух различных точек из $P$, то есть
+	\[
+	\nexists\, y,z \in P,\ y \neq z,\ \nexists\, \lambda \in (0,1)
+	\quad \text{таких, что} \quad
+	x = \lambda y + (1-\lambda)z.
+	\]
+\end{Definition}
+
+Интуитивно, если задача линейного программирования имеет оптимальное решение, то существует оптимальное решение, являющееся вершиной.
+
+\begin{Theorem}{}{}
+	Если задача линейного программирования ограничена, то её оптимум достигается.
+\end{Theorem}
+
+Наивный подход к решению задачи линейного программирования --- перебрать все вершины многогранника $P$ и выбрать среди них точку, в которой целевая функция максимальна. Проблема состоит в том, что число вершин может быть экспоненциальным.
+
+\begin{Example}{}{}
+	У $n$-мерного куба
+	\[
+	0 \le x_i \le 1, \qquad i=1,\dots,n,
+	\]
+	имеется $2n$ неравенств и $2^n$ вершин.
+\end{Example}
+
+\subsection{Лемма Фаркаша}
+
+\begin{Theorem}{Лемма Фаркаша}{}
+	Пусть $A \in \RR^{m \times n}$ и $c \in \RR^n$. Тогда выполняется ровно одно из двух условий:
+	\begin{enumerate}
+		\item $\exists\, y \ge 0 \colon A^T y = c$;
+		\item $\exists\, z \in \RR^n \colon Az \le 0 \ \text{и} \ c^T z > 0$.
+	\end{enumerate}
+\end{Theorem}
+
+\subsection{Геометрическая интерпретация}
+
+Пусть строки матрицы $A$ имеют вид
+\[
+A =
+\begin{pmatrix}
+	a_1^T\\
+	\vdots\\
+	a_m^T
+\end{pmatrix}.
+\]
+Тогда множество $K = \{A^T y : y \ge 0\}$ состоит из всех линейных комбинаций вида
+\[
+y_1 a_1 + \dots + y_m a_m,
+\qquad y_1,\dots,y_m \ge 0.
+\]
+Это \textbf{конус}, натянутый на векторы $a_1,\dots,a_m$.
+
+Первое условие леммы Фаркаша равносильно тому, что $c \in K.$
+
+%% ============================================================
+%% Figure 1: c IN cone  (Case 1)
+%% ============================================================
+\begin{figure}[h]\centering
+\begin{tikzpicture}
+	
+	% Cone fill (2D slice): rays a1 and a2, cone opening to the right
+	\coordinate (O) at (0,0);
+	\coordinate (A1tip) at (2.8, 1.8);
+	\coordinate (A2tip) at (2.8,-0.6);
+	
+	% Filled cone region
+	\fill[conecolor] (O) -- (A1tip) -- (2.8, -0.6) -- (A2tip) -- cycle;
+	
+	% Hatching along boundary rays (minimal)
+	\foreach \t in {0.25, 0.5, 0.75, 1.0} {
+		\draw[axiscolor!40, line width=0.4pt]
+		($(O)!\t!(A1tip)$) -- ++(0.13,-0.18);
+		\draw[axiscolor!40, line width=0.4pt]
+		($(O)!\t!(A2tip)$) -- ++(0.13,0.18);
+	}
+	
+	% Cone boundary rays
+	\draw[coneray] (O) -- (A1tip);
+	\draw[coneray] (O) -- (A2tip);
+	
+	% Vectors a1 and a2
+	\draw[thickvec, color=axiscolor] (O) -- ($(O)!0.78!(A1tip)$)
+	node[right, label] {$a_1$};
+	\draw[thickvec, color=axiscolor] (O) -- ($(O)!0.78!(A2tip)$)
+	node[right, label] {$a_2$};
+	
+	% Vector c (inside cone)
+	\coordinate (Ctip) at (2.4, 0.7);
+	\draw[thickvec, color=cvec] (O) -- (Ctip)
+	node[above right, label, color=cvec] {$c$};
+	
+	% Origin label
+	\node[below left, slabel] at (O) {$O$};
+	\filldraw[axiscolor] (O) circle (1.2pt);
+	
+	% Caption hint
+	\node[below, font=\small, text=axiscolor] at (1.5,-1.1)
+	{$c \in K$};
+	
+\end{tikzpicture}
+\end{figure}
+Если же $c \notin K$, то существует гиперплоскость $\{x \in \RR^n : x^T z = 0\},$
+которая отделяет $c$ от всего конуса $K$. Тогда
+\[
+a_i^T z \le 0 \quad \text{для всех } i=1,\dots,m,
+\]
+то есть $Az \le 0,$ и одновременно $c^T z > 0.$
+
+%% ============================================================
+%% Figure 2: c NOT in cone  (Case 2 — separating hyperplane)
+%% ============================================================
+\begin{figure}[h]\centering
+\begin{tikzpicture}
+	
+	\coordinate (O) at (0,0);
+	\coordinate (A1tip) at (2.5, 1.6);
+	\coordinate (A2tip) at (2.5,-0.4);
+	
+	% Filled cone
+	\fill[conecolor] (O) -- (A1tip) -- (A2tip) -- cycle;
+	
+	% Hatching
+	\foreach \t in {0.25,0.5,0.75,1.0} {
+		\draw[axiscolor!40, line width=0.4pt]
+		($(O)!\t!(A1tip)$) -- ++(0.12,-0.17);
+		\draw[axiscolor!40, line width=0.4pt]
+		($(O)!\t!(A2tip)$) -- ++(0.12,0.17);
+	}
+	
+	% Cone rays
+	\draw[coneray] (O) -- (A1tip);
+	\draw[coneray] (O) -- (A2tip);
+	
+	% Vectors a1, a2
+	\draw[thickvec, color=axiscolor] (O) -- ($(O)!0.78!(A1tip)$)
+	node[right, label] {$a_1$};
+	\draw[thickvec, color=axiscolor] (O) -- ($(O)!0.78!(A2tip)$)
+	node[right, label] {$a_2$};
+	
+	% c outside cone (upper left)
+	\coordinate (Ctip) at (-0.4, 2.1);
+	\draw[thickvec, color=cvec] (O) -- (Ctip)
+	node[above, label, color=cvec] {$c$};
+	
+	% Separating hyperplane through O, orthogonal to z
+	% z direction is roughly towards upper-right separating c from cone
+	% hyperplane line: perpendicular to z = (roughly) direction bisecting between -c and cone
+	% Let's draw a line through O at ~25deg to horizontal
+	\draw[hypplane, line width=1pt]
+	(-0.3, -1.3) -- (2.0, 1.8)
+	node[right, slabel, color=axiscolor!80] {$\{x:\, x^Tz=0\}$};
+	
+	% z vector (normal to plane)
+	\coordinate (Ztip) at (-1.1, 0.8);
+	\draw[thickvec, color=zvec] (O) -- (Ztip)
+	node[left, label, color=zvec] {$z$};
+	
+	\node[below left, slabel] at (O) {$O$};
+	\filldraw[axiscolor] (O) circle (1.2pt);
+	
+	\node[below, font=\small, text=axiscolor] at (1.2,-1.0)
+	{$c \notin K$};
+	
+\end{tikzpicture}
+\end{figure}
+
+\subsection{Доказательство леммы Фаркаша}
+
+\begin{proof}
+	Условия $(1)$ и $(2)$ не могут выполняться одновременно. Действительно, если
+	\[
+	A^T y = c, \qquad y \ge 0, \text{ и } Az \le 0,
+	\]
+	то
+	\[
+	c^T z = (A^T y)^T z = y^T Az \le 0,
+	\]
+	что противоречит условию $c^T z > 0$.
+	
+	Осталось доказать, что если $(1)$ не выполнено, то выполнено $(2)$.
+	
+	Рассмотрим конус $K = \{A^T y : y \ge 0\}.$
+	
+	Если $(1)$ не выполнено, то $c \notin K$.
+	
+	Выберем точку $\delta \in K$, ближайшую к $c$, то есть $|c-\delta| = \inf_{u \in K} |c-u|.$
+	
+	%% ============================================================
+	%% Figure 3: Proof — nearest point delta, z = c - delta
+	%% ============================================================
+\begin{figure}[h]\centering
+	\begin{tikzpicture}
+		
+		\coordinate (O) at (0,0);
+		\coordinate (A1tip) at (3.2, 1.4);
+		\coordinate (A2tip) at (3.2,-0.7);
+		
+		% Cone fill
+		\fill[conecolor] (O) -- (A1tip) -- (A2tip) -- cycle;
+		\foreach \t in {0.3,0.6,0.9} {
+			\draw[axiscolor!35, line width=0.4pt]
+			($(O)!\t!(A1tip)$) -- ++(0.12,-0.17);
+			\draw[axiscolor!35, line width=0.4pt]
+			($(O)!\t!(A2tip)$) -- ++(0.12,0.17);
+		}
+		\draw[coneray] (O) -- (A1tip)
+		node[right, label] {$a_1$};
+		\draw[coneray] (O) -- (A2tip)
+		node[right, label] {$a_2$};
+		
+		% c (outside cone, above)
+		\coordinate (C) at (0.5, 2.8);
+		\draw[thickvec, color=cvec] (O) -- (C)
+		node[above, label, color=cvec] {$c$};
+		
+		% delta (nearest point on cone boundary)
+		\coordinate (D) at (1.55, 0.68);   % on ray a1 direction
+		\draw[thickvec, color=dvec] (O) -- (D)
+		node[right, slabel, color=dvec] {$\delta$};
+		\filldraw[dvec] (D) circle (1.8pt);
+		
+		% z = c - delta
+		\draw[thickvec, color=zvec, line width=0.9pt] (D) -- (C)
+		node[midway, right, slabel, color=zvec] {$z = c-\delta$};
+		
+		% right angle marker at delta (z perp to cone boundary)
+		\coordinate (Dbnd) at ($(O)!1.1!(D)$);  % point along cone ray past delta
+		% direction along cone ray: a1 direction normalized ≈ (0.914, 0.406)
+		% z direction ≈ C - D = (0.5-1.55, 2.8-0.68) = (-1.05, 2.12), norm ≈ 2.37
+		% small right-angle box
+		\def\sq{0.14}
+		\coordinate (sq1) at ($(D) + 0.14*(0.914,0.406)$);
+		\coordinate (sq2) at ($(D) + 0.14*(0.914,0.406) + 0.14*(-0.443,1.0)$);
+		\coordinate (sq3) at ($(D) + 0.14*(-0.443,1.0)$);
+		\draw[axiscolor!60, line width=0.5pt] (sq1) -- (sq2) -- (sq3);
+		
+		\node[below left, slabel] at (O) {$O$};
+		\filldraw[axiscolor] (O) circle (1.2pt);
+		
+		\node[below, font=\small, text=axiscolor] at (1.8,-0.9)
+		{$\delta^T z = 0,\quad c^T z > 0$};
+		
+	\end{tikzpicture}
+\end{figure}
+
+	Существование такой точки получается стандартным предельным переходом: берём последовательность $\delta_k \in K$ такую, что $|c-\delta_k| \le \inf_{u \in K} |c-u| + \frac1k,$ затем выделяем сходящуюся подпоследовательность и используем замкнутость $K$.
+	
+	Положим $z = c - \delta.$
+	
+	Тогда в двумерном подпространстве $L = \Lin(c,\delta)$ из элементарной геометрии следует, что вектор $z$ ортогонален опорной прямой к конусу $K \cap L$ в точке $\delta$. Отсюда получаем $\delta^T z = 0 \quad \text{и} \quad c^T z > 0.$
+	
+	Докажем теперь, что $Az \le 0$, то есть $a_i^T z \le 0 \qquad \forall i=1,\dots,m.$
+	
+	Предположим противное: пусть для некоторого $k$ $a_k^T z > 0.$
+
+	Так как $\delta \in K$ и $a_k \in K$, а $K$ выпукло, весь отрезок
+	\[
+	[a_k,\delta] = \{\lambda a_k + (1-\lambda)\delta : \lambda \in [0,1]\}
+	\]
+	лежит в $K$.
+	
+	Кроме того, $\delta^T z = 0, \qquad a_k^T z > 0,$ поэтому точки отрезка $[a_k,\delta)$ лежат по положительную сторону гиперплоскости $\{x : x^T z = 0\}.$
+	Из геометрии в трёхмерном подпространстве $\Lin(c,\delta,a_k) \cong \RR^3$
+	следует, что тогда на отрезке $[a_k,\delta]$ найдётся точка $\delta' \in K$, для которой $|c-\delta'| < |c-\delta|,$ что противоречит выбору $\delta$ как ближайшей точки.
+	
+	%% ============================================================
+	%% Figure 4: Contradiction — segment [a_k, delta], hyperplane x^T z=0
+	%% ============================================================
+\begin{figure}[h]\centering
+	\begin{tikzpicture}
+		
+		\coordinate (O) at (0,0);
+		
+		% delta
+		\coordinate (D) at (1.0, 0.9);
+		% a_k (another ray of cone, on different side of hyperplane)
+		\coordinate (AK) at (2.8, 0.2);
+		% c
+		\coordinate (C) at (-0.2, 2.6);
+		% z direction (C - D)
+		% delta' on segment [a_k, delta] closer to c
+		\coordinate (Dp) at ($(D)!0.45!(AK)$);
+		
+		% Separating hyperplane: {x : x^T z = 0}
+		% z ≈ C - D = (-1.2, 1.7), plane through O perpendicular to z
+		% plane direction: (1.7, 1.2) normalized → draw line
+		\draw[hypplane, line width=1pt]
+		(-0.5,-1.0) -- (3.2, 1.65)
+		node[right, slabel, color=axiscolor!75] {$x^T z = 0$};
+		
+		% Cone rays (schematic, just two)
+		\draw[axiscolor!60] (O) -- (2.4,2.0)
+		node[above right, slabel] {$a_1$};
+		\draw[axiscolor!60] (O) -- (3.0, 0.1);
+		
+		% Segment [a_k, delta] in cone
+		\draw[akcolor, line width=1.2pt] (AK) -- (D);
+		\filldraw[axiscolor] (AK) circle (1.8pt);
+		\filldraw[axiscolor] (D) circle (1.8pt);
+		
+		% Labels a_k and delta
+		\node[below right, slabel] at (AK) {$a_k$};
+		\node[above left, slabel, color=dvec] at (D) {$\delta$};
+		
+		% delta' (point on segment closer to c)
+		\filldraw[dvec!70] (Dp) circle (2pt);
+		\node[below, slabel, color=dvec!70] at (Dp) {$\delta'$};
+		
+		% c vector
+		\draw[thickvec, color=cvec] (O) -- (C)
+		node[above, label, color=cvec] {$c$};
+		
+		% distance lines: |c - delta| and |c - delta'|
+		\draw[cvec!60, dashed, line width=0.5pt] (C) -- (D)
+		node[midway, left, slabel, color=cvec!80] {$|c-\delta|$};
+		\draw[dvec!60, dashed, line width=0.5pt] (C) -- (Dp)
+		node[midway, right, slabel, color=dvec!70] {$|c-\delta'|$};
+		
+		% z vector
+		\draw[thickvec, color=zvec, line width=0.8pt] (D) -- ($(D)!0.55!(C)$)
+		node[right, slabel, color=zvec] {$z$};
+		
+		\node[below left, slabel] at (O) {$O$};
+		\filldraw[axiscolor] (O) circle (1.2pt);
+		
+		\node[below, font=\small, text=akcolor] at (1.8,-0.9)
+		{$|c-\delta'| < |c-\delta|$ — противоречие};
+		
+	\end{tikzpicture}
+\end{figure}
+	Следовательно, $a_i^T z \le 0 \quad \forall i,$
+	то есть $Az \le 0.$
+	
+	Вместе с $c^T z > 0$ это и даёт $(2)$.
+\end{proof}
+
+\exercise
+Аккуратно обоснуйте последний геометрический шаг: почему из условия $a_k^T z > 0$ следует существование точки $\delta' \in [a_k,\delta]$ с
+\[
+|c-\delta'| < |c-\delta|.
+\]
+
+\subsection{Теорема двойственности}
+
+Для $A \in \RR^{m \times n}$, $b \in \RR^m$, $c \in \RR^n$ рассмотрим прямую и двойственную задачи линейного программирования:
+\[
+\begin{array}{c|c}
+	\text{Прямая задача} & \text{Двойственная задача} \\ \hline
+	\max c^T x & \min b^T y \\
+	Ax \le b & A^T y = c \\
+	& y \ge 0
+\end{array}
+\]
+
+\begin{Theorem}{Основная теорема линейного программирования}{}
+	Если одна из задач имеет оптимальное решение, то и другая имеет оптимальное решение, причём
+	\[
+	c^T x^* = b^T y^*,
+	\]
+	где $x^*$ и $y^*$ --- оптимальные решения прямой и двойственной задач соответственно.
+\end{Theorem}
+
+\begin{Corollary}{}{}
+	Если целевая функция одной из задач не ограничена, то другая задача не имеет допустимых решений.
+\end{Corollary}
+
+\subsubsection*{Доказательство сильной двойственности}
+
+\textbf{1. Слабая двойственность}
+
+Пусть $x$ и $y$ --- допустимые решения прямой и двойственной задач. Тогда
+\[
+c^T x = (A^T y)^T x = y^T (Ax) \le y^T b = b^T y.
+\]
+Следовательно, $c^T x \le b^T y$ для любых допустимых $x$ и $y$.
+
+Это и есть \textbf{слабая теорема двойственности}.
+
+\medskip
+
+Пусть $x^*$ --- оптимальное решение прямой задачи $\max c^T x \quad \text{при } Ax \le b.$
+
+Перестановкой строк системы ограничений добьёмся того, что
+\[
+A =
+\begin{pmatrix}
+	A'\\
+	A''
+\end{pmatrix},
+\qquad
+b =
+\begin{pmatrix}
+	b'\\
+	b''
+\end{pmatrix},
+\]
+где $A'x^* = b', \qquad A''x^* < b''.$
+
+То есть в блок $A'x \le b'$ вошли активные ограничения, а в блок $A''x \le b''$ --- неактивные.
+
+Покажем, что $\nexists\, z \in \RR^n \colon A'z \le 0 \ \text{и} \ c^T z > 0.$
+
+В самом деле, если бы такой $z$ существовал, то для достаточно малого $\varepsilon > 0$ точка $x^{**} = x^* + \varepsilon z$ удовлетворяла бы $A'x^{**} = A'x^* + \varepsilon A'z \le b',$ а из строгого неравенства $A''x^* < b''$ следовало бы, что при достаточно малом $\varepsilon$
+\[
+A''x^{**} \le b''.
+\]
+Значит, $Ax^{**} \le b,$ то есть $x^{**}$ допустима. Но при этом $c^T x^{**} = c^T x^* + \varepsilon c^T z > c^T x^*,$ что противоречит оптимальности $x^*$.
+
+Значит, для матрицы $A'$ второе условие леммы Фаркаша не выполнено. По лемме Фаркаша тогда выполнено первое:
+\[
+\exists\, y' \ge 0 \colon (A')^T y' = c.
+\]
+Теперь положим
+\[
+y =
+\begin{pmatrix}
+	y'\\
+	0
+\end{pmatrix}.
+\]
+Тогда $y \ge 0 \quad \text{и} \quad A^T y = (A')^T y' + (A'')^T 0 = c,$ то есть $y$ --- допустимое решение двойственной задачи.
+
+Проверим значения целевых функций:
+\[
+b^T y = (b')^T y' = (A'x^*)^T y' = (x^*)^T (A')^T y' = (x^*)^T c = c^T x^*.
+\]
+Итак, найдено допустимое $y$, для которого $b^T y = c^T x^*.$
+По слабой двойственности это означает, что $y$ оптимально в двойственной задаче, а $x^*$ --- в прямой.
+
+\textbf{2. Симметричность двойственности}
+
+Осталось доказать, что если \emph{двойственная} задача имеет оптимальное решение, то и прямая задача тоже имеет оптимальное решение.
+
+Преобразуем двойственную задачу к тому же виду, что и прямая:
+\[
+\min b^T y
+\quad \Longleftrightarrow \quad
+\max (-b^T y),
+\]
+а ограничения $A^T y = c, \qquad y \ge 0$ перепишем в виде системы неравенств:
+\[
+\begin{cases}
+	A^T y \le c,\\
+	- A^T y \le -c,\\
+	- y \le 0.
+\end{cases}
+\]
+Итак, двойственная задача эквивалентна задаче
+\[
+\max (-b^T y)
+\quad \text{при} \quad
+\begin{cases}
+	A^T y \le c,\\
+	- A^T y \le -c,\\
+	- y \le 0.
+\end{cases}
+\]
+
+Двойственная к этой задаче в точности эквивалентна исходной прямой задаче
+\[
+\max c^T x
+\quad \text{при} \quad
+Ax \le b.
+\]
+Следовательно, если у двойственной задачи есть оптимальное решение, то применяя уже доказанную часть теоремы к её двойственной, получаем существование оптимального решения и у исходной прямой задачи.
+
+\exercise
+Докажите эквивалентность последней конструкции самостоятельно.
+
+Следовательно, к двойственной задаче можно применить ту же конструкцию, что и выше для прямой задачи: из оптимального решения двойственной задачи строится допустимое решение задачи, двойственной к ней, то есть прямой. Тем самым получаем оптимальное решение прямой задачи. 

@@ -1,3 +1,393 @@
 % !TEX root = ../discretemath.tex
 
-\section{TODO}
+\section{Случайные величины, распределения и математическое ожидание}
+
+\subsection{Случайная величина}
+
+\begin{Definition}{}{}
+	Пусть $\Omega$ — вероятностное пространство. Функция
+	\[
+	\xi \colon \Omega \to \mathbb{R}
+	\]
+	называется \textbf{случайной величиной} (с.в.).
+\end{Definition}
+
+Вероятностное пространство $\Omega$ разбивается на слои по значениям с.в.:
+\[
+\Omega = \bigsqcup_{x \in \mathbb{R}} A_x, \qquad A_x = \{\omega \in \Omega : \xi(\omega) = x\}.
+\]
+Вероятность того, что с.в.\ $\xi$ принимает значение $x$, определяется как
+\[
+\Pr[\xi = x] := \Pr[A_x].
+\]
+
+\subsection{Примеры случайных величин}
+
+\begin{Example}{Минимальное выпавшее число при трёх бросках кубика}{}
+	Бросаем кубик $3$ раза. Пусть $\xi$ — минимальное из трёх выпавших чисел. Найдём $\Pr[\xi = 3]$:
+	\begin{align*}
+		\Pr[\xi = 3] &= \Pr[\xi \geq 3] - \Pr[\xi \geq 4] \\
+		&= \left(\frac{4}{6}\right)^3 - \left(\frac{3}{6}\right)^3
+		= \frac{64 - 27}{216} = \frac{37}{216}.
+	\end{align*}
+\end{Example}
+
+\begin{Example}{Количество единиц при трёх бросках кубика}{}
+	Пусть $\beta$ — количество выпавших единиц при трёх бросках кубика. Найдём $\Pr[\beta = 2]$:
+	\[
+	\Pr[\beta = 2] = \binom{3}{2} \cdot \left(\frac{1}{6}\right)^2 \cdot \frac{5}{6} = \frac{5}{72}.
+	\]
+\end{Example}
+
+\begin{Example}{Индикаторная случайная величина}{}
+	Пусть $A \subseteq \Omega$. \textbf{Индикатор} множества $A$ — это с.в.\ $\delta \colon \Omega \to \{0,1\}$, заданная формулой
+	\[
+	\delta(\omega) = \begin{cases} 0, & \omega \notin A, \\ 1, & \omega \in A. \end{cases}
+	\]
+\end{Example}
+
+\subsection{Независимость случайных величин}
+
+\begin{Definition}{}{}
+	Пусть $\xi$ и $\beta$ — с.в.\ на вероятностном пространстве $\Omega$. Говорят, что $\xi$ и $\beta$ \textbf{независимы}, если для любых $a, b \in \mathbb{R}$ события $[\xi = a]$ и $[\beta = b]$ независимы, то есть
+	\[
+	\Pr[\xi = a \text{ и } \beta = b] = \Pr[\xi = a] \cdot \Pr[\beta = b].
+	\]
+\end{Definition}
+
+\begin{Definition}{}{}
+	Случайные величины $\xi_1, \ldots, \xi_n$ называются \textbf{независимыми в совокупности}, если для любых $a_1, \ldots, a_n \in \mathbb{R}$
+	\[
+	\Pr[\xi_1 = a_1,\; \ldots,\; \xi_n = a_n] = \prod_{i=1}^{n} \Pr[\xi_i = a_i].
+	\]
+	% не удалось уверенно распознать полную формулировку с доски — восстановлено по стандартному определению
+\end{Definition}
+
+\begin{Statement}{}{}
+	Пусть $A, B \subseteq \Omega$ и события $A$, $B$ независимы. Тогда индикаторы $\chi_A$ и $\chi_B$ являются независимыми случайными величинами.
+	
+	Здесь
+	\[
+	\chi_A(\omega) = \begin{cases} 0, & \omega \notin A, \\ 1, & \omega \in A. \end{cases}
+	\]
+\end{Statement}
+
+\subsection{Плотность и функция распределения}
+
+\begin{Definition}{}{}
+	\textbf{Плотностью} (функцией вероятностей) случайной величины $\xi \colon \Omega \to \mathbb{R}$ называется функция $d_\xi \colon \mathbb{R} \to [0,1]$, заданная формулой
+	\[
+	d_\xi(x) = \Pr[\xi = x].
+	\]
+\end{Definition}
+
+\begin{Definition}{}{}
+	\textbf{Функцией распределения} случайной величины $\xi$ называется функция $F_\xi \colon \mathbb{R} \to [0,1]$:
+	\[
+	F_\xi(x) = \sum_{y \leq x} \Pr[\xi = y] = \Pr[\xi \leq x].
+	\]
+\end{Definition}
+
+\subsection{Примеры распределений}
+
+\subsubsection*{Распределение Бернулли}
+
+Монета принимает значение $0$ с вероятностью $p$ и значение $1$ с вероятностью $1-p$.
+
+\begin{Example}{Распределение Бернулли}{}
+	Плотность:
+	\[
+	d(0) = p, \qquad d(1) = 1 - p.
+	\]
+	Функция распределения:
+	\[
+	F(x) = \begin{cases}
+		0, & x < 0, \\
+		p, & 0 \leq x < 1, \\
+		1, & 1 \leq x.
+	\end{cases}
+	\]
+\end{Example}
+
+\subsubsection*{Биномиальное распределение}
+
+\begin{Example}{Биномиальное распределение $\mathrm{Bin}(n,p)$}{}
+	Проводится $n$ независимых испытаний, в каждом из которых «успех» наступает с вероятностью $p$. Пусть $\xi$ — число успехов. Тогда
+	\[
+	d(k) = \binom{n}{k} p^k (1-p)^{n-k}, \qquad k = 0, 1, \ldots, n.
+	\]
+\end{Example}
+
+\subsection{Математическое ожидание}
+
+\begin{Definition}{}{}
+	\textbf{Математическим ожиданием} случайной величины $\xi$ называется
+	\[
+	\mathbb{E}[\xi] := \sum_{x \in \mathbb{R}} \Pr[\xi = x] \cdot x = \sum_{\omega \in \Omega} \Pr[\omega] \cdot \xi(\omega).
+	\]
+\end{Definition}
+
+\begin{Statement}{}{}
+	Если $c \in \mathbb{R}$ — константа, то
+	\[
+	\mathbb{E}[c \cdot \xi] = c \cdot \mathbb{E}[\xi].
+	\]
+\end{Statement}
+
+\begin{Statement}{Линейность математического ожидания}{}
+	Для любых с.в.\ $\xi_1, \ldots, \xi_n$:
+	\[
+	\mathbb{E}[\xi_1 + \cdots + \xi_n] = \mathbb{E}[\xi_1] + \cdots + \mathbb{E}[\xi_n].
+	\]
+\end{Statement}
+
+\begin{Theorem}{Формула полного математического ожидания}{}
+	Пусть $\Omega = A_1 \sqcup \cdots \sqcup A_n$ — разбиение вероятностного пространства. Тогда
+	\[
+	\mathbb{E}[\xi] = \sum_{i} \mathbb{E}[\xi \mid A_i] \cdot \Pr[A_i].
+	\]
+\end{Theorem}
+
+\begin{proof}
+	\begin{align*}
+		\mathbb{E}[\xi]
+		&= \sum_{x \in \mathbb{R}} x \cdot \Pr[\xi = x] \\
+		&= \sum_{x} x \cdot \sum_{i=1}^{n} \Pr[\xi = x \mid A_i] \cdot \Pr[A_i] \\
+		&= \sum_{i=1}^{n} \left( \sum_{x} \Pr[\xi = x \mid A_i] \cdot x \right) \Pr[A_i] \\
+		&= \sum_{i=1}^{n} \mathbb{E}[\xi \mid A_i] \cdot \Pr[A_i].
+	\end{align*}
+\end{proof}
+
+\subsection{Математическое ожидание геометрического распределения}
+
+Монета выдаёт $1$ с вероятностью $p$ и $0$ с вероятностью $1-p$. Бросаем монету до первого выпадения $1$.
+
+\begin{Example}{Геометрическое распределение}{}
+	Пространство элементарных исходов: $\Omega = \mathbb{N} \cup \{+\infty\}$, где исходами являются конечные последовательности вида $0\ldots01$ (и бесконечная последовательность $000\ldots$ в случае $p = 0$).
+	
+	Пусть $\xi$ — номер броска, на котором впервые выпала $1$. При $p > 0$:
+	\[
+	\Pr[\xi = k] = (1-p)^{k-1} \cdot p, \qquad k = 1, 2, 3, \ldots
+	\]
+	
+	\begin{Remark}{}{}
+		Проверка нормировки:
+		\[
+		\sum_{k=1}^{\infty} (1-p)^{k-1} \cdot p = 1.
+		\]
+	\end{Remark}
+\end{Example}
+
+Вычислим $\mathbb{E}[\xi]$ для геометрического распределения с параметром $p$:
+\begin{align*}
+	\mathbb{E}[\xi]
+	&= \sum_{k \in \mathbb{N}} k \cdot (1-p)^{k-1} p \\
+	&= p\bigl(1 + (1-p) + (1-p)^2 + \cdots\bigr)
+	+ \sum_{k \geq 2} (k-1)(1-p)^{k-1} p \\
+	&= 1 + (1-p) \sum_{k \geq 2} (k-1)(1-p)^{k-2} p \\
+	&= 1 + (1-p)\,\mathbb{E}[\xi].
+\end{align*}
+Из уравнения $\mathbb{E}[\xi] = 1 + (1-p)\,\mathbb{E}[\xi]$ получаем:
+\[
+\mathbb{E}[\xi] = \frac{1}{p}.
+\]
+
+\subsection{Распределение Пуассона}
+
+\begin{Definition}{}{}
+	Говорят, что с.в.\ $\xi$ имеет \textbf{распределение Пуассона} с параметром $\lambda > 0$, если
+	\[
+	\Pr[\xi = k] := \frac{\lambda^k}{k!}\,e^{-\lambda}, \qquad k = 0, 1, 2, \ldots
+	\]
+\end{Definition}
+
+\subsubsection*{Связь с биномиальным распределением}
+
+Рассмотрим биномиальное распределение с параметрами $n$ и $p = \tfrac{\lambda}{n}$, и устремим $n \to +\infty$. Тогда:
+\begin{align*}
+	\Pr[\xi = k]
+	&= \binom{n}{k} p^k (1-p)^{n-k} \\
+	&= \frac{n(n-1)\cdots(n-k+1)}{k!} \cdot \frac{\lambda^k}{n^k}
+	\cdot \left(1 - \frac{\lambda}{n}\right)^n \cdot \frac{1}{\left(1 - \tfrac{\lambda}{n}\right)^k}.
+\end{align*}
+
+При $n \to +\infty$ три выделенных множителя ведут себя так:
+\[
+\frac{n(n-1)\cdots(n-k+1)}{n^k} \;\to\; 1,
+\qquad
+\left(1 - \frac{\lambda}{n}\right)^n \;\to\; e^{-\lambda},
+\qquad
+\frac{1}{\left(1 - \tfrac{\lambda}{n}\right)^k} \;\to\; 1.
+\]
+Таким образом, в пределе получаем распределение Пуассона $\dfrac{\lambda^k}{k!}e^{-\lambda}$.
+
+\subsubsection*{Математическое ожидание распределения Пуассона}
+
+\begin{Statement}{}{}
+	Если $\xi$ имеет распределение Пуассона с параметром $\lambda$, то $\mathbb{E}[\xi] = \lambda$.
+\end{Statement}
+
+\begin{proof}
+\begin{align*}
+	\mathbb{E}[\xi]
+	&= \sum_{k \geq 0} k \cdot \frac{\lambda^k}{k!}\,e^{-\lambda}
+	= \sum_{k \geq 1} k \cdot \frac{\lambda^k}{k!}\,e^{-\lambda}
+	= \sum_{k \geq 1} \frac{\lambda^k}{(k-1)!}\,e^{-\lambda} \\
+	&= \lambda \sum_{i \geq 0} \frac{\lambda^i}{i!}\,e^{-\lambda}
+	= \lambda. 
+\end{align*}
+\end{proof}
+
+\subsection{Дисперсия}
+
+\begin{Statement}{}{}
+	Для любой с.в.\ $\xi$ и любого $x \in \mathbb{R}$:
+	\[
+	\mathbb{E}\bigl[(\xi - x)^2\bigr] \;\geq\; \mathbb{E}\bigl[(\xi - \mathbb{E}[\xi])^2\bigr].
+	\]
+\end{Statement}
+
+\begin{proof}
+Запишем:
+\begin{align*}
+	\mathbb{E}\bigl[(\xi - x)^2\bigr]
+	&= \mathbb{E}\bigl[\bigl((\xi - \mathbb{E}[\xi]) + (\mathbb{E}[\xi] - x)\bigr)^2\bigr] \\
+	&= \mathbb{E}\bigl[(\xi - \mathbb{E}[\xi])^2\bigr]
+	+ \mathbb{E}\bigl[(\mathbb{E}[\xi] - x)^2\bigr]
+	+ 2\,\mathbb{E}\bigl[(\xi - \mathbb{E}[\xi])(\mathbb{E}[\xi] - x)\bigr].
+\end{align*}
+Второй член неотрицателен. Третий член равен нулю, так как $(\mathbb{E}[\xi] - x)$ — константа и
+\[
+\mathbb{E}[\xi - \mathbb{E}[\xi]] = \mathbb{E}[\xi] - \mathbb{E}[\xi] = 0.
+\]
+\end{proof}
+\begin{Definition}{}{}
+	\textbf{Дисперсией} случайной величины $\xi$ называется
+	\[
+	\mathbb{D}[\xi] := \mathbb{E}\bigl[(\xi - \mathbb{E}[\xi])^2\bigr].
+	\]
+	\textbf{Стандартным отклонением} называется $\sigma[\xi] := \sqrt{\mathbb{D}[\xi]}$.
+\end{Definition}
+
+\begin{Statement}{}{}
+	Пусть $c \in \mathbb{R}$ — константа, $\xi$ — с.в. Тогда
+	\[
+	\mathbb{D}[c \cdot \xi] = c^2 \cdot \mathbb{D}[\xi].
+	\]
+\end{Statement}
+
+\begin{Theorem}{Аддитивность дисперсии}{}
+	Если $\xi_1, \xi_2, \ldots, \xi_n$ — \textbf{попарно независимые} с.в., то
+	\[
+	\mathbb{D}[\xi_1 + \cdots + \xi_n] = \sum_{i=1}^{n} \mathbb{D}[\xi_i].
+	\]
+\end{Theorem}
+
+\begin{proof}
+	Обозначим $S = \xi_1 + \cdots + \xi_n$. Тогда:
+	\begin{align*}
+		\mathbb{D}[S]
+		&= \mathbb{E}\!\left[\bigl(S - \mathbb{E}[S]\bigr)^2\right]
+		= \mathbb{E}\!\left[\left(\sum_i (\xi_i - \mathbb{E}[\xi_i])\right)^2\right] \\
+		&= \sum_i \mathbb{E}\!\left[(\xi_i - \mathbb{E}[\xi_i])^2\right]
+		+ \sum_{i < k} 2\,\mathbb{E}\!\left[(\xi_i - \mathbb{E}[\xi_i])(\xi_k - \mathbb{E}[\xi_k])\right] \\
+		&= \sum_i \mathbb{D}[\xi_i]
+		+ 2\sum_{i < k} \mathbb{E}\!\left[(\xi_i - \mathbb{E}[\xi_i])(\xi_k - \mathbb{E}[\xi_k])\right].
+	\end{align*}
+	При попарной независимости $\xi_i$ и $\xi_k$ перекрёстные слагаемые равны нулю (см.\ замечание ниже), и поэтому $\mathbb{D}[S] = \sum_i \mathbb{D}[\xi_i]$.
+\end{proof}
+
+\begin{Remark}{}{}
+	Если с.в.\ $\alpha$ и $\beta$ \textbf{независимы}, то
+	\[
+	\mathbb{E}[\alpha \cdot \beta] = \mathbb{E}[\alpha] \cdot \mathbb{E}[\beta].
+	\]
+	Это означает, что для попарно независимых $\xi_i$, $\xi_k$ перекрёстные слагаемые в доказательстве выше обращаются в нуль:
+	\[
+	\mathbb{E}\bigl[(\xi_i - \mathbb{E}[\xi_i])(\xi_k - \mathbb{E}[\xi_k])\bigr] = 0.
+	\]
+\end{Remark}
+
+\subsection{Неравенство Маркова}
+
+\begin{Theorem}{Неравенство Маркова}{}
+	Пусть $\xi$ — неотрицательная с.в. Тогда для любого $c > 0$:
+	\[
+	\Pr[\xi \geq c] \;\leq\; \frac{\mathbb{E}[\xi]}{c}.
+	\]
+\end{Theorem}
+
+\begin{proof}
+	\begin{align*}
+		\mathbb{E}[\xi]
+		&= \sum_{x \in \mathbb{R}} x \cdot \Pr[\xi = x] \\
+		&\geq \sum_{x \geq c} x \cdot \Pr[\xi = x] \\
+		&\geq c \cdot \sum_{x \geq c} \Pr[\xi = x]
+		= c \cdot \Pr[\xi \geq c].
+	\end{align*}
+\end{proof}
+
+\subsection{Неравенство Чебышёва}
+
+\begin{Theorem}{Неравенство Чебышёва}{}
+	Для любой с.в.\ $\xi$ и любого $c > 0$:
+	\[
+	\Pr\bigl[|\xi - \mathbb{E}[\xi]| \geq c\bigr] \;\leq\; \frac{\mathbb{D}[\xi]}{c^2}.
+	\]
+\end{Theorem}
+
+	\begin{proof}
+	Введём вспомогательную с.в.\ $\beta = (\xi - \mathbb{E}[\xi])^2$. Заметим, что $\beta \geq 0$, и:
+	\begin{align*}
+		\Pr\bigl[|\xi - \mathbb{E}[\xi]| \geq c\bigr]
+		&= \Pr\bigl[\beta \geq c^2\bigr] \\
+		&\leq \frac{\mathbb{E}[\beta]}{c^2}
+		= \frac{\mathbb{D}[\xi]}{c^2},
+	\end{align*}
+	где последнее неравенство — это неравенство Маркова, применённое к неотрицательной с.в.\ $\beta$.
+\end{proof}
+
+\subsection{Закон больших чисел}
+
+\begin{Theorem}{Закон больших чисел}{}
+	Пусть $\xi_1, \xi_2, \ldots, \xi_n, \xi_{n+1}, \ldots$ — попарно независимые с.в.\ с одинаковым математическим ожиданием $e$ (то есть $\forall i\colon \mathbb{E}[\xi_i] = e$) и одинаковой дисперсией $d$ (то есть $\forall i\colon \mathbb{D}[\xi_i] = d$). Пусть
+	\[
+	\beta_n = \frac{\xi_1 + \cdots + \xi_n}{n}.
+	\]
+	Тогда для любого $q > 0$:
+	\[
+	\lim_{n \to \infty} \Pr\bigl[|\beta_n - e| \leq q\bigr] = 1.
+	\]
+\end{Theorem}
+
+\begin{proof}
+	Сначала найдём математическое ожидание и дисперсию $\beta_n$.
+	
+	По линейности математического ожидания:
+	\[
+	\mathbb{E}[\beta_n]
+	= \mathbb{E}\!\left[\frac{\xi_1 + \cdots + \xi_n}{n}\right]
+	= \frac{n e}{n} = e.
+	\]
+	
+	По аддитивности дисперсии для попарно независимых с.в.:
+	\begin{align*}
+		\mathbb{D}[\beta_n]
+		&= \mathbb{D}\!\left[\frac{1}{n}(\xi_1 + \cdots + \xi_n)\right]
+		= \frac{1}{n^2}\,\mathbb{D}[\xi_1 + \cdots + \xi_n] \\
+		&= \frac{1}{n^2}\bigl(\mathbb{D}[\xi_1] + \cdots + \mathbb{D}[\xi_n]\bigr)
+		= \frac{1}{n^2} \cdot nd = \frac{d}{n}.
+	\end{align*}
+	
+	Применяя неравенство Чебышёва к $\beta_n$:
+	\[
+	\Pr\bigl[|\beta_n - e| \geq q\bigr]
+	\leq \frac{\mathbb{D}[\beta_n]}{q^2}
+	= \frac{d}{q^2 \cdot n} \;\xrightarrow{n \to \infty}\; 0.
+	\]
+	Следовательно, $\Pr[|\beta_n - e| \leq q] = 1 - \Pr[|\beta_n - e| \geq q] \to 1$.
+\end{proof}
+
+\begin{Remark}{}{}
+	Закон больших чисел означает, что выборочное среднее $\beta_n$ сходится по вероятности к истинному математическому ожиданию $e$ при $n \to \infty$.
+\end{Remark}

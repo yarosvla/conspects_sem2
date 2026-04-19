@@ -36,26 +36,17 @@ BoldItalicFont = cmunbso.otf
 \usepackage{parskip}
 \setlength{\parskip}{6pt}
 \setlength{\parindent}{0pt}
-\usepackage{tikz}
-\usepackage{pgfplots}
+\usepackage{tikz}\usepackage{pgfplots}
 \pgfplotsset{compat=1.18}
 \usetikzlibrary{arrows.meta,positioning,calc,decorations.pathreplacing,
 	fit,backgrounds,patterns,shapes.geometric}
 \usetikzlibrary{calc}
 \usepackage{graphicx}
 \usepackage{enumitem}
+\setlist[enumerate]{itemsep=4pt, topsep=4pt}
 \usepackage{bm}
 \usepackage{caption}
 \usepackage{subcaption}
-% -------------------------------------------------------
-% Общие стили для сортирующих сетей
-% -------------------------------------------------------
-\tikzset{
-	netcomp/.style={very thick},
-	netwire/.style={thin},
-	block/.style={draw,thick,rounded corners=4pt,minimum width=2.6cm,
-		minimum height=1.0cm,align=center,fill=white,font=\small},
-}
 
 % -------------------------------------------------
 % Математика
@@ -76,6 +67,16 @@ BoldItalicFont = cmunbso.otf
 
 \newcommand{\Sort}{\operatorname{sort}}
 \DeclareMathOperator{\dist}{dist}
+
+\newcommand{\cP}{\mathcal{P}}
+\newcommand{\cD}{\mathcal{D}}
+\newcommand{\cE}{\mathcal{E}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\1}{\mathbf{1}}
+\newcommand{\argmax}{\mathop{\mathrm{arg\,max}}}
+\newcommand{\argmin}{\mathop{\mathrm{arg\,min}}}
+\newcommand{\diag}{\mathop{\mathrm{diag}}}
 
 \usepackage{algorithm}
 \usepackage{algpseudocode}
@@ -118,15 +119,6 @@ BoldItalicFont = cmunbso.otf
 
 \theoremstyle{remark}
 \newtheorem{remark}[theorem]{Замечание}
-\newcommand{\cP}{\mathcal{P}}
-\newcommand{\cD}{\mathcal{D}}
-\newcommand{\cE}{\mathcal{E}}
-\newcommand{\R}{\mathbb{R}}
-\newcommand{\Q}{\mathbb{Q}}
-\newcommand{\1}{\mathbf{1}}
-\newcommand{\argmax}{\mathop{\mathrm{arg\,max}}}
-\newcommand{\argmin}{\mathop{\mathrm{arg\,min}}}
-\newcommand{\diag}{\mathop{\mathrm{diag}}}
 
 \renewcommand\qedsymbol{$\blacksquare$}
 
@@ -141,97 +133,176 @@ BoldItalicFont = cmunbso.otf
 }
 \makeatother
 
-% -------------------------------------------------
-% Пастельные блоки 
-% -------------------------------------------------
-\usepackage{tcolorbox}
-\tcbuselibrary{breakable,skins,theorems}
-
-\tcbset{
-	mybox/.style={
-		enhanced,
-		breakable,
-		boxrule=0.7pt,
-		arc=2.5mm,
-		left=6pt,right=6pt,top=6pt,bottom=6pt,
-		coltitle=white,
-		fonttitle=\bfseries,
-	}
+% ============================================================
+%  Общие стили
+% ============================================================
+\tikzset{
+	nd/.style = {
+		circle, draw=black, thick,
+		minimum size = 6mm, inner sep = 1pt, font = \small
+	},
+	nd source/.style = {nd, fill = black!6},
+	arr/.style  = {->, >=Stealth, thick},
+	arrG/.style = {arr, green!55!black,  line width = 1.5pt},   % насыщенный / путь
+	arrB/.style = {arr, blue!65!black,   dashed},               % прямое остат.
+	arrR/.style = {arr, red!65!black,    dashed},               % обратное остат.
+	arrC/.style = {arr, red!70!black,    line width = 1.6pt},   % рёбра разреза
+	lbl/.style  = {font = \small},
 }
 
-% -----------------------
-% пастельная палитра
-% -----------------------
+% -------------------------------------------------------
+% Общие стили для сортирующих сетей
+% -------------------------------------------------------
+\tikzset{
+	netcomp/.style={very thick},
+	netwire/.style={thin},
+	block/.style={draw,thick,rounded corners=4pt,minimum width=2.6cm,
+		minimum height=1.0cm,align=center,fill=white,font=\small},
+}
 
-% Теорема:  бордовый
-\definecolor{thmBack}{HTML}{F7E6EA}
-\definecolor{thmFrame}{HTML}{8E3B4F}
-
-% Лемма:  розовый
-\definecolor{lemBack}{HTML}{FCE8F1}
-\definecolor{lemFrame}{HTML}{C26A8A}
-
-% Утверждение:  синий
-\definecolor{stmtBack}{HTML}{E8F1FF}
-\definecolor{stmtFrame}{HTML}{4E79A7}
-
-% Пример: зелёный
-\definecolor{exBack}{HTML}{E9F6EF}
-\definecolor{exFrame}{HTML}{4C8C72}
-
-% Определение: тёплый песочный
-\definecolor{defBack}{HTML}{FFF4DE}
-\definecolor{defFrame}{HTML}{C89B3C}
-
-% Предложение:  лавандово-серый
-\definecolor{propBack}{HTML}{F1EEFF}
-\definecolor{propFrame}{HTML}{7A6FA6}
-
-% Замечание: серый
-\definecolor{remBack}{HTML}{F0F0F0}
-\definecolor{remFrame}{HTML}{888888}
+% -------------------------------------------------
+% theorem-like блоки для конспекта
+% -------------------------------------------------
+\usepackage[most]{tcolorbox}
+\tcbuselibrary{breakable,skins,theorems}
+\usepackage{enumitem}
 
 % -----------------------
-% Теоремные окружения
+% палитра
 % -----------------------
-\newtcbtheorem{Theorem}{Теорема}{
-	mybox,
-	colback=thmBack,
-	colframe=thmFrame
+\definecolor{thmBack}{HTML}{FCF8F9}
+\definecolor{thmFrame}{HTML}{8D4455}
+
+\definecolor{lemBack}{HTML}{FCF8FA}
+\definecolor{lemFrame}{HTML}{B56C89}
+
+\definecolor{stmtBack}{HTML}{F7FAFD}
+\definecolor{stmtFrame}{HTML}{5279A5}
+
+\definecolor{exBack}{HTML}{F7FBF8}
+\definecolor{exFrame}{HTML}{5A8F75}
+
+\definecolor{defBack}{HTML}{FFFDF8}
+\definecolor{defFrame}{HTML}{B68A2E}
+
+\definecolor{propBack}{HTML}{FAF8FE}
+\definecolor{propFrame}{HTML}{7769A8}
+
+\definecolor{remBack}{HTML}{FAFAFA}
+\definecolor{remFrame}{HTML}{7E7E7E}
+
+\definecolor{corBack}{HTML}{FDF8F8}
+\definecolor{corFrame}{HTML}{C48383}
+
+% -----------------------
+% базовый стиль
+% -----------------------
+\tcbset{
+	conspectbox/.style={
+		enhanced,
+		breakable,
+		colback=white,
+		boxrule=0.8pt,
+		arc=2.8mm,
+		outer arc=2.8mm,
+		left=8pt,
+		right=8pt,
+		top=6pt,
+		bottom=6pt,
+		before skip=10pt,
+		after skip=10pt,
+		fonttitle=\bfseries,
+		coltitle=white,
+		attach boxed title to top left={
+			xshift=6pt,
+			yshift*=-\tcboxedtitleheight/2
+		},
+		boxed title style={
+			boxrule=0pt,
+			arc=3mm,
+			outer arc=3mm,
+			left=7pt,
+			right=7pt,
+			top=2.3pt,
+			bottom=2.3pt,
+		},
+	}
+}
+% -----------------------
+% теоремные окружения
+% -----------------------
+\newtcbtheorem[auto counter, number within=section]{Theorem}{Теорема}{
+	conspectbox,
+	colback=thmFrame!7!white,
+	colframe=thmFrame,
+	colbacktitle=thmFrame,
+	borderline west={1.1pt}{0pt}{thmFrame}
 }{thm}
 
-\newtcbtheorem{Lemma}{Лемма}{
-	mybox,
-	colback=lemBack, colframe=lemFrame
+\newtcbtheorem[auto counter, number within=section]{Lemma}{Лемма}{
+	conspectbox,
+	colback=lemFrame!7!white,
+	colframe=lemFrame,
+	colbacktitle=lemFrame,
+	borderline west={1.1pt}{0pt}{lemFrame}
 }{lem}
 
-\newtcbtheorem{Proposition}{Предложение}{
-	mybox,
-	colback=propBack, colframe=propFrame,
+\newtcbtheorem[auto counter, number within=section]{Proposition}{Предложение}{
+	conspectbox,
+	colback=propFrame!7!white,
+	colframe=propFrame,
+	colbacktitle=propFrame,
+	borderline west={1.1pt}{0pt}{propFrame}
 }{prop}
 
-\newtcbtheorem{Statement}{Утверждение}{
-	mybox,
-	colback=stmtBack, colframe=stmtFrame
+\newtcbtheorem[auto counter, number within=section]{Statement}{Утверждение}{
+	conspectbox,
+	colback=stmtFrame!7!white,
+	colframe=stmtFrame,
+	colbacktitle=stmtFrame,
+	borderline west={1.1pt}{0pt}{stmtFrame}
 }{stmt}
 
 \newtcbtheorem[no counter]{Definition}{Определение}{
-	mybox,
-	colback=defBack,
-	colframe=defFrame
+	conspectbox,
+	colback=defFrame!7!white,
+	colframe=defFrame,
+	colbacktitle=defFrame,
+	borderline west={1.1pt}{0pt}{defFrame}
 }{def}
 
 \newtcbtheorem[no counter]{Example}{Пример}{
-	mybox,
-	colback=exBack, colframe=exFrame
+	conspectbox,
+	colback=exFrame!7!white,
+	colframe=exFrame,
+	colbacktitle=exFrame,
+	borderline west={1.1pt}{0pt}{exFrame}
 }{ex}
 
 \newtcbtheorem[no counter]{Remark}{Замечание}{
-	mybox,
-	colback=remBack, colframe=remFrame
+	conspectbox,
+	colback=remFrame!7!white,
+	colframe=remFrame,
+	colbacktitle=remFrame,
+	borderline west={1.1pt}{0pt}{remFrame}
 }{rem}
 
+\newtcbtheorem[no counter]{Corollary}{Следствие}{
+	conspectbox,
+	colback=corFrame!7!white,
+	colframe=corFrame,
+	colbacktitle=corFrame,
+	borderline west={1.1pt}{0pt}{corFrame}
+}{cor}
 
+% -----------------------
+% интервалы
+% -----------------------
+\setlength{\abovedisplayskip}{6pt}
+\setlength{\belowdisplayskip}{6pt}
+\setlength{\abovedisplayshortskip}{4pt}
+\setlength{\belowdisplayshortskip}{4pt}
+\setlist[enumerate]{itemsep=3pt, topsep=3pt}
 % -------------------------------------------------
 % Импорт секций/билетов
 % -------------------------------------------------
@@ -242,30 +313,35 @@ BoldItalicFont = cmunbso.otf
 % Обложка
 % -------------------------------------------------
 
-\usepackage{anyfontsize}  
+\usepackage{anyfontsize}
 \usepackage{tikz}
 \usetikzlibrary{calc}
+\usepackage{xcolor}
+\usepackage{ragged2e}
+\usepackage{tabularx}
+\usepackage{array}
 
-% ---  палитра  ---
-\definecolor{AlgosColor}{HTML}{15162B}    %  темно-фиолетово-синий
-\definecolor{AlgebraColor}{HTML}{301010}  % Темный бордовый
-\definecolor{AnalysisColor}{HTML}{102619} % Темная хвоя
-\definecolor{DiscreteColor}{HTML}{231030} % Темный баклажан
+\definecolor{AlgosColor}{HTML}{15162B}
+\definecolor{AlgebraColor}{HTML}{301010}
+\definecolor{AnalysisColor}{HTML}{102619}
+\definecolor{DiscreteColor}{HTML}{231030}
+\definecolor{MetaColor}{HTML}{7E86C9}
+\definecolor{SoftGray}{HTML}{CFCFE6}
 
-% --- Команда создания обложки ---
-\newcommand{\makecover}[5]{%
+% -------------------------------------------------
+% Обложка
+% -------------------------------------------------
+
+\newcommand{\makecover}[4]{%
 	\thispagestyle{empty}
 	
 	\begin{titlepage}
 		\begingroup
 		\sffamily
-		\renewcommand{\arraystretch}{1.4}%
 		
 		\begin{tikzpicture}[remember picture, overlay]
-			% Фон
 			\fill[#1] (current page.south west) rectangle (current page.north east);
 			
-			% Узор
 			\begin{scope}[white, line width=0.4pt]
 				\foreach \i in {0,1,...,25} {
 					\draw[opacity=0.07] ($(current page.north west)+(0,-\i*1.2)$) --
@@ -281,30 +357,52 @@ BoldItalicFont = cmunbso.otf
 				}
 			\end{scope}
 			
-			% Шапка
-			\node[anchor=north west, white, inner sep=0pt]
+			% Верхняя строка
+			\node[
+			anchor=north west,
+			white,
+			inner sep=0pt
+			]
 			at ($(current page.north west)+(2cm,-1.5cm)$) {%
-				\fontsize{16}{18}\selectfont\sffamily\bfseries
+				\fontsize{16}{18}\selectfont\bfseries
 				СПбГУ \ $\cdot$ \ МКН \ $\cdot$ \ СП \ $\cdot$ \ 1 КУРС
 			};
 			
 			% Заголовок
-			\node[anchor=west, white, inner sep=0pt, text width=18cm]
+			\node[
+			anchor=west,
+			white,
+			inner sep=0pt,
+			text width=18cm,
+			align=left
+			]
 			at ($(current page.west)+(2cm,5cm)$) {%
 				{\fontsize{52}{58}\fontseries{bx}\selectfont #2\par}
 				\vspace{0.7cm}
 				{\fontsize{30}{36}\selectfont\bfseries #3\par}
 			};
 			
-			% Футер
-			\node[anchor=south west, white, inner sep=0pt]
-			at ($(current page.south west)+(2cm,2cm)$) {%
-				\fontsize{20}{24}\selectfont\sffamily\bfseries
-				\begin{tabular}{@{}l}
-					Лектор: #4 \\
-					Составители: #5 \\
-					\fontsize{18}{20}\selectfont Санкт-Петербург, 2026
-				\end{tabular}
+			% Лектор
+			\node[
+			anchor=west,
+			white,
+			inner sep=0pt,
+			text width=10cm,
+			align=left
+			]
+			at ($(current page.west)+(2cm,1.1cm)$) {%
+				{\fontsize{20}{20}\selectfont\bfseries Лектор}
+				{\fontsize{22}{24}\selectfont #4}
+			};
+			
+			% Город и год
+			\node[
+			anchor=south,
+			white,
+			inner sep=0pt
+			]
+			at ($(current page.south)+(0,2cm)$) {%
+				{\fontsize{18}{20}\selectfont Санкт-Петербург, 2026}
 			};
 		\end{tikzpicture}
 		\endgroup
@@ -312,20 +410,135 @@ BoldItalicFont = cmunbso.otf
 	
 	\clearpage
 }
-	\pagestyle{plain}
+
+\usepackage{xcolor}
+
+\definecolor{MetaColor}{HTML}{6672B8}
+\definecolor{LineColor}{HTML}{D8D8E6}
+\definecolor{SoftText}{HTML}{7A7A92}
+
+\newcommand{\leadperson}[3]{%
+	\begin{minipage}[t]{0.42\textwidth}
+		\centering
+		\parbox[t][2.7em][t]{0.95\linewidth}{%
+			\centering
+			{\fontsize{10.5}{12.5}\selectfont\color{SoftText} #3\par}
+		}%
+		
+		\vspace{0.08cm}
+		{\fontsize{15.5}{18}\selectfont #1\par}
+		\vspace{0.10cm}
+		{\fontsize{12}{14}\selectfont\color{MetaColor}\href{https://github.com/#2}{@#2}\par}
+	\end{minipage}%
+}
+
+\newcommand{\nameghblock}[2]{%
+	\begin{minipage}[t]{0.30\textwidth}
+		\centering
+		{\fontsize{14.5}{17}\selectfont #1\par}
+		\vspace{0.08cm}
+		{\fontsize{11.5}{13}\selectfont\color{MetaColor}\href{https://github.com/#2}{@#2}\par}
+	\end{minipage}%
+}
+
+\newcommand{\nameonlyblock}[1]{%
+	\begin{minipage}[t]{0.30\textwidth}
+		\centering
+		{\fontsize{14.5}{17}\selectfont #1\par}
+	\end{minipage}%
+}
+
+\newcommand{\makestaffandcontents}{%
+	\clearpage
+	\thispagestyle{empty}
+	\begingroup
+	\sffamily
+	
+	{\centering
+		{\fontsize{22}{26}\selectfont\bfseries Составители\par}
+		\par}
+	
+	\vspace{0.72cm}
+	
+	% Верхние роли
+	\begin{center}
+		\leadperson
+		{Ярослав Власов}
+		{yarosvla}
+		{координация проекта, техническая редакция, вёрстка}
+		\hspace{0.05\textwidth}
+		\leadperson
+		{Никита Бекоев}
+		{vzialvsosh}
+		{проверка и научное редактирование}
+	\end{center}
+	
+	\vspace{0.62cm}
+	
+	\begin{center}
+		\nameghblock{Владимир Кравцов}{tortedCtrl}
+		\hspace{0.05\textwidth}
+		\nameghblock{Александр Поданёв}{alex-pods}
+	\end{center}
+	
+	\vspace{0.28cm}
+	
+	\begin{center}
+		\nameghblock{Даниил Лысый}{DanLyss}
+		\hspace{0.035\textwidth}
+	\nameghblock{Кирилл Пирогов}{NothingToThink}
+		\hspace{0.035\textwidth}
+		\nameghblock{Варвара Сарычева}{Margaritca2008}
+	\end{center}
+	
+	\vspace{0.28cm}
+	
+	\begin{center}
+		\nameghblock{Дмитрий Брит}{pe5ok}
+		\hspace{0.05\textwidth}
+		\nameghblock{Валентина Млтыхян}{robertvlasov}
+	\end{center}
+	
+	\vspace{0.92cm}
+	
+	% Разделитель
+	\noindent{\color{LineColor}\rule{\textwidth}{0.55pt}}
+	
+	\vspace{0.62cm}
+	
+	{\fontsize{13}{16}\selectfont
+		\setcounter{tocdepth}{1}
+		\tableofcontents
+	}
+	
+	\vfill
+	
+	{\centering
+		{\fontsize{11.5}{13}\selectfont\color{SoftText} Санкт-Петербург, 2026\par}
+		\par}
+	
+	\endgroup
+	\clearpage
+}
+\pagestyle{plain}
 
 % -------------------------------------------------
 % Документ
 % -------------------------------------------------
+
 \begin{document}
 	
-	\makecover{AlgosColor}{Математические \\ основы \; алгоритмов}{Конспект лекций}{Косолобов Д. А.}{....}
-	\setcounter{tocdepth}{1}
-	\tableofcontents
+	\makecover
+	{AlgosColor}
+	{Математические \\ основы \; алгоритмов}
+	{Конспект лекций}
+	{Косолобов Д.\,А.}
+	
+	\makestaffandcontents
 	
 	\newpage
 	
-	\part*{Вторая часть курса}
+	\part*{Второй семестр}
 	
 	\ticket{sections/}{ticket01.tex}
 	\ticket{sections/}{ticket02.tex}

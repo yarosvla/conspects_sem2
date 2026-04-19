@@ -1,3 +1,145 @@
 % !TEX root = ../discretemath.tex
 
-\section{TODO}
+\section{Моменты случайной величины}
+
+\subsection{Основные определения}
+
+
+\begin{Definition}{Моменты случайной величины}{}
+	Пусть $\xi$ — случайная величина, $k \in \mathbb N$.
+	
+	\begin{itemize}
+		\item \textbf{Начальный момент} порядка $k$:
+		\[
+		\mu'_k = \mathbb{E}[\xi^k].
+		\]
+		При $k=1$ начальный момент $\mu'_1 = \mathbb{E}[\xi]$
+		называется математическим ожиданием.
+		
+		\item \textbf{Центральный момент} порядка $k \ge 2$:
+		\[
+		\mu_k = \mathbb{E}\big[(\xi - \mathbb{E}[\xi])^k\big].
+		\]
+		По определению $\mu_1 = 0$, а величина $\mu_2 = \mathbb{E}\big[(\xi - \mathbb{E}[\xi])^2\big]$ называется дисперсией.
+	\end{itemize}
+\end{Definition}
+
+\subsection{Связь центральных и начальных моментов}
+
+\begin{Theorem}{Выражение центрального момента через начальные}{central-via-initial}
+	Для любого $k \geq 2$
+	\[
+	\mu_k = \sum_{s=0}^{k} (-1)^s \binom{k}{s} \bigl(\mathbb{E}[\xi]\bigr)^s \cdot \mu'_{k-s}.
+	\]
+\end{Theorem}
+
+\begin{proof}
+Раскроем определение центрального момента с помощью формулы бинома Ньютона:
+\begin{align*}
+	\mu_k
+	&= \mathbb{E}\!\left[(\xi - \mathbb{E}[\xi])^k\right]
+	= \mathbb{E}\!\left[\sum_{s=0}^{k} (-1)^s \binom{k}{s} (\mathbb{E}[\xi])^s \cdot \xi^{k-s}\right] \\
+	&= \sum_{s=0}^{k} (-1)^s \binom{k}{s} (\mathbb{E}[\xi])^s \cdot \mathbb{E}[\xi^{k-s}]
+	= \sum_{s=0}^{k} (-1)^s \binom{k}{s} (\mathbb{E}[\xi])^s \cdot \mu'_{k-s},
+\end{align*}
+где на последнем шаге использована линейность математического ожидания и
+тот факт, что $\mathbb{E}[\xi^{k-s}] = \mu'_{k-s}$.
+\end{proof}
+
+\begin{Corollary}{}{}
+	Поскольку $\mathbb{E}[\xi] = \mu'_1$, формула принимает вид
+	\[
+	\mu_k = \sum_{s=0}^{k} (-1)^s \binom{k}{s} (\mu'_1)^s \cdot \mu'_{k-s}.
+	\]
+\end{Corollary}
+
+\begin{Corollary}{}{}
+	Каждый центральный момент $\mu_k$ выражается через начальные моменты $\mu'_1, \ldots, \mu'_k$,
+	и наоборот: каждый начальный момент $\mu'_k$ выражается через $\mu'_1$ и центральные моменты $\mu_2, \ldots, \mu_k$.
+\end{Corollary}
+
+\begin{Remark}{}{}
+	Это возможно потому, что наборы
+	$\{1,\xi,\xi^2,\ldots,\xi^k\}$ и
+	$\{1,(\xi-\mathbb E\xi),(\xi-\mathbb E\xi)^2,\ldots,(\xi-\mathbb E\xi)^k\}$
+	являются базисами одной и той же линейной оболочки.
+\end{Remark}
+
+\subsection{Единственность распределения по моментам}
+
+\begin{Theorem}{}{}
+	Пусть $\xi$ и $\beta$ — две случайные величины над конечным вероятностным пространством $P$,
+	и все их моменты совпадают: $\mu'_k(\xi) = \mu'_k(\beta)$ для всех $k$.
+	Тогда $\xi \overset{d}{=} \beta$ (случайные величины имеют одинаковое распределение).
+\end{Theorem}
+
+\begin{proof}
+Пусть $x_1, \ldots, x_n$ — все возможные значения $\xi$ и $\beta$ (объединённое множество значений).
+Введём обозначения:
+\[
+d_\xi(i) = P[\xi = x_i], \qquad \sum_{i=1}^n d_\xi(i) = 1,
+\]
+и аналогично $d_\beta(i) = P[\beta = x_i]$.
+
+Рассмотрим матрицу Вандермонда:
+\[
+M =
+\begin{pmatrix}
+	1      & 1      & \cdots & 1      \\
+	x_1    & x_2    & \cdots & x_n    \\
+	x_1^2  & x_2^2  & \cdots & x_n^2  \\
+	\vdots & \vdots & \ddots & \vdots \\
+	x_1^{n-1} & x_2^{n-1} & \cdots & x_n^{n-1}
+\end{pmatrix}.
+\]
+Тогда:
+\[
+M \cdot
+\begin{pmatrix} d_\xi(1) \\ \vdots \\ d_\xi(n) \end{pmatrix}
+=
+\begin{pmatrix}
+	\sum d_\xi(i) \\
+	\sum x_i\, d_\xi(i) \\
+	\vdots \\
+	\sum x_i^{n-1} d_\xi(i)
+\end{pmatrix}
+=
+\begin{pmatrix}
+	1 \\ \mu'_1(\xi) \\ \vdots \\ \mu'_{n-1}(\xi)
+\end{pmatrix}.
+\]
+Поскольку моменты $\xi$ и $\beta$ совпадают, имеем
+\[
+M \cdot \begin{pmatrix} d_\xi(1) \\ \vdots \\ d_\xi(n) \end{pmatrix}
+=
+M \cdot \begin{pmatrix} d_\beta(1) \\ \vdots \\ d_\beta(n) \end{pmatrix},
+\]
+откуда
+\[
+M \cdot
+\begin{pmatrix} d_\xi(1) - d_\beta(1) \\ \vdots \\ d_\xi(n) - d_\beta(n) \end{pmatrix}
+= \mathbf{0}.
+\]
+Покажем, что $\det M \neq 0$. Определитель $M$ есть однородный многочлен от $x_1, \ldots, x_n$
+степени $\frac{n(n-1)}{2}$. Поскольку $\det M$ обращается в нуль при $x_i = x_j$ ($i \neq j$),
+каждый множитель $(x_i - x_j)$ делит $\det M$. Так как
+\[
+\deg(\det M) = \deg\!\prod_{i < j}(x_i - x_j) = \frac{n(n-1)}{2},
+\]
+то $\det M = C \cdot \prod_{i < j}(x_i - x_j)$ для некоторой константы $C$.
+
+Для нахождения $C$ заметим, что при делении $\det M$ последовательно на множители
+$(x_i - x_j)$ получается константа, и коэффициент при мономе
+$x_1^0 x_2^1 \cdots x_n^{n-1}$ в $\det M$ равен $1$
+(он порождается единственной перестановкой в определителе).
+Аналогично, коэффициент при том же мономе в $\prod_{i<j}(x_i - x_j)$ равен $1$,
+откуда $C = 1$ и
+\[
+\det M = \prod_{i < j}(x_i - x_j) \neq 0
+\]
+при попарно различных $x_1, \ldots, x_n$.
+
+Следовательно, матрица $M$ невырождена, и из $M \cdot (d_\xi - d_\beta) = \mathbf{0}$
+получаем $d_\xi(i) = d_\beta(i)$ для всех $i$, то есть $\xi$ и $\beta$
+имеют одно и то же распределение. 
+\end{proof}

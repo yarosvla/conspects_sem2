@@ -33,7 +33,7 @@
     $\lambda \in \RR$
 
     \[ 
-    0 \le \ \ \langle x + \lambda y, x + 2\lambda y \rangle \ \ = \ \  \langle x, x \rangle  + \lambda  \langle x, y \rangle  + \lambda^2 \| y \| ^2 
+    0 \le \ \ \langle x + \lambda y, x + \lambda y \rangle \ \ = \ \  \langle x, x \rangle  + 2 \lambda  \langle x, y \rangle  + \lambda^2 \| y \| ^2 
     \]
 
     Дискриминант квадратного трехчлена по $\lambda \le 0$, т.е.
@@ -42,12 +42,15 @@
 \end{proof}
 
 \[  \| x + y \| ^2 = \ \  \langle x + y, x + y \rangle  \ \ =  \langle x, x \rangle  +  \langle y, y \rangle  + 2 \langle x, y \rangle  \le \]
-\[ \le  \langle x, x \rangle  +  \langle y, y \rangle  + 2| \langle x,y \rangle | \le  \| x \| ^2 +  \| y \| ^2 + 2 \| x \| \cdot  \| y \|  \]
+\[ \le  \langle x, x \rangle  +  \langle y, y \rangle  + 2| \langle x,y \rangle | \le  \| x \| ^2 +  \| y \| ^2 + 2 \| x \| \cdot  \| y \| = \]
+\[ = (|x| + |y|)^2 \Rightarrow ||x + y|| \le |x| + |y| \] 
+~--- неравенство треугольника.
+
+Для случая $l^2$ можно доказать, используя неравенство КБШ:
 
 $l^2 \qquad  \| x \| _2 = \sqrt{\sum^\infty_{k=1}x^2_k}$
 
 По КБШ:
-
 \[
 |\sum^\infty_{k=1}x_ky_k| \le \sqrt{\sum^\infty_{k=1}x^2_k}\cdot \sqrt{\sum^\infty_{k=1}y^2_k}
 \]
@@ -56,7 +59,7 @@ $l^2 \qquad  \| x \| _2 = \sqrt{\sum^\infty_{k=1}x^2_k}$
 
     Ествественнее было бы рассматривать функции
 
-    \[ h^2([a, b]) = \{f \st [a, b] \rightarrow \RR, \text{на} \ \ [a, b] \st \int^b_a|f|^2(x)dx  \langle  \infty \} \]
+    \[ L^2([a, b]) = \{f \st [a, b] \rightarrow \RR, \text{на} \ \ [a, b] \st \int^b_a|f|^2(x)dx  \langle  \infty \} \]
 
     \[  \| f \| ^2_{L^2} := \int^b_a |f|^2(x)dx \]
     
@@ -65,19 +68,21 @@ $l^2 \qquad  \| x \| _2 = \sqrt{\sum^\infty_{k=1}x^2_k}$
     Отложим до теории меры
 \end{remark}
 
-\begin{remark}
+\begin{Remark}{Пространства сепарабельны}{}
 
     Далее считаем, что все наши Гельбертовы пространства~--- сепарабельные.
 
     То есть существует счётное всюду плотное подмножество. (подмножество, замыкание которого равно всему множеству, но для этого нужна топология)
 
     Т.е. $\forall \ \ \mathcal{H} \ \ \exists \ \ E \subset \mathcal{H}$ (счетное) такое что $\forall \ \ x \in \mathcal{H} \ \ \exists \ \ \{ x_k \} \subset E \st  \| x_k - x \| _{\mathcal{H}} \longrightarrow 0 (n \rightarrow +\infty)$
-\end{remark}
+\end{Remark}
+
+\textbf{Напоминание} (сходимость последовательности в гильбертовом пространстве $\mathcal{H}$):
+
+$x_n \longrightarrow x \Leftrightarrow  \| x_n - x \| _{\mathcal{H}} \longrightarrow 0 \quad (n \rightarrow +\infty)$
 
 \begin{Definition}{Сходимость ряда в гильбертовом пространстве}{}
     $\mathcal{H}$~--- Гильбертово пространство, ${x_k} \subset H$
-
-    Такое что, $x_n \longrightarrow x \Leftrightarrow  \| x_n - x \| _{\mathcal{H}} \longrightarrow 0 \quad (n \rightarrow +\infty)$
 
     Ряд $\sum^{\infty}_{k=1}x_k$ сходится в $\mathcal{H}$ к $S \in \mathcal{H}$, если
 
@@ -91,7 +96,8 @@ $l^2 \qquad  \| x \| _2 = \sqrt{\sum^\infty_{k=1}x^2_k}$
 \end{Definition}
 
 \begin{Proposition}{}{}
-    Векторы в ортогнальной системе линейно независимы, т.е. если $\sum^N_{k=1}\lambda_k x_k = 0$, где $x_k \in \{x_\alpha\}_{\alpha \in \mathcal{H}}$~--- система, то $l_k \lambda_k = 0$
+    Векторы в ортогнальной системе линейно независимы, т.е. если 
+    $\sum^N_{k=1}\lambda_k x_k = 0$, где $x_k \in \{x_\alpha\}_{\alpha \in \mathcal{H}}$~--- система, то $\forall \ \ k \lambda_k = 0$
 \end{Proposition}
 
 \begin{proof}
@@ -130,7 +136,7 @@ $l^2 \qquad  \| x \| _2 = \sqrt{\sum^\infty_{k=1}x^2_k}$
 
     $ \langle f, g \rangle  = \int^1_0 f(x)g(x)dx$
 
-    $f_0(x) := 0, \qquad f_k(x) := \sin{2\pi kx}, \qquad k \in \NN, \ \ x \in [0, 1]$
+    f_k(x) := \sin{2\pi kx}, \qquad k \in \NN, \ \ x \in [0, 1]$
 
     $g_0(x) := 1, \qquad g_k(x) := \cos{2\pi kx}, \qquad k \in \NN, \ \ x \in [0, 1]$
 
@@ -155,7 +161,7 @@ $l^2 \qquad  \| x \| _2 = \sqrt{\sum^\infty_{k=1}x^2_k}$
 
     \[  \| x_\alpha - x_\beta \|  = \sqrt{ \langle x_\alpha, x_\alpha \rangle  - 2 \langle x_\alpha, x_\beta \rangle  +  \langle x_\beta, x_\beta \rangle } = \sqrt{2} \]
 
-    Рассмотрим стсему шаров $\{ B_\alpha \} \st$
+    Рассмотрим систему шаров $\{ B_\alpha \} \st$
 
     \[ B_\alpha = \{ x \st  \| x - x_\alpha \|   <  \frac{1}{2} \}\]
 
@@ -180,6 +186,8 @@ $l^2 \qquad  \| x \| _2 = \sqrt{\sum^\infty_{k=1}x^2_k}$
         \item $\vphi_k = \sum_{j=1}^k \lambda_{jk} f_j$~--- линейная комбинация первых $k$ векторов из $\{ f_k\}$
         \item $f_k = \sum _{j=1}^k \tilde{\lambda}_{jk} \vphi_j$~--- линейная комбинация первых $k$ векторов из $\{ \vphi_k \}$
     \end{enumerate}
+
+    т.ч. $\lambda_{kk}, \; \tilde{\lambda}_{kk} \not = 0$
 \end{Theorem}
 
 \begin{proof}
@@ -239,7 +247,7 @@ $l^2 \qquad  \| x \| _2 = \sqrt{\sum^\infty_{k=1}x^2_k}$
 
     2. $\vphi_k = \sum^k_{j=1} \lambda_{j, k} f_j$~--- также очевидно, т.к.
 
-    \[ \vphi_k = \frac{f_k - \sum_{j=1}{k-1}\tilde{\lambda}_{j, k-1} \vphi_j}{ \| f_k - \sum_{j=1}^{k-1}\tilde{\lambda}_{j, k-1}\cdot \vphi_j \| } = \ \ \text{линейная комбинация из} \ \ f_i , \ \ 1 \le i \le K\]
+    \[ \vphi_k = \frac{f_k - \sum_{j=1}^{k-1} \tilde{\lambda}_{j, k-1} \vphi_j}{ \| f_k - \sum_{j=1}^{k-1}\tilde{\lambda}_{j, k-1}\cdot \vphi_j \| } = \ \ \text{линейная комбинация из} \ \ f_i , \ \ 1 \le i \le K\]
 \end{proof}
 
 \textbf{Далее все Гильбертовы пространства будут полными}
@@ -250,14 +258,14 @@ $\{ e_k \}_{k \in \NN}$~--- базис в $\ \ \mathcal{H} \ \ $, то $\ \ \for
 
 \[ x = \sum_{k=1}^\infty c_k e_k, \qquad c_k \in \RR \]
 
-$ \langle x, e_j \rangle  = \sum_{k=1}^\infty c_k  \langle e_k, e_j \rangle  = c_j \cdot \langle e_j, e_j \rangle = c_j$, если $\{ e_k \}$~--- ОНС
+А также, что $ \langle x, e_j \rangle  = \sum_{k=1}^\infty c_k  \langle e_k, e_j \rangle  = c_j \cdot \langle e_j, e_j \rangle = c_j$, если $\{ e_k \}$~--- ОНС
 
 \begin{Definition}{}{}
     Пусть $\{ e_k\}$~--- ортонормировання система в $\ \ \mathcal{H}, \qquad x \in \mathcal{H}$
     
     $c_k =  \langle x, e_k \rangle $~--- коэффициент Фурье элемента $x$, по системе $\{ e_k\}_{k \in \NN}$
 
-    Ряд (формальный) $\sum_{k=1}^\infty$~--- ряд Фурье элемента $x$.
+    Ряд (формальный) $\sum_{k=1}^\infty c_k e_k$ ~--- ряд Фурье элемента $x$.
 
     
 \end{Definition}
@@ -281,13 +289,13 @@ $ \langle x, e_j \rangle  = \sum_{k=1}^\infty c_k  \langle e_k, e_j \rangle  = c
 
     \[ =  \| x \| ^2 - 2 \sum_{k=1}^N\lambda_k c_k + \sum_{k=1}^N \lambda_k^2 \cdot 1 \]
     \[ =  \| x \| ^2 - \sum_{k=1}^N c_k^2 + (\sum_{k=1}^Nc_k^2 - 2\sum_{k=1}^N\lambda_k c_k + \sum_{k=1}^N \lambda_k^2) = \] 
-    \[ =  \| x \| ^2 - \sum_{k=1}^N(\lambda_k - c_k)^2 = \]
+    \[ =  \| x \| ^2 - \sum_{k=1}^N c_k^2 + \sum_{k=1}^N(\lambda_k - c_k)^2 = \]
     
     \[ =  \| x - \sum_{k=1}^N \lambda_k e_k \| ^2 \]
 
     Минимум: $\lambda_j = c_j, \qquad 1 \le j \le N$, т.е.
 
-    \[ dist^2(x, span\{e_k\}_{K=1}^N) =  \| x \| ^2 - \sum_{k=1}^Nc_k^2 \ge 0 \ \ \forall \ \ N \]
+    \[ dist^2(x, span\{e_k\}_{K=1}^N) =  \| x \| ^2 - \sum_{k=1}^Nc_k^2 \ge 0 \ \ \forall \ \ N \text{~--- теорема Пифагора} \]
     \[ \sum_{k=1}^N c_k^2 \le  \| x \| ^2 \qquad \forall N \ \ \Rightarrow \sum_{k=1}^\infty c_k^2 \] ~--- сходится и по неравенству Бесселя:
 
     \[ \sum_{k=1}^\infty c_k^2 \le  \| x \| ^2 \]
@@ -300,7 +308,7 @@ $ \langle x, e_j \rangle  = \sum_{k=1}^\infty c_k  \langle e_k, e_j \rangle  = c
 
     \[  \|  x - \sum_{k1}^N \lambda_k e_K \| ^2 \longrightarrow 0 \]
 
-    \[  \| x \| ^2\cdot \sum_{k=1}^N c_k^2 \longrightarrow 0 (n \rightarrow \infty) \]
+    \[  \| x \| ^2 - \sum_{k=1}^N c_k^2 \longrightarrow 0 (n \rightarrow \infty) \]
 \end{proof}
 
 \begin{Proposition}{}{}
@@ -312,13 +320,13 @@ $ \langle x, e_j \rangle  = \sum_{k=1}^\infty c_k  \langle e_k, e_j \rangle  = c
 
 Итак: $\ \ \mathcal{H}$~--- сепарабельное гильбертово пространство; $\{ e_k \}$~--- ортонормированный базис в $\mathcal{H}$
 
-\[ \mathcal{H} \ni x \longrightarrow \{ c_k\}_{k=1}^\infty, \qquad c_k = \langle x, \rangle e_k\]
+\[ \mathcal{H} \ni x \longrightarrow \{ c_k\}_{k=1}^\infty, \qquad c_k = \langle x, e_k \rangle\]
 
 
 \begin{Theorem}{Рисс-Фишер}{}
     Пусть $\{ e_k\}$~--- ортонормированный базис в $\mathcal{H} \st c = (c_1, \ldots, c_k, \ldots) \in l^2 \Rightarrow$
 
-    $\exists ! \ \ x \in \mathcal{H} \st c_k =  \langle x_1, e_k \rangle _\mathcal{H}$ и
+    $\exists ! \ \ x \in \mathcal{H} \st c_k =  \langle x, e_k \rangle _\mathcal{H}$ и
 
     $ \| c \| _{l^2} =  \| x \| _{\mathcal{H}}$
 \end{Theorem}
@@ -331,7 +339,7 @@ $ \langle x, e_j \rangle  = \sum_{k=1}^\infty c_k  \langle e_k, e_j \rangle  = c
 
     Проверим, что это последовательность Коши, т.е. 
     
-    \[ \forall \ \ \eps  >  0 \ \ \exists \ \ N(c) \st \forall \ \ n \ge N(\eps), \forall \ \ n > N(\eps), m \in \NN: \]
+    \[ \forall \ \ \eps  >  0 \ \ \exists \ \ N(c) \st \forall \ \ n > N(\eps), m \in \NN: \]
 
     \[  \| S_{N+m} - S_N \|  < \eps \]
 
@@ -350,11 +358,11 @@ $ \langle x, e_j \rangle  = \sum_{k=1}^\infty c_k  \langle e_k, e_j \rangle  = c
 
     \[  \langle S_N, e_k \rangle  =  \langle \sum_{j=1}^N c_je_j, e_k \rangle  = c_k \]
 
-    \[ | \langle x - S_N, e_k \rangle | \le  \| f - S_N \|  \cdot  \| e_k \|  \longrightarrow 0 (N \rightarrow +\infty) \]
+    \[ | \langle x - S_N, e_k \rangle | \le  \| x - S_N \|  \cdot  \| e_k \|  \longrightarrow 0 (N \rightarrow +\infty) \]
 
     Единственность:
 
-    Пусть $ \langle x, y \rangle  =  \langle y, e_k \rangle  = c_k \qquad \forall \ \ k \Rightarrow$
+    Пусть $ \langle x, e_k \rangle  =  \langle y, e_k \rangle  = c_k \qquad \forall \ \ k \Rightarrow$
 
     $(x - y) \perp e_k \ \ \forall \ \ k \Rightarrow (x - y) = 0$ т.к. $\{e_k\}$~--- ортонормированный базис
 
@@ -367,19 +375,19 @@ $ \langle x, e_j \rangle  = \sum_{k=1}^\infty c_k  \langle e_k, e_j \rangle  = c
 
 \textbf{Следствие:}
 
-    Любое Гильбертово пространство $\mathcal{H} \ \ $ изоморфно $l^2$, т.е. есть биекция $\mathcal{A} \st \mathcal{H} \rightarrow e^2$:
+    Любое Гильбертово пространство $\mathcal{H} \; симметрично $ изоморфно $l^2$, т.е. есть биекция $\mathcal{A} \st \mathcal{H} \rightarrow l^2$:
 
-    \[  \| \mathcal{A}x \| _{l^2} =  \| x \| _{l^2} \]
+    \[  \| \mathcal{A}x \| _{\mathcal{H}} =  \| x \| _{\mathcal{H}} \]
 
-    $\mathcal{A}$~--- линейный оператор:
+    $\mathcal{A}$~--- линейный оператор.
 
-    $ \langle \mathcal{A}x, \mathcal{A}y \rangle _{l^2} =  \langle x, y \rangle _{\mathcal{H}}$
+    Тогда: $ \langle \mathcal{A}x, \mathcal{A}y \rangle _{l^2} =  \langle x, y \rangle _{\mathcal{H}}$
 
 \begin{proof}
 
     Проверим линейность оператора $\mathcal{A}$:
 
-    В $\mathcal{H}$~ есть ортонормированный базис $\{ e_k\}_{k+1}^\infty \st \mathcal{A}x = c = \{ c_k \}$
+    В $\mathcal{H}$~ есть ортонормированный базис $\{ e_k\}_{k=1}^\infty \st \mathcal{A}x = c = \{ c_k \}$
     
     $ \langle \mathcal{A}x, \mathcal{A}y \rangle _{l^2} \overset{\text{def}}{=} \sum_{k=1}^\infty c_k d_k$
 
@@ -402,7 +410,9 @@ $ \langle x, e_j \rangle  = \sum_{k=1}^\infty c_k  \langle e_k, e_j \rangle  = c
 \end{proof}
 
 \begin{Remark}{}{}
-    Единичный шар $\overline{B_d(0, 1)} = \{ x \in l^2 :  \| x \| _{l^2} \le 1 \}$~--- не компактен.
+    Единичный шар $\overline{B_d(0, 1)} = \{ x \in R^d :  \| x \| _{R^d} \le 1 \}$~--- компактен.
+
+    Единичный шар $\overline{B_d(0, 1)} = \{ x \in l^2 :  \| x \| _{l^2} \le 1 \}$~--- не компактен (можно взять шары радиуса $\sqrt{2}$).
 \end{Remark}
 
 Recall that:
@@ -425,7 +435,7 @@ $\sum_{k=1}^\infty \lambda_k x_k$~--- сходится в $X$, если $\ \ \ex
     Пусть $X, Y$~--- банаховы. $\qquad \mathcal{A} \st X \rightarrow Y$~--- линейный оператор
 
     \[ \mathcal{A} \st Dom \mathcal{A} \rightarrow Range \mathcal{A} \]
-    где $Dom \mathcal{A}$~--- линейное пространство X, а $Range \mathcal{A}$~--- линейное подпространство $Y$, т.е.
+    где $Dom \mathcal{A}$~--- линейное подпространство X, а $Range \mathcal{A}$~--- линейное подпространство $Y$, т.е.
     
     если $x, y \in Dom \mathcal{A} \Rightarrow x + \lambda y \in Dom \mathcal{A}, \ \ \forall \ \ \lambda \in \RR$. Аналогично для $Range \mathcal{A}$. 
 \end{Definition}
@@ -438,25 +448,26 @@ $\sum_{k=1}^\infty \lambda_k x_k$~--- сходится в $X$, если $\ \ \ex
     \]
 
     \[
-    \mathcal{A}f := f' \qquad \mathcal{A} = \{ f \in C([0, 1]) \st \exists \exists f(x) \ \ \forall \ \ x \in (0, 1] ) \}
+    \mathcal{A}f := f' \qquad \mathcal{A} = \{ f \in C([0, 1]) \st \exists f'(x) \ \ \forall \ \ x \in [0, 1] ) \}
     \]
 
+    Зададим норму оператора $\mathcal{A}$:
+
+    \[  
+    \| \mathcal{A} \| := \sup_{ \| x \|  \le 1}  \| \mathcal{A}x \| _Y
+     \]
+
+    Оператор называется ограниченным, если $ \| \mathcal{A} \|   <  +\infty$
 \end{Example}
 
-Зададим норму оператора $\mathcal{A}$:
-
-\[  \| \mathcal{A} := \sup_{ \| x \|  \le 1}  \| \mathcal{A}x \| _Y \]
-
-Оператор называется ограниченным, если $ \| \mathcal{A} \|   <  +\infty$
-
 \begin{Example}{}{}
-    $(x^k)' = kx^{k-1} = \RR$, при $x = 1$
+    $(x^k)' = kx^{k-1} = k$, при $x = 1$
 
     \[
     \| x^k \| _{C([0, 1])} = max_{0 \le x \le 1} |x^k| = 1
     \]
 
-    Пример неограниченного оператора:
+    Пример ограниченного оператора:
 
     $(\mathcal{A}f)(x) := f(x)g(x), \qquad \text{где} \ \ g \in C([0,1])$~--- фиксирована
 
@@ -498,9 +509,10 @@ $\sum_{k=1}^\infty \lambda_k x_k$~--- сходится в $X$, если $\ \ \ex
         Неравенство в нуле:
         \[ \forall \ \ \eps  >  0 \ \ \exists \ \ \delta  >  0 \qquad  \| x \| _X  <  \delta \Rightarrow  \| \mathcal{A}x \| _Y  <  \eps \]
 
-        \item Непрерывность в точке $Y \in Dom \mathcal{A}$
+        \item Непрерывность в точке для $y \in Y \in Dom \mathcal{A}$
         
         \[ \forall \ \ \eps  >  0 \ \ \exists \ \ \delta  >  0 \qquad  \| y-x \| _X  <  \delta \Rightarrow  \| \mathcal{A}y - \mathcal{A}x \|  =  \| \mathcal{A}(y-x) \|   <  \eps \]
+        ~--- непрерывность в точке.
 
         \item Непрерывность $\Rightarrow$ ограниченность
         
@@ -512,16 +524,16 @@ $\sum_{k=1}^\infty \lambda_k x_k$~--- сходится в $X$, если $\ \ \ex
 
         \[ \forall \ \ \eps  >  0 \ \ \exists \ \ \delta  >  0 \st  \| x \| _X \le \delta \Rightarrow  \| \mathcal{A}x \| _Y \le \eps \]
 
-        \[ \eps := 1 \qquad  \| \mathcal{A}x \|  = \frac{1}{\delta} \| \mathcal{A}(\frac{1}{\delta}) \| \]
+        \[ \eps := 1 \qquad  \| \mathcal{A}x \|  = \frac{1}{\delta} \| \mathcal{A}(x\cdot \delta) \| \]
 
-        \[ \forall \ \ x' \st  \| x' \| _X \le 1  \| \delta x' \| _x \le \delta \Rightarrow  \| \mathcal{A}x' \| _Y = \frac{1}{\delta} \| \mathcal{A}(x'\delta) \| _Y \le \frac{1}{\delta} \]
+        \[ \forall \ \ x' \st  \| x' \| _X \le 1  \qquad \| \delta x' \| _x \le \delta \Rightarrow  \| \mathcal{A}x' \| _Y = \frac{1}{\delta} \| \mathcal{A}(x'\delta) \| _Y \le \frac{1}{\delta} \]
 
         \[ \sup_{ \| x' \| _x \le 1}  \| \mathcal{A}x' \| _Y \le \frac{1}{\delta} \Rightarrow  \| \mathcal{A} \|  \le \frac{1}{\delta} \]
 
         \item Ограниченность $\Rightarrow$ непрерывность в нуле
         
         \[  \| \mathcal{A} x \|_Y \le  \|\mathcal{A} \| \cdot \| x \|_X \ \ \forall \ \ x \in X \]
-        \[ \| \mathcal{A} \| = \sup_{X \ni x \not = 0} \frac{\|\mathcal{A}x\|}{\| x \|} \]
+        При $x \longrightarrow 0: \quad \| Ax \|_Y \longrightarrow 0$
     \end{enumerate}
 \end{proof}
 
@@ -532,7 +544,7 @@ $\sum_{k=1}^\infty \lambda_k x_k$~--- сходится в $X$, если $\ \ \ex
 
     \[ \mathcal{B}(X, Y) = \{ \mathcal{A} \st X \rightarrow Y \st Dom \mathcal{A} = X \} \]
 
-    $ \| \mathcal{A} \|   Б  +\infty$
+    $ \| \mathcal{A} \|   <  +\infty$
 
     Тогда $\mathcal{B}(X, Y)$~--- тоже Банахово пространство с нормой $ \| \mathcal{A} \| $
 \end{Theorem}
@@ -544,10 +556,11 @@ $\sum_{k=1}^\infty \lambda_k x_k$~--- сходится в $X$, если $\ \ \ex
         \item $\mathcal{B}$ полное относителньно нормы
     \end{enumerate}
 
-    1.
+    $\| \mathcal{A} \|$~--- норма:
 
     Пусть $\mathcal{A}, \mathcal{B} \in \mathcal{B}(X, Y), \lambda \in \RR$
 
+    1.
     \[ (\mathcal{A} + \lambda \mathcal{B})(x) := \mathcal{A}x + \lambda \mathcal{B}x \]
     
     \[ \| \mathcal{A} + \lambda \mathcal{B}\| = \sup_{x \in X} \frac{ \| (\mathcal{A} + \lambda \mathcal{B})(x) \|_Y }{\| x \| } 

@@ -41,17 +41,16 @@
 \end{Definition}
 
 \begin{Corollary}{}{}
-	Для функции Мёбиуса $\mu$ следующие условия эквивалентны:
+	Эквивалентное определение функции Мёбиуса:
+	
+	функция $\mu$ задаётся условиями
 	\[
-	\mu(x,x)=1 \quad \text{для всех } x \in P,
-	\]
-	и при $x<y$
-	\[
-	\sum_{x \leq z \leq y} \mu(x,z)=0.
+	\mu(x,x)=1 \quad \text{для всех } x \in P, \qquad \sum_{x \leq z \leq y} \mu(x,z)=0. \text{ и при }  x<y
 	\]
 \end{Corollary}
 
 Это непосредственно следует из определения: $\mu(x,y) = -\!\sum_{x \leq z < y}\mu(x,z)$,
+
 поэтому $\sum_{x \leq z \leq y}\mu(x,z) = \mu(x,y) + \sum_{x \leq z < y}\mu(x,z) = 0$.
 
 \begin{Remark}{}{}
@@ -158,15 +157,6 @@
 \end{proof}
 
 \subsection{Лемма о симметричной сумме}
-
-Для доказательства леммы нам потребуется понятие интервала.
-
-\begin{Definition}{Интервал в ЧУМ}{}
-	Для $a \leq b$ в $P$ определяется \emph{интервал}
-	\[
-	(a,b) \;=\; \bigl\{c \in P \;:\; a < c < b\bigr\}.
-	\]
-\end{Definition}
 
 \begin{Lemma}{}{}
 	Для любых $x < y$ в ЧУМ $P$:
@@ -510,30 +500,6 @@ $\mu\bigl(1,\, n\bigr)
 \end{Theorem}
 
 \begin{proof}
-	Перемножим ряды $\sum_{n \geq 1}\frac{\mu(n)}{n^s}$ и $\zeta(s) = \sum_{d \geq 1}\frac{1}{d^s}$ и сгруппируем по произведению $m = nd$:
-	\[
-	\Bigl(\sum_{n=1}^{+\infty} \frac{\mu(n)}{n^s}\Bigr)
-	\Bigl(\sum_{d=1}^{+\infty} \frac{1}{d^s}\Bigr)
-	\;=\;
-	\sum_{m=1}^{+\infty} \frac{1}{m^s}
-	\underbrace{\sum_{n \mid m} \mu(n)}_{\displaystyle =\, [m = 1]}.
-	\]
-	Здесь использован стандартный факт: $\sum_{n \mid m}\mu(n) = 0$ при $m > 1$ и $= 1$ при $m = 1$
-	(следствие формулы обращения, применённой к $f \equiv 1$ и $g = [{\cdot} = 1]$). Значит,
-	произведение равно $\frac{1}{1^s} = 1$, откуда
-	\[
-	\sum_{n=1}^{+\infty} \frac{\mu(n)}{n^s}
-	\;=\; \frac{1}{\zeta(s)}.\;\checkmark
-	\]
-\end{proof}
-
-\begin{Theorem}{}{}
-	\[
-	\sum_{n=1}^{+\infty} \frac{\mu(n)}{n^s} \;=\; \frac{1}{\zeta(s)}.
-	\]
-\end{Theorem}
-
-\begin{proof}
 	Перемножим ряды
 	\[
 	\sum_{n \geq 1}\frac{\mu(n)}{n^s}
@@ -586,7 +552,7 @@ $\mu\bigl(1,\, n\bigr)
 
 \begin{Definition}{ Арифметическая (мультипликативная) функция}{}
 	Функция $f \colon \mathbb{N} \to \mathbb{Z}$ называется
-	\emph{мультипликативной} (арифметической), если для любых
+	\emph{aрифметическая}, если для любых
 	$m_1, m_2 \in \mathbb{N}$ с $\gcd(m_1, m_2) = 1$:
 	\[
 	f(m_1 m_2) = f(m_1)\cdot f(m_2).
@@ -621,7 +587,7 @@ $\mu\bigl(1,\, n\bigr)
 \end{Remark}
 
 \begin{Theorem}{Замкнутость относительно свёртки}{}
-	Если $f$ и $g$~--- мультипликативные функции, то $f * g$ также мультипликативна.
+	Если $f$ и $g$~--- aрифметические функции, то $f * g$ также aрифметическая.
 \end{Theorem}
 
 \begin{proof}
@@ -635,7 +601,7 @@ $\mu\bigl(1,\, n\bigr)
 		f(n_1 n_2)\,g\!\left(\tfrac{m_1}{n_1}\cdot\tfrac{m_2}{n_2}\right)\\
 		&= \sum_{\substack{n_1 \mid m_1 \\ n_2 \mid m_2}}
 		f(n_1)\,f(n_2)\,g\!\left(\tfrac{m_1}{n_1}\right)g\!\left(\tfrac{m_2}{n_2}\right)
-		\quad\text{(мультипликативность $f$ и $g$)}\\[4pt]
+		\quad\text{}\\[4pt]
 		&= \Bigl(\sum_{n_1 \mid m_1} f(n_1)\,g\!\left(\tfrac{m_1}{n_1}\right)\Bigr)
 		\cdot
 		\Bigl(\sum_{n_2 \mid m_2} f(n_2)\,g\!\left(\tfrac{m_2}{n_2}\right)\Bigr)\\

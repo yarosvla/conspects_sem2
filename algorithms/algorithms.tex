@@ -67,6 +67,7 @@ BoldItalicFont = cmunbso.otf
 
 \newcommand{\Sort}{\operatorname{sort}}
 \DeclareMathOperator{\dist}{dist}
+\DeclareMathOperator{\Lin}{Lin}
 
 \newcommand{\cP}{\mathcal{P}}
 \newcommand{\cD}{\mathcal{D}}
@@ -158,6 +159,27 @@ BoldItalicFont = cmunbso.otf
 	netwire/.style={thin},
 	block/.style={draw,thick,rounded corners=4pt,minimum width=2.6cm,
 		minimum height=1.0cm,align=center,fill=white,font=\small},
+}
+
+% -------------------------------------------------------
+% Общие стили для лекции 6
+% -------------------------------------------------------
+% Minimal color palette
+\definecolor{conecolor}{RGB}{220,230,245}
+\definecolor{axiscolor}{RGB}{60,60,60}
+\definecolor{cvec}{RGB}{220,50,50}
+\definecolor{dvec}{RGB}{30,100,200}
+\definecolor{zvec}{RGB}{30,150,80}
+\definecolor{akcolor}{RGB}{180,80,0}
+
+\tikzset{
+	vec/.style={-{Stealth[length=5pt, width=3.5pt]}, line width=0.7pt},
+	thickvec/.style={-{Stealth[length=6pt, width=4pt]}, line width=1pt},
+	axis/.style={-{Stealth[length=5pt]}, line width=0.5pt, color=axiscolor!60},
+	coneray/.style={line width=0.9pt, color=axiscolor},
+	hypplane/.style={line width=0.8pt, dashed, color=axiscolor!70},
+	label/.style={font=\small},
+	slabel/.style={font=\footnotesize},
 }
 
 % -------------------------------------------------
@@ -550,10 +572,10 @@ BoldItalicFont = cmunbso.otf
 	\ticket{sections/}{ticket08.tex}
 	\ticket{sections/}{ticket09.tex}
 	\ticket{sections/}{ticket10.tex}
-	\ticket{sections/}{ticket11.tex}
-	\ticket{sections/}{ticket12.tex}
-	\ticket{sections/}{ticket13.tex}
-	\ticket{sections/}{ticket14.tex}
-	\ticket{sections/}{ticket15.tex}
+	%\ticket{sections/}{ticket11.tex}
+	%\ticket{sections/}{ticket12.tex}
+	%\ticket{sections/}{ticket13.tex}
+	%\ticket{sections/}{ticket14.tex}
+	%\ticket{sections/}{ticket15.tex}
 	
 \end{document}

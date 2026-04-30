@@ -1,3 +1,310 @@
 % !TEX root = ../algebra_02.tex
 
-\section{TODO}
+\section{Разрешимые $p$-группы. Теоремы Коши и Силова. Билинейные функции. Закон инерции. Евклидовы пространства.}
+
+\subsection{Разрешимость конечных $p$-групп}
+
+Напомним: группа $G$ называется \textit{разрешимой}, если существует нормальный ряд
+\[
+G = G_n \supset G_{n-1} \supset \cdots \supset G_1 \supset G_0 = \{e\},
+\]
+такой что $G_{i-1} \trianglelefteq G_i$ и $G_i/G_{i-1}$ абелева для всех $i = 1, \ldots, n$.
+
+\begin{Theorem}{}{psolv}
+	Любая конечная $p$-группа разрешима.
+\end{Theorem}
+
+\begin{proof}
+	Пусть $|G| = p^n$. Индукция по $n$.
+	
+	\textit{База:} $n = 1$. Тогда $G \cong \mathbb{Z}/p\mathbb{Z}$ — абелева, следовательно, разрешима.
+	
+	\textit{Шаг индукции.} Предположим, что все $p$-группы порядка $p^m$, $m < n$, разрешимы.
+	Так как $|G| = p^n$, по теореме о центре $p$-групп $Z(G) \neq \{e\}$.
+	Положим $G' = G/Z(G)$; тогда $|G'| = p^m$ при некотором $m < n$.
+	По гипотезе индукции $G'$ разрешима:
+	\[
+	G' = G'_l \supset G'_{l-1} \supset \cdots \supset G'_0 = \{e\}, \quad G'_k/G'_{k-1} \text{ — абелева.}
+	\]
+	Пусть $\pi \colon G \to G'$ — каноническая проекция, $H = Z(G) = \ker\pi$.
+	Определим $G_k = \pi^{-1}(G'_k)$ для $k = 0, 1, \ldots, l$. Тогда $G'_k = G_k/H$, и по второй теореме об изоморфизме:
+	\[
+	G'_k/G'_{k-1} = (G_k/H)\big/(G_{k-1}/H) \cong G_k/G_{k-1} \quad \text{— абелева.}
+	\]
+	Ряд
+	\[
+	G = G_l \supset G_{l-1} \supset \cdots \supset G_1 \supset G_0 = H \supset \{e\}
+	\]
+	имеет абелевы факторы ($H = Z(G)$ абелева), поэтому $G$ разрешима.
+\end{proof}
+
+\subsection{Теорема Коши}
+
+\begin{Theorem}{Коши}{cauchy}
+	Пусть $G$ — конечная группа, $p \mid |G|$, $p$ — простое. Тогда $\exists\, g \in G\colon \mathrm{ord}\, g = p$.
+\end{Theorem}
+
+\subsubsection*{Идея доказательства}
+
+Рассмотрим множество
+\[
+X = \{(g_1, \ldots, g_p) \in G^p \mid g_1 \cdots g_p = e\}.
+\]
+Группа $\mathbb{Z}/p\mathbb{Z}$ действует на $X$ циклическим сдвигом:
+\[
+k \cdot (g_1, \ldots, g_p) = (g_{1+k \bmod p},\; g_{2+k \bmod p},\; \ldots,\; g_{p+k \bmod p}).
+\]
+Анализ орбит этого действия (с учётом $p \mid |X|$) позволяет найти ненейтральный неподвижный элемент, порядок которого равен $p$.
+
+\subsection{Теоремы Силова}
+
+\begin{Definition}{Силовская $p$-подгруппа}{}
+	Пусть $G$ — конечная группа, $p^k \mid |G|$, но $p^{k+1} \nmid |G|$, $k \geq 1$.
+	\textit{Силовская $p$-подгруппа} — это подгруппа $H < G$ с $|H| = p^k$.
+\end{Definition}
+
+\begin{Theorem}{Силова}{sylow}
+	Пусть $G$ — конечная группа, $p$ — простое, $p \mid |G|$.
+	\begin{enumerate}
+		\item \textit{(Существование.)} Для любой подгруппы $H < G$ с $|H| = p^l$ существует силовская $p$-подгруппа, содержащая $H$.
+		\item \textit{(Сопряжённость.)} Все силовские $p$-подгруппы сопряжены: если $H, H'$ — силовские $p$-подгруппы, то $\exists\, g \in G\colon H' = gHg^{-1}$. \quad $(\mathrm{Syl}_g)$
+		\item \textit{(Количество.)} Число силовских $p$-подгрупп делит $|G|$ и $\equiv 1 \pmod{p}$.
+	\end{enumerate}
+\end{Theorem}
+
+\textbf{Без доказательства.}
+
+\section*{Билинейные функции}
+
+\subsection{Основные понятия}
+
+Пусть $K$ — поле, $V$ — линейное пространство над $K$.
+
+\begin{Definition}{Билинейная форма}{}
+	\textit{Билинейная форма} на $V$ — это отображение $\mathcal{B} \colon V \times V \to K$, удовлетворяющее условиям:
+	\begin{enumerate}
+		\item $\forall\, v_1, v_2, w \in V,\; \alpha_1, \alpha_2 \in K$:\quad
+		$\mathcal{B}(\alpha_1 v_1 + \alpha_2 v_2,\, w) = \alpha_1 \mathcal{B}(v_1, w) + \alpha_2 \mathcal{B}(v_2, w)$;
+		\item $\forall\, v, w_1, w_2 \in V,\; \alpha_1, \alpha_2 \in K$:\quad
+		$\mathcal{B}(v,\, \alpha_1 w_1 + \alpha_2 w_2) = \alpha_1 \mathcal{B}(v, w_1) + \alpha_2 \mathcal{B}(v, w_2)$.
+	\end{enumerate}
+\end{Definition}
+
+\begin{Example}{Билинейные формы}{}
+	\begin{enumerate}
+		\item $V = \{f \in \mathbb{R}[x] \mid \deg f \leq n\}$,\quad $\mathcal{B}(f,\, g) = (f \cdot g)(17)$.
+		\item $V = C[0,1]$,\quad $\mathcal{B}(f,\, g) = \displaystyle\int_0^1 f(x)\,g(x)\,dx$.
+		\item $B \in M_n(K)$,\ $V = K^n$,\quad $\mathcal{B}(b,\, c) = b^{\top} B\, c \in K$.
+	\end{enumerate}
+\end{Example}
+
+\subsection{Матрица Грама}
+
+Пусть $E = (e_1, \ldots, e_n)$ — базис $V$.
+Для $b, c \in V$ с координатными столбцами $[b]_E,\, [c]_E$ по линейности:
+\[
+\mathcal{B}(b,\,c)
+= \mathcal{B}\!\Bigl(\sum_i \beta_i e_i,\; \sum_j \gamma_j e_j\Bigr)
+= \sum_{i,j=1}^{n} \beta_i\,\gamma_j\;\mathcal{B}(e_i, e_j)
+= [b]_E^{\top}\,[\mathcal{B}]_E\,[c]_E.
+\]
+
+\begin{Definition}{Матрица Грама}{}
+	\textit{Матрица Грама} формы $\mathcal{B}$ в базисе $E$:
+	\[
+	[\mathcal{B}]_E = \bigl(\mathcal{B}(e_i,\, e_j)\bigr)_{i,j=1}^{n}.
+	\]
+\end{Definition}
+
+\subsection{Замена базиса}
+
+Пусть $E'$ — другой базис $V$, $C = M_{E \to E'}$ — матрица перехода (столбцы — координаты векторов $E'$ в базисе $E$), то есть
+\[
+[v]_E = C\,[v]_{E'} \quad \text{для всех } v \in V. \tag{$*$}
+\]
+
+\begin{Statement}{}{}
+	$[\mathcal{B}]_{E'} = C^{\top}\,[\mathcal{B}]_E\,C$.
+\end{Statement}
+
+\begin{proof}
+	Из $(*)$:
+	\[
+	\mathcal{B}(v,w) = [v]_E^{\top}[\mathcal{B}]_E[w]_E
+	= (C[v]_{E'})^{\top}[\mathcal{B}]_E(C[w]_{E'})
+	= [v]_{E'}^{\top}\, C^{\top}[\mathcal{B}]_E C\,[w]_{E'}.
+	\]
+	С другой стороны, $\mathcal{B}(v,w) = [v]_{E'}^{\top}[\mathcal{B}]_{E'}[w]_{E'}$.
+	Подставляя $v = e_i,\, w = e_j$ для всех $i,j$, получаем $[\mathcal{B}]_{E'} = C^{\top}[\mathcal{B}]_E C$.
+\end{proof}
+
+\subsection{Симметрические формы}
+
+\begin{Definition}{Симметрическая форма}{}
+	$\mathcal{B}$ называется \textit{симметрической}, если $\forall\, v, w \in V$: $\mathcal{B}(v, w) = \mathcal{B}(w, v)$.
+\end{Definition}
+
+\begin{Statement}{}{}
+	Пусть $B = [\mathcal{B}]_E$. Тогда $\mathcal{B}$ симметрична $\Longleftrightarrow$ $B = B^{\top}$.
+\end{Statement}
+
+\textbf{Очевидно.}
+
+\subsection{Теорема Лагранжа (диагонализация)}
+
+\begin{Theorem}{Лагранжа}{lagrange}
+	Пусть $\mathrm{char}\,K \neq 2$, $\dim V = n < \infty$, $\mathcal{B}$ — симметрическая билинейная форма на $V$.
+	Тогда существует базис $E$ такой, что $[\mathcal{B}]_E$ диагональна.
+\end{Theorem}
+
+\begin{proof}
+	Индукция по $n$.
+	
+	\textit{База} $n = 1$: любой базис даёт матрицу $1 \times 1$ — диагональную.
+	
+	\textit{Шаг} $n \geq 2$.
+	
+	\textbf{Случай 1:} $\mathcal{B} = 0$. Тогда $[\mathcal{B}]_E = 0$ для любого $E$.
+	
+	\textbf{Случай 2:} $\mathcal{B} \neq 0$.
+	Покажем, что $\exists\, v \in V\colon \mathcal{B}(v,v) \neq 0$.
+	Предположим $\mathcal{B}(v,v) = 0$ для всех $v$.
+	Поскольку $\mathcal{B} \neq 0$, $\exists\, u, v$ с $\mathcal{B}(u,v) \neq 0$. Тогда:
+	\[
+	0 = \mathcal{B}(u+v,\,u+v)
+	= \underbrace{\mathcal{B}(u,u)}_{0} + \mathcal{B}(u,v) + \mathcal{B}(v,u) + \underbrace{\mathcal{B}(v,v)}_{0}
+	= 2\,\mathcal{B}(u,v).
+	\]
+	Так как $\mathrm{char}\,K \neq 2$, то $2 \neq 0$, значит $\mathcal{B}(u,v) = 0$ — противоречие.
+	
+	Итак, $\exists\, v\colon \mathcal{B}(v,v) \neq 0$. Рассмотрим функционал $\lambda_v\colon w \mapsto \mathcal{B}(w, v)$.
+	Так как $\lambda_v(v) \neq 0$, функционал сюръективен, поэтому
+	\[
+	W = \ker\lambda_v = \{w \in V \mid \mathcal{B}(w,v)=0\}, \quad \dim W = n-1.
+	\]
+	По гипотезе индукции $\exists$ базис $E'' = (e_2,\ldots,e_n)$ пространства $W$ с
+	$[\mathcal{B}|_{W\times W}]_{E''} = \mathrm{diag}(d_2,\ldots,d_n)$.
+	Так как $e_i \in W$, т.е.\ $\mathcal{B}(v,e_i) = 0$ при $i \geq 2$, базис $E = (v, e_2, \ldots, e_n)$ даёт
+	\[
+	[\mathcal{B}]_E = \mathrm{diag}\bigl(\mathcal{B}(v,v),\; d_2,\; \ldots,\; d_n\bigr). \qedhere
+	\]
+\end{proof}
+
+\begin{Remark}{}{}
+	При замене $e_i \mapsto \gamma_i e_i$ диагональная матрица $\mathrm{diag}(d_1,\ldots,d_n)$ переходит в $\mathrm{diag}(\gamma_1^2 d_1,\ldots,\gamma_n^2 d_n)$.
+\end{Remark}
+
+\subsection{Ранг билинейной формы}
+
+\begin{Definition}{Ранг}{}
+	\textit{Ранг} симметрической билинейной формы $\mathcal{B}$ (при $\dim V < \infty$) — это $\mathrm{rk}\,\mathcal{B} := \mathrm{rk}\,[\mathcal{B}]_E$ для произвольного базиса $E$. Это значение не зависит от выбора $E$.
+\end{Definition}
+
+\begin{Corollary}{}{}
+	Пусть $V/\mathbb{C}$, $\dim V = n$, $\mathcal{B}$ — симметрическая форма, $r = \mathrm{rk}\,\mathcal{B}$.
+	Тогда $\exists$ базис $E\colon$
+	\[
+	[\mathcal{B}]_E = \begin{pmatrix} E_r & 0 \\ 0 & 0 \end{pmatrix},
+	\]
+	где $E_r$ — единичная матрица $r \times r$.
+	Стандартная форма: $\mathcal{B}_0\!\left(\begin{pmatrix}\alpha_1\\\vdots\\\alpha_n\end{pmatrix},\begin{pmatrix}\beta_1\\\vdots\\\beta_n\end{pmatrix}\right) = \alpha_1\beta_1 + \cdots + \alpha_r\beta_r$.
+\end{Corollary}
+
+\subsection{Закон инерции (теорема Сильвестра)}
+
+\begin{Theorem}{Закон инерции}{sylvester}
+	Пусть $V/\mathbb{R}$, $\dim V = n < \infty$, $\mathcal{B}$ — симметрическая билинейная форма на $V$.
+	Тогда существует базис $E$ такой, что
+	\[
+	[\mathcal{B}]_E = \mathrm{diag}(\underbrace{1,\ldots,1}_{k},\;
+	\underbrace{-1,\ldots,-1}_{l},\;
+	\underbrace{0,\ldots,0}_{n-k-l}). \tag{$*$}
+	\]
+	При этом числа $k$ и $l$ (индексы инерции) являются инвариантами $\mathcal{B}$.
+\end{Theorem}
+
+\begin{proof}
+	\textit{Существование.}
+	По теореме Лагранжа $\exists\, E_0 = (e^0_1,\ldots,e^0_n)$ с $[\mathcal{B}]_{E_0} = \mathrm{diag}(d_1,\ldots,d_n)$.
+	Перенумеруем: $d_1,\ldots,d_k > 0$;\; $d_{k+1},\ldots,d_{k+l} < 0$;\; $d_{k+l+1} = \cdots = d_n = 0$.
+	Положим
+	\[
+	e_i = \begin{cases}
+		\dfrac{1}{\sqrt{d_i}}\,e^0_i, & 1 \leq i \leq k, \\[5pt]
+		\dfrac{1}{\sqrt{-d_i}}\,e^0_i, & k < i \leq k+l, \\[5pt]
+		e^0_i, & i > k+l.
+	\end{cases}
+	\]
+	Тогда $E = (e_1,\ldots,e_n)$ удовлетворяет $(*)$.
+	
+	\textit{Единственность.}
+	Пусть при другом базисе $E'$ получается пара $(k', l')$.
+	Предположим $k \neq k'$; без ограничения общности $k > k'$.
+	Рассмотрим подпространства:
+	\begin{align*}
+		W  &= \mathrm{Lin}(e_1,\ldots,e_k), &\dim W  &= k, \\
+		W' &= \mathrm{Lin}(e'_{k'+1},\ldots,e'_n), &\dim W' &= n-k'.
+	\end{align*}
+	Так как $k + (n-k') > n$, имеем $\dim(W \cap W') > 0$.
+	Возьмём $w \neq 0$,\; $w = \lambda_1 e_1 + \cdots + \lambda_k e_k = \mu_{k'+1}e'_{k'+1} + \cdots + \mu_n e'_n$.
+	
+	С одной стороны:
+	\[
+	\mathcal{B}(w,w) = \lambda_1^2 + \cdots + \lambda_k^2 > 0 \quad (\text{т.к.\ } w \neq 0).
+	\]
+	С другой стороны:
+	\[
+	\mathcal{B}(w,w) = -\mu_{k'+1}^2 - \cdots - \mu_{k'+l'}^2 \leq 0.
+	\]
+	Противоречие. Значит $k = k'$, и тогда $l = l'$ из равенства $k + l = \mathrm{rk}\,\mathcal{B}$.
+\end{proof}
+
+\begin{Definition}{Сигнатура}{}
+	Пара $(k,l)$ называется \textit{сигнатурой} симметрической билинейной формы $\mathcal{B}$.
+\end{Definition}
+
+\subsection{Упражнение: классификация над $\mathbb{F}_5$}
+
+\textit{Задача.} Классифицировать симметрические билинейные формы на $n$-мерном пространстве над $K = \mathbb{F}_5$ с точностью до эквивалентности.
+
+\subsection{Скалярное произведение и евклидовы пространства}
+
+\begin{Definition}{Скалярное произведение}{}
+	\textit{Скалярное произведение} на $V/\mathbb{R}$ — это симметрическая билинейная форма $\mathcal{B}$ на $V$ такая, что
+	\[
+	\forall\, v \in V\colon \mathcal{B}(v,v) \geq 0, \quad \mathcal{B}(v,v) = 0 \;\Longleftrightarrow\; v = 0.
+	\]
+	(Положительная определённость.)
+\end{Definition}
+
+\begin{Definition}{Евклидово пространство}{}
+	\textit{Евклидово пространство} — вещественное линейное пространство $V$ с фиксированным скалярным произведением. Обозначение: $\mathcal{B}(v, w) =: (v, w)$ или $\langle v, w \rangle$.
+\end{Definition}
+
+Норма вектора: $\|v\| := \sqrt{(v,v)}$. Для неё выполнены:
+\[
+\|\alpha v\| = |\alpha|\cdot\|v\|, \qquad
+|(v,w)| \leq \|v\|\cdot\|w\| \quad \text{(Коши--Буняковский)}, \qquad
+\|v+w\| \leq \|v\| + \|w\|.
+\]
+
+\begin{Example}{Евклидово пространство на $C[0,1]$}{}
+	$V = C[0,1]$ с $(f,g) = \displaystyle\int_0^1 f(x)\,g(x)\,dx$ — евклидово пространство.
+\end{Example}
+
+\subsection{Ортонормированные системы. Процесс Грама–Шмидта}
+
+\begin{Definition}{ОНС}{}
+	Система $e_1,\ldots,e_k \in V$ называется \textit{ортонормированной} (ОНС), если
+	\[
+	(e_i, e_j) = \delta_{ij} \quad \forall\, i, j.
+	\]
+\end{Definition}
+
+\begin{Theorem}{Ортогонализации Грама–Шмидта}{gs}
+	Пусть $v_1,\ldots,v_k$ — линейно независимая система в евклидовом пространстве $V$.
+	Тогда существует ОНС $e_1,\ldots,e_k$ такая, что
+	\[
+	e_j \in \mathrm{Lin}(v_1,\ldots,v_j) \quad \text{для всех } 1 \leq j \leq k.
+	\]
+\end{Theorem}

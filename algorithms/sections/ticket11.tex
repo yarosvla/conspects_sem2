@@ -16,7 +16,7 @@
 	Если $|U| > m$, то коллизии неизбежны при любой хэш-функции $h$.
 \end{Statement}
 
-\subsection{Разрешение коллизий линейным зондированием}
+\subsection{Разрешение коллизий с помощью линейного поиска}
 
 При линейном зондировании ячейки таблицы просматриваются последовательно, начиная с позиции $h(x)$, по кругу. Ниже приведена иллюстрация: стрелка указывает на позицию $h(x)$, серые ячейки образуют \emph{серию} (цепочку подряд идущих занятых ячеек).
 
@@ -71,9 +71,10 @@
 	\EndIf
 	\State $T[t].\mathit{value} = v$
 	\If{$2n > m$}
-	\State Выделяем новую таблицу размера $2m$
-	\State Вставляем в неё все ключи из $T$
-	\State Удаляем $T$ (освобождаем память)
+	\State Создаём новую пустую таблицу $T'$ размера $2m$
+	\State Перехэшируем все элементы из $T$ в $T'$ с учётом нового размера таблицы
+	\State Удаляем $T$
+	\State $T = T'$
 	\State $m = 2m$
 	\EndIf
 \end{algorithmic}
@@ -107,14 +108,20 @@
 	Время работы операции пропорционально длине «хвоста» серии, начиная с позиции $h(x)$. Обозначим:
 	\begin{itemize}
 		\item \emph{серия} — максимальная цепочка подряд занятых ячеек $t', t'+1, \ldots, t'+k-1$, где $t'-1$ и $t'+k$ пусты (нумерация по модулю $m$);
-		\item $q_k$ — вероятность того, что в таблице существует серия длины $k$, начинающаяся в позиции $t - (k - \ell)$ (эта вероятность не зависит от конкретной позиции $t$);
-		\item $p_\ell$ — вероятность встретить в позиции $t = h(x)$ «хвост» длины $\ell$ некоторой серии длины $k \geq \ell$:
-		\begin{align*}
-			p_\ell = \sum_{k=\ell}^{n} q_k.
-		\end{align*}
+		\item $q_k$ — вероятность того, что в таблице существует серия длины $k$, начинающаяся в фиксированной позиции.
 	\end{itemize}
 	
-	\noindent\textbf{Ожидаемое время.} Оно равно $O\!\left(\displaystyle\sum_{\ell=0}^{n} p_\ell \cdot \ell\right)$. Преобразуем:
+	\noindent\textbf{Ожидаемое время.}
+	Пусть $p_\ell$ — вероятность встретить в позиции $t = h(x)$ «хвост» длины $\ell$ некоторой серии длины $k \geq \ell$.
+	Если серия имеет длину $k \geq \ell$, то она должна начинаться в позиции $t - (k - \ell)$, поэтому
+	\[
+	p_\ell = \sum_{k=\ell}^{n} q_k.
+	\]
+	Тогда ожидаемое время равно
+	\[
+	O\!\left(\sum_{\ell=0}^{n} p_\ell \cdot \ell\right).
+	\]
+	Преобразуем:
 	\begin{align*}
 		\sum_{\ell=0}^{n} p_\ell \cdot \ell
 		&= \sum_{\ell=0}^{n} \sum_{k=\ell}^{n} q_k \cdot \ell
@@ -122,37 +129,63 @@
 		= \sum_{k=0}^{n} q_k \cdot \Theta(k^2).
 	\end{align*}
 	
-	\noindent\textbf{Оценка $q_k$.} Докажем, что $q_k \leq \dfrac{1}{e^{\Omega(k)}}$. Из этого будет следовать:
+	\noindent\textbf{Оценка $q_k$.}
+	Докажем, что $q_k \leq e^{-\Omega(k)}$. Из этого будет следовать:
 	\begin{align*}
 		\sum_{k=0}^{n} q_k \cdot \Theta(k^2)
 		\leq \Theta\!\left(\sum_{k=0}^{n} \frac{k^2}{e^{\Omega(k)}}\right) = O(1).
 	\end{align*}
 	
-	Если в таблице есть серия в позициях $t', t'+1, \ldots, t'+k-1$, значит, ровно $k$ ключей отображены в ячейки $\{t', t'+1, \ldots, t'+k-1\}$, а $n - k$ ключей — в ячейки, не равные этим.
+	Если в таблице есть серия в позициях $t', t'+1, \ldots, t'+k-1$, значит, $k$ ключей отображены в ячейки
+	$\{t', t'+1, \ldots, t'+k-1\}$, а остальные $n - k$ ключей — вне этих ячеек.
 	
-	Следовательно ($m = 2n$):
+	Следовательно, так как $m = 2n$:
 	\begin{align*}
 		q_k
-		&\leq \binom{n}{k} \left(\frac{k}{2n}\right)^{\!k} \left(1 - \frac{k}{2n}\right)^{\!n-k}.
+		&\leq \binom{n}{k}
+		\left(\frac{k}{2n}\right)^k
+		\left(1 - \frac{k}{2n}\right)^{n-k}.
 	\end{align*}
 	
-	Оценим сверху каждый множитель. Используем неравенство $1 + x \leq e^x$:
-	
+	Оценим сверху каждый множитель. Используем неравенства
+	\[
+	\binom{n}{k} \leq \frac{n^n}{k^k (n-k)^{n-k}},
+	\qquad
+	1+x \leq e^x.
+	\]
+	Тогда
 	\begin{align*}
 		q_k
-		&\leq \frac{n^{n-k} \cdot k^k}{k!\,(n-k)! \cdot n^k} \cdot \frac{k^k}{2^k \cdot n^k} \cdot e^{-\frac{(n-k)k}{2n}} \\[4pt]
-		&= \frac{1}{2^k} \cdot \left(\frac{n}{n-k}\right)^{\!n-k} \cdot e^{-(\cdots)} \\[4pt]
-		&= \frac{1}{2^k} \cdot \left(1 + \frac{k}{n-k}\right)^{\!n-k} \cdot e^{-(\cdots)} \\[4pt]
-		&\leq \frac{1}{2^k} \cdot e^{k} \cdot e^{-\frac{k}{2n}(n-k)} \\[4pt]
-		&= \frac{1}{2^k} \cdot e^{k\!\left(1 - \frac{n-k}{2n}\right)}.
-	\end{align*}
-	
-	Поскольку $\frac{n-k}{2n} \geq \frac{1}{2}$ при $k \leq \frac{n}{2}$ и выражение достигает максимума при $k = 0$:
-	\begin{align*}
-		q_k
-		\leq \frac{1}{2^k} \cdot e^{k\!\left(1 - \frac{1}{2}\right)}
-		= \left(\frac{\sqrt{e}}{2}\right)^{\!k}
-		= \frac{1}{e^{\Omega(k)}}.
+		&\leq
+		\frac{n^n}{k^k (n-k)^{n-k}}
+		\cdot
+		\frac{k^k}{2^k n^k}
+		\cdot
+		\left(\frac{2n-k}{2n}\right)^{n-k}
+		\\[4pt]
+		&=
+		\frac{1}{2^k}
+		\cdot
+		\left(\frac{2n-k}{2n-2k}\right)^{n-k}
+		\\[4pt]
+		&=
+		\frac{1}{2^k}
+		\cdot
+		\left(1 + \frac{k}{2n-2k}\right)^{n-k}
+		\\[4pt]
+		&\leq
+		\frac{1}{2^k}
+		\cdot
+		e^{\frac{k(n-k)}{2n-2k}}
+		\\[4pt]
+		&=
+		\frac{1}{2^k}
+		\cdot
+		e^{k/2}
+		=
+		\left(\frac{\sqrt{e}}{2}\right)^k
+		=
+		e^{-\Omega(k)}.
 	\end{align*}
 	
 	Таким образом, ожидаемое время работы равно $O(1)$.

@@ -310,12 +310,15 @@
 	\widetilde\varphi\colon G/H\to H', \qquad \widetilde\varphi(gH):=\varphi(g),
 	\]
 	корректно определено и является гомоморфизмом. Более того, это единственный гомоморфизм для которого коммутирует диаграмма
+
 	\[
-	\begin{tikzcd}[column sep=large, row sep=large]
-		G \arrow[r, "\varphi"] \arrow[d, "\pi_H"'] & G' \\
-		G/H \arrow[r, "\widetilde{\varphi}"'] & H' \arrow[u, "i_{H'}"']
-	\end{tikzcd}
+	\begin{CD}
+		G @>{\varphi}>> G' \\
+		@V{\pi_H}VV @AA{i_{H'}}A \\
+		G/H @>{\widetilde{\varphi}}>> H'
+	\end{CD}
 	\]
+
 	то есть
 	\[
 	\varphi = i_{H'}\circ \widetilde\varphi\circ \pi_H.
@@ -545,13 +548,3 @@
 	\]
 	Следовательно, $\pi_H(P)\triangleleft G/H$.
 \end{proof}
-
-\begin{Theorem}{Третья теорема об изоморфизме}{thm:third-iso}
-	Пусть $H\triangleleft G$, $P\triangleleft G$ и $H\subseteq P$. Тогда
-	\begin{enumerate}
-		\item $H\triangleleft P$;
-		\item $P/H\triangleleft G/H$;
-		\item $(G/H)/(P/H) \cong G/P.$
-
-	\end{enumerate}
-\end{Theorem}

@@ -1,0 +1,479 @@
+% !TEX root = ../matan.tex
+
+\section{Дифференцируемые отображения}
+
+\subsection{Частные производные}
+
+Пусть $f\colon\Omega \to \mathbb{R}^m$, $\Omega\subset\mathbb{R}^d$, $x \in \Omega$,
+$e_j$ --- $j$-й базисный вектор в $\mathbb{R}^d$.
+
+\begin{Definition}{Частная производная}{}
+	Частной производной $f$ по переменной $x_j$ в точке $x$ называется предел
+	\[
+	\frac{\partial f}{\partial x_j}(x)
+	=
+	\lim_{t\to 0}
+	\frac{f(x+te_j)-f(x)}{t},
+	\]
+	если он существует.
+\end{Definition}
+
+Если $f=(f_1,\dots,f_m)$, то
+\[
+\frac{\partial f}{\partial x_j}(x)
+=
+\left(
+\frac{\partial f_1}{\partial x_j}(x),
+\dots,
+\frac{\partial f_m}{\partial x_j}(x)
+\right).
+\]
+
+\subsection{Дифференцируемость и частные производные}
+
+\begin{Statement}{Необходимое условие дифференцируемости}{}
+	Если $f\colon\Omega \to \mathbb{R}^m$ дифференцируема в точке $x$, то в этой точке
+	существуют все частные производные и
+	\[
+	d_xf(e_j)=\frac{\partial f}{\partial x_j}(x),
+	\qquad j=1,\dots,d.
+	\]
+\end{Statement}
+
+\begin{proof}
+	Подставим $h = te_j$ в определение дифференцируемости:
+	\[
+	f(x+te_j)=f(x)+d_xf(te_j)+o(|t|)=f(x)+t\,d_xf(e_j)+o(|t|).
+	\]
+	Разделив на $t$ и перейдя к пределу при $t\to0$, получаем
+	$\dfrac{\partial f}{\partial x_j}(x)=d_xf(e_j)$.
+\end{proof}
+
+\begin{Corollary}{Матрица Якоби}{}
+	Если $f\colon\Omega \to \mathbb{R}^m$ дифференцируема в точке $x$, то матрица
+	линейного отображения $d_xf$ в стандартных базисах равна матрице Якоби:
+	\[
+	J_f(x)=
+	\left(
+	\frac{\partial f_i}{\partial x_j}(x)
+	\right)_{\substack{1\le i\le m\\1\le j\le d}}.
+	\]
+\end{Corollary}
+
+\subsection{Случай скалярной функции}
+
+Пусть $f\colon\Omega \to \mathbb{R}$, $\Omega \subset \mathbb{R}^d$.
+Если $f$ дифференцируема в точке $x$, то $d_xf\colon\mathbb{R}^d\to\mathbb{R}$ ---
+линейный функционал, и
+\[
+d_xf(h)=\langle \nabla f(x),\,h\rangle,
+\]
+где \textbf{градиент} функции $f$ в точке $x$ --- вектор
+\[
+\nabla f(x)=
+\left(
+\frac{\partial f}{\partial x_1}(x),
+\dots,
+\frac{\partial f}{\partial x_d}(x)
+\right).
+\]
+
+\subsection{Покомпонентная дифференцируемость}
+
+\begin{Theorem}{Покомпонентная дифференцируемость}{}
+	Пусть $f=(f_1,\dots,f_m)\colon\Omega\subset\mathbb{R}^d\to\mathbb{R}^m$.
+	Тогда $f$ дифференцируема в точке $x$ тогда и только тогда, когда каждая компонента
+	$f_i$ дифференцируема в точке $x$.	При этом
+	\[
+	d_xf=
+	\begin{pmatrix}
+		d_xf_1 \\ \vdots \\ d_xf_m
+	\end{pmatrix}.
+	\]
+\end{Theorem}
+
+\begin{proof}
+	Каждое из условий $f(\xi)-f(x)-A(\xi-x)=o(\|\xi-x\|)$ и
+	$f_i(\xi)-f_i(x)-A_i(\xi-x)=o(\|\xi-x\|)$ для всех $i$ равносильно друг другу
+	(переход к координатам и обратно).
+\end{proof}
+
+\subsection{Дифференцируемость влечёт непрерывность}
+
+\begin{Theorem}{}{}
+	Если $f\colon\Omega \to \mathbb{R}^m$ дифференцируема в точке $x$, то $f$ непрерывна
+	в точке $x$.
+\end{Theorem}
+
+\begin{proof}
+	Из дифференцируемости: $f(\xi)-f(x)=d_xf(\xi-x)+o(\|\xi-x\|)$.
+	Так как $\|d_xf(\xi-x)\|\le C\|\xi-x\|$ для некоторого $C>0$, правая часть стремится
+	к нулю при $\xi\to x$.
+\end{proof}
+
+\subsection{Достаточное условие дифференцируемости}
+
+\begin{Theorem}{Непрерывные частные производные}{}
+	Пусть $\Omega\subset\mathbb{R}^d$ открыто, $f\colon\Omega\to\mathbb{R}$.
+	Если все частные производные $\dfrac{\partial f}{\partial x_j}$ существуют
+	в некоторой окрестности $B(x,\varepsilon)\subset\Omega$ и непрерывны в точке $x$,
+	то $f$ дифференцируема в точке $x$.
+\end{Theorem}
+
+\begin{proof}
+	Достаточно рассмотреть случай $d=2$ (общий случай аналогичен).
+	
+	Пусть $\xi=(\xi_1,\xi_2)\in B(x,\varepsilon)$, $x=(x_1,x_2)$. Запишем разность:
+	\[
+	f(\xi_1,\xi_2)-f(x_1,x_2)
+	=
+	\underbrace{\bigl(f(\xi_1,\xi_2)-f(x_1,\xi_2)\bigr)}_{\text{фиксируем 2-ю переменную}}
+	+
+	\underbrace{\bigl(f(x_1,\xi_2)-f(x_1,x_2)\bigr)}_{\text{фиксируем 1-ю переменную}}.
+	\]
+	
+	\textit{Первое слагаемое.} Положим $\varphi(t):=f(t,\xi_2)$, где $t\in(x_1-\delta,\,x_1+\delta)\ni\xi_1$.
+	Функция $\varphi$ дифференцируема на этом интервале, поэтому по теореме Лагранжа
+	\[
+	f(\xi_1,\xi_2)-f(x_1,\xi_2)
+	=\varphi(\xi_1)-\varphi(x_1)
+	=\varphi'(s)\cdot(\xi_1-x_1)
+	=\frac{\partial f}{\partial x_1}(s,\xi_2)\cdot(\xi_1-x_1),
+	\]
+	где $s$ лежит между $x_1$ и $\xi_1$.
+	
+	\textit{Второе слагаемое.} Аналогично, по теореме Лагранжа
+	\[
+	f(x_1,\xi_2)-f(x_1,x_2)
+	=\frac{\partial f}{\partial x_2}(x_1,\tilde{s})\cdot(\xi_2-x_2),
+	\]
+	где $\tilde{s}$ лежит между $x_2$ и $\xi_2$.
+	
+	Итого:
+	\[
+	f(\xi)-f(x)
+	=
+	\frac{\partial f}{\partial x_1}(x)(\xi_1-x_1)
+	+\frac{\partial f}{\partial x_2}(x)(\xi_2-x_2)
+	+r_1+r_2,
+	\]
+	где
+	\[
+	r_1=
+	\left(\frac{\partial f}{\partial x_1}(s,\xi_2)
+	-\frac{\partial f}{\partial x_1}(x)\right)(\xi_1-x_1),
+	\qquad
+	r_2=
+	\left(\frac{\partial f}{\partial x_2}(x_1,\tilde{s})
+	-\frac{\partial f}{\partial x_2}(x)\right)(\xi_2-x_2).
+	\]
+	При $\xi\to x$ выполнено $s\to x_1$, $\tilde{s}\to x_2$, поэтому из непрерывности
+	частных производных в точке $x$:
+	\[
+	\left|\frac{\partial f}{\partial x_1}(s,\xi_2)-\frac{\partial f}{\partial x_1}(x)\right|
+	=o(1),
+	\qquad
+	\left|\frac{\partial f}{\partial x_2}(x_1,\tilde{s})-\frac{\partial f}{\partial x_2}(x)\right|
+	=o(1).
+	\]
+	Следовательно, $|r_1|+|r_2|=o(\|\xi-x\|)$, и $f$ дифференцируема в точке $x$.
+\end{proof}
+
+\subsection{Пример: существование частных производных не гарантирует дифференцируемость}
+
+\begin{Example}{}{}
+	Рассмотрим функции, определённые в окрестности начала координат.
+	
+	\textbf{1.} Функция
+	\[
+	f(x,y)=
+	\begin{cases}
+		\dfrac{xy}{x^2+y^2}, & (x,y)\ne(0,0),\\
+		0, & (x,y)=(0,0).
+	\end{cases}
+	\]
+	В точке $(0,0)$ обе частные производные равны нулю, однако $f$ не непрерывна в нуле
+	(вдоль прямой $y=x$ имеем $f(x,x)=\tfrac{1}{2}\not\to 0$), значит, не дифференцируема.
+	
+	\textbf{2.} Функция $f(x_1,x_2)=\sqrt{|x_1 x_2|}$ имеет обе частные производные в точке $(0,0)$
+	(легко проверить: $\partial f/\partial x_1(0,0)=0$), однако в нуле не дифференцируема.
+\end{Example}
+
+\subsection{Производная сложной функции (правило цепочки)}
+
+Пусть
+\[
+f\colon\Omega\subset\mathbb{R}^d\to\mathbb{R}^n,
+\qquad
+g\colon\Omega'\subset\mathbb{R}^n\to\mathbb{R}^m,
+\qquad
+f(\Omega)\subset\Omega',
+\]
+$x$ --- внутренняя точка $\Omega$, $y=f(x)$ --- внутренняя точка $\Omega'$.
+
+\begin{Theorem}{Производная сложной функции}{}
+	Если $f$ дифференцируема в точке $x$, а $g$ дифференцируема в точке $y=f(x)$, то
+	$h=g\circ f$ дифференцируема в точке $x$ и
+	\[
+	d_x h = d_{f(x)}g\circ d_xf.
+	\]
+	Соответствующие линейные отображения: $d_xf\colon\mathbb{R}^d\to\mathbb{R}^n$ и
+	$d_yg\colon\mathbb{R}^n\to\mathbb{R}^m$, поэтому $d_x h\colon\mathbb{R}^d\to\mathbb{R}^m$.
+\end{Theorem}
+
+\begin{proof}
+	Обозначим $A_x := d_xf$ и $B_y := d_yg$. Нужно показать, что
+	\[
+	h(\xi)-h(x) = (B_y\circ A_x)(\xi-x)+o(\|\xi-x\|).
+	\]
+	
+	\textit{Шаг 1.} Так как $h(\xi)-h(x)=g(f(\xi))-g(f(x))$, а $g$ дифференцируема
+	в точке $y=f(x)$:
+	\[
+	g(f(\xi))-g(f(x))=B_y(f(\xi)-f(x))+\varphi(f(\xi)-f(x)),
+	\]
+	где $\varphi\colon\mathbb{R}^n\to\mathbb{R}^m$ удовлетворяет
+	$\dfrac{\|\varphi(S)\|}{\|S\|}\to 0$ при $\|S\|\to 0$.
+	
+	\textit{Шаг 2.} Так как $f$ дифференцируема в точке $x$:
+	\[
+	f(\xi)-f(x)=A_x(\xi-x)+\psi(\xi-x),
+	\]
+	где $\psi\colon\mathbb{R}^d\to\mathbb{R}^n$ удовлетворяет
+	$\dfrac{\|\psi(u)\|}{\|u\|}\to 0$ при $\|u\|\to 0$.
+	Подставляя:
+	\[
+	B_y(f(\xi)-f(x))=B_y\bigl(A_x(\xi-x)+\psi(\xi-x)\bigr)
+	=B_y A_x(\xi-x)+B_y\psi(\xi-x).
+	\]
+	Поскольку $B_y$ линейно, $\|B_y\psi(\xi-x)\|\le\|B_y\|\cdot\|\psi(\xi-x)\|=o(\|\xi-x\|)$.
+	
+	\textit{Шаг 3.} Оценим $\varphi(f(\xi)-f(x))$. При $\xi\to x$ рассмотрим два случая:
+	\begin{itemize}
+		\item $f(\xi)=f(x)$: тогда $\|\varphi(f(\xi)-f(x))\|=\|\varphi(0)\|=0$.
+		\item $f(\xi)\ne f(x)$: тогда
+		\[
+		\frac{\|\varphi(f(\xi)-f(x))\|}{\|\xi-x\|}
+		=
+		\underbrace{\frac{\|\varphi(f(\xi)-f(x))\|}{\|f(\xi)-f(x)\|}}_{\to\,0}
+		\cdot
+		\underbrace{\frac{\|f(\xi)-f(x)\|}{\|\xi-x\|}}_{\le\,\|A_x\|+1\ (\text{огр.})}.
+		\]
+	\end{itemize}
+	В обоих случаях $\|\varphi(f(\xi)-f(x))\|=o(\|\xi-x\|)$.
+	
+	Собирая всё вместе:
+	\[
+	h(\xi)-h(x)=B_y A_x(\xi-x)+o(\|\xi-x\|). \qedhere
+	\]
+\end{proof}
+
+\subsection{Матричная форма правила цепочки}
+
+Матрица Якоби композиции равна произведению матриц Якоби:
+\[
+J_{g\circ f}(x)=J_g(f(x))\,J_f(x).
+\]
+В координатах:
+\[
+\frac{\partial (g_i\circ f)}{\partial x_j}(x)
+=
+\sum_{k=1}^{n}
+\frac{\partial g_i}{\partial y_k}(f(x))
+\frac{\partial f_k}{\partial x_j}(x).
+\]
+
+\subsection{Производная обратного отображения}
+
+\begin{Theorem}{Производная обратного отображения}{}
+	Пусть $f\colon\Omega\subset\mathbb{R}^d\to\mathbb{R}^d$, $x$ --- внутренняя точка $\Omega$.
+	Предположим, что для некоторого $\varepsilon>0$:
+	\begin{itemize}
+		\item $f\bigl(B(x,\varepsilon)\bigr)$ --- открытое множество, являющееся окрестностью
+		точки $y=f(x)$;
+		\item $f|_{B(x,\varepsilon)}\colon B(x,\varepsilon)\to f(B(x,\varepsilon))$ --- биекция
+		с обратным отображением $g\colon f(B(x,\varepsilon))\to B(x,\varepsilon)$,
+		непрерывным в точке $y$.
+	\end{itemize}
+	Если $f$ дифференцируема в точке $x$ и $d_xf$ обратим, то $g$ дифференцируема
+	в точке $y$ и
+	\[
+	d_yg = (d_xf)^{-1}.
+	\]
+\end{Theorem}
+
+\begin{proof}
+	Пусть $\Upsilon\in f(B(x,\varepsilon))$. Обозначим $\xi=g(\Upsilon)$, так что $f(\xi)=\Upsilon$.
+	Из дифференцируемости $f$:
+	\[
+	\Upsilon - y = d_xf(\xi-x)+o(\|\xi-x\|).
+	\]
+	Применим $(d_xf)^{-1}$:
+	\[
+	(d_xf)^{-1}(\Upsilon-y) = \xi-x + (d_xf)^{-1}\bigl(o(\|\xi-x\|)\bigr)
+	= g(\Upsilon)-g(y)+o(\|\xi-x\|).
+	\]
+	Из обратимости $d_xf$ следует, что $\|\xi-x\|$ и $\|\Upsilon-y\|$ имеют один порядок
+	при $\Upsilon\to y$, поэтому
+	\[
+	g(\Upsilon)-g(y) = (d_xf)^{-1}(\Upsilon-y)+o(\|\Upsilon-y\|). \qedhere
+	\]
+\end{proof}
+
+\subsection{Обозначения. Лапласиан}
+
+Градиент: $\nabla f(x) = \left(\dfrac{\partial f}{\partial x_1}(x),\dots,
+\dfrac{\partial f}{\partial x_d}(x)\right)$.
+
+Оператор Лапласа (\textbf{лапласиан}):
+\[
+\Delta f(x) := \sum_{j=1}^{d}\frac{\partial^2 f}{\partial x_j^2}(x)
+= (\nabla\cdot\nabla)f(x).
+\]
+
+\subsection{Частные производные высших порядков}
+
+Пусть $\partial_j f$ определена в окрестности $B(x,\varepsilon)\subset\mathbb{R}^d$.
+Тогда можно рассматривать её частную производную по $x_k$:
+\[
+\frac{\partial^2 f}{\partial x_k\partial x_j}(x)
+=\partial_k\partial_j f(x)
+:=\frac{\partial}{\partial x_k}\!\left(\frac{\partial f}{\partial x_j}\right)(x).
+\]
+При $j\ne k$ такая производная называется \textbf{смешанной}. В общем случае
+$\partial_k\partial_j f \ne \partial_j\partial_k f$.
+
+\subsection{Теорема Шварца}
+
+\begin{Theorem}{Шварца}{}
+	Пусть $f\colon\Omega\to\mathbb{R}$, $x$ --- внутренняя точка $\Omega$.
+	Если в некоторой окрестности $B(x,\varepsilon)\subset\Omega$ определены смешанные
+	производные $\partial_j\partial_k f$ и $\partial_k\partial_j f$ и обе непрерывны
+	в точке $x$, то
+	\[
+	\partial_j\partial_k f(x)=\partial_k\partial_j f(x).
+	\]
+\end{Theorem}
+
+\begin{proof}
+	Без ограничения общности $d=2$, $j=1$, $k=2$.
+	
+	Введём \emph{приращение по прямоугольнику}:
+	\[
+	A := f(x_1+\theta_1,x_2+\theta_2)
+	- f(x_1+\theta_1,x_2)
+	- f(x_1,x_2+\theta_2)
+	+ f(x_1,x_2).
+	\]
+	
+	\textbf{Способ 1} (сначала Лагранж по $x_2$, потом по $x_1$).
+	Зафиксируем $\theta_1$ и применим теорему Лагранжа по $x_2$:
+	существует $t\in[x_2,x_2+\theta_2]$ такое, что
+	\[
+	A = \theta_2\bigl(\partial_2 f(x_1+\theta_1,t)-\partial_2 f(x_1,t)\bigr).
+	\]
+	Применим теорему Лагранжа ещё раз по $x_1$: существует $s\in[x_1,x_1+\theta_1]$:
+	\[
+	A = \theta_1\theta_2\,\partial_1\partial_2 f(s,t).
+	\]
+	При $\theta_1,\theta_2\to0$ имеем $s\to x_1$, $t\to x_2$, и по непрерывности
+	$\partial_1\partial_2 f$ в точке $x$:
+	\[
+	\frac{A}{\theta_1\theta_2}\;\xrightarrow{\theta_1,\theta_2\to0}\;\partial_1\partial_2 f(x).
+	\]
+	
+	\textbf{Способ 2} (сначала Лагранж по $x_1$, потом по $x_2$).
+	Аналогично: существуют $\tilde{s}\in[x_1,x_1+\theta_1]$ и $\tilde{t}\in[x_2,x_2+\theta_2]$:
+	\[
+	A = \theta_1\theta_2\,\partial_2\partial_1 f(\tilde{s},\tilde{t})
+	\;\xrightarrow{\theta_1,\theta_2\to0}\;
+	\theta_1\theta_2\,\partial_2\partial_1 f(x).
+	\]
+	
+	Оба предела равны одному и тому же $A/(\theta_1\theta_2)$, поэтому
+	$\partial_1\partial_2 f(x)=\partial_2\partial_1 f(x)$.
+\end{proof}
+
+\subsection{Теорема Юнга}
+
+\begin{Theorem}{Юнга}{}
+	Пусть $f\colon\Omega\to\mathbb{R}$, $x$ --- внутренняя точка $\Omega$.
+	Если частные производные $\partial_j f$ и $\partial_k f$ определены в некоторой
+	окрестности $B(x,\varepsilon)\subset\Omega$ и дифференцируемы в точке $x$, то
+	\[
+	\partial_j\partial_k f(x)=\partial_k\partial_j f(x).
+	\]
+\end{Theorem}
+
+\begin{proof}
+	Без ограничения общности $d=2$, $j=1$, $k=2$.
+	
+	Рассмотрим то же приращение по прямоугольнику:
+	\[
+	A := f(x_1+\theta_1,x_2+\theta_2)
+	- f(x_1+\theta_1,x_2)
+	- f(x_1,x_2+\theta_2)
+	+ f(x_1,x_2).
+	\]
+	
+	\textbf{Способ 1} (Лагранж по $x_1$, затем дифференцируемость $\partial_1 f$).
+	По теореме Лагранжа существует $t\in[x_1,x_1+\theta_1]$:
+	\[
+	A = \theta_1\bigl(\partial_1 f(t,x_2+\theta_2)-\partial_1 f(t,x_2)\bigr).
+	\]
+	Так как $\partial_1 f$ дифференцируема в точке $x$:
+	\[
+	\partial_1 f(t,x_2+\theta_2)-\partial_1 f(t,x_2)
+	= \bigl(\partial_1 f(t,x_2+\theta_2)-\partial_1 f(x)\bigr)
+	- \bigl(\partial_1 f(t,x_2)-\partial_1 f(x)\bigr).
+	\]
+	Применяя дифференцируемость к каждому слагаемому:
+	\[
+	= d_x(\partial_1 f)\cdot(t-x_1,\,\theta_2)
+	- d_x(\partial_1 f)\cdot(t-x_1,\,0)
+	+ o\bigl(\|(\theta_1,\theta_2)\|\bigr)
+	= \partial_1\partial_2 f(x)\cdot\theta_2
+	+ o\bigl(\|(\theta_1,\theta_2)\|\bigr).
+	\]
+	(Члены с $(t-x_1)$ взаимно уничтожаются в силу линейности $d_x(\partial_1 f)$.)
+	Следовательно,
+	\[
+	\frac{A}{\theta_1\theta_2}
+	= \partial_1\partial_2 f(x) + \frac{o\bigl(\|(\theta_1,\theta_2)\|\bigr)}{\theta_2}
+	\;\xrightarrow{\theta_1,\theta_2\to0}\;\partial_1\partial_2 f(x).
+	\]
+	
+	\textbf{Способ 2} (Лагранж по $x_2$, затем дифференцируемость $\partial_2 f$).
+	Аналогично предыдущей теореме:
+	\[
+	\frac{A}{\theta_1\theta_2}\;\xrightarrow{\theta_1,\theta_2\to0}\;\partial_2\partial_1 f(x).
+	\]
+	
+	Значит, $\partial_1\partial_2 f(x)=\partial_2\partial_1 f(x)$.
+\end{proof}
+
+\subsection{Гладкие функции. \texorpdfstring{$n$}{n}-кратная дифференцируемость}
+
+\begin{Definition}{$n$-кратно дифференцируемая функция}{}
+	Пусть $f\colon\Omega\to\mathbb{R}$, $x$ --- внутренняя точка $\Omega$.
+	
+	\begin{itemize}
+		\item $f$ называется \textbf{дважды дифференцируемой} в точке $x$, если все
+		первые частные производные $\partial_j f$ ($j=1,\dots,d$) дифференцируемы
+		в точке $x$.
+		
+		\item $f$ называется \textbf{$n$ раз дифференцируемой} в точке $x$, если все
+		частные производные $(n-1)$-го порядка
+		\[
+		\partial_{k_1}\partial_{k_2}\cdots\partial_{k_{n-1}} f,
+		\qquad k_1,\dots,k_{n-1}\in\{1,\dots,d\},
+		\]
+		дифференцируемы в точке $x$.
+	\end{itemize}
+\end{Definition}
+
+\begin{Remark}{}{}
+	В частности, из теоремы Шварца следует: если $f$ дважды дифференцируема в точке $x$,
+	то все смешанные производные второго порядка в точке $x$ совпадают при перестановке
+	индексов.
+\end{Remark}

@@ -124,7 +124,7 @@
 
 \begin{Example}{Группа симметрий правильного n-угольника}{}
 
-    Группа $D_n$ порождена двумя элементами: $S_n = <R_n, S_n>$ (поворот на $k\cdot \frac{2\pi}{n}$ радиан и осевая симметрия)
+    Группа $D_n$ порождена двумя элементами: $D_n = <R_1, S_0>$ (поворот на $i\cdot \frac{2\pi}{n}$ радиан и осевая симметрия)
 
     \[   
     D_n = \{ R_i, S_i \ \ | \ \ 0 \le i \le n-1 \}
@@ -152,7 +152,7 @@
 
 \begin{Example}{Перестановки}{}
 
-    $H_0 = <\sigma_1, \tau>, \qquad \tau = (12)$
+    $H_0 = <\sigma, \tau>, \qquad \tau = (12)$
 
     $\sigma \tau \sigma^{-1} = (23)\Rightarrow$
 
@@ -164,7 +164,7 @@
 
 Мотивация~--- хотим научиться понимать, насколько один элемент "отличается" от другого.
 
-Для двух элементов $g', g \in G$, если $g' = g \cdot h$ для некоторого $h \in H < G$ - $g'$ "отличается" от $g$ на $h$.
+Для двух элементов $g', g \in G$, если $g' = g \cdot h$ для некоторого $h \in H < G$ --- $g'$ "отличается" от $g$ на $h$.
 
 Теперь формально:
 
@@ -274,7 +274,7 @@ $\sim$~--- \textbf{отношение левой смежности по под�
 
     $\Rightarrow \eps$~--- биекция. Тогда $|gH| = |H|$
 
-    \[ |G| = \sum_{P \in G \slash H } |P| = \sum_{P ]in G \slash H} |H| = |H| \cdot |G \slash H| \]
+    \[ |G| = \sum_{P \in G \slash H } |P| = \sum_{P \in G \slash H} |H| = |H| \cdot |G \slash H| \]
 \end{proof}
 
 \textbf{Следствия:}
@@ -372,9 +372,9 @@ $\sim$~--- \textbf{отношение левой смежности по под�
 
 \begin{proof}
 
-    $g \in G, \ \ g \in H \Rightarrow gH = H = h'g$
+    $g \in G, \ \ g \in H \Rightarrow gH = H = Hg$
 
-    $g \not \in gH \not = H \underset{\text{классов всего 2}}{\Rightarrow} gH = G \underset{\text{разность}}{\setminus} H = Hg$
+    $g \not \in H \Rightarrow gH \not = H \underset{\text{классов всего 2}}{\Rightarrow} gH = G \underset{\text{разность}}{\setminus} H = Hg$
 \end{proof}
 
 \begin{Example}{Не нормальная группа}{}

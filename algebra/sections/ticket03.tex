@@ -1,3 +1,353 @@
 % !TEX root = ../algebra_02.tex
 
-\section{TODO}
+\section{Матрицы линейных отображений и собственные значения}
+
+\subsection{Матрица линейного отображения}
+
+Пусть $V,W$ --- конечномерные линейные пространства над полем $K$,
+$\dim V=n$, $\dim W=m$.
+
+Пусть $E=(e_1,\ldots,e_n)$ --- базис $V$, а $F=(f_1,\ldots,f_m)$ --- базис $W$.
+
+\begin{Definition}{Координатный столбец}{}
+	Для $v\in V$ координатный столбец $[v]_E\in K^n$ определяется равенством
+	$v=E[v]_E$, то есть
+	\[
+	v=e_1x_1+\cdots+e_nx_n
+	\quad \Longleftrightarrow \quad
+	[v]_E=
+	\begin{pmatrix}
+		x_1\\
+		\vdots\\
+		x_n
+	\end{pmatrix}.
+	\]
+\end{Definition}
+
+\begin{Definition}{Матрица линейного отображения}{}
+	Пусть $\alpha\colon V\to W$ --- линейное отображение. Его матрицей в базисах $E,F$ называется матрица $[\alpha]_{E,F}\in M_{m\times n}(K)$, столбцы которой равны координатам образов базисных векторов:
+	\[
+	[\alpha]_{E,F}
+	=
+	\bigl(
+	[\alpha e_1]_F,\ldots,[\alpha e_n]_F
+	\bigr).
+	\]
+	Иначе говоря,
+	\[
+	\alpha E=F[\alpha]_{E,F}.
+	\]
+\end{Definition}
+
+\begin{Statement}{Координаты образа вектора}{}
+	Пусть $\alpha\colon V\to W$ --- линейное отображение и $A=[\alpha]_{E,F}$. Тогда для любого $v\in V$
+	\[
+	[\alpha v]_F=A[v]_E.
+	\]
+\end{Statement}
+
+\begin{proof}
+	Так как $v=E[v]_E$, то
+	\[
+	\alpha v=\alpha(E[v]_E)=(\alpha E)[v]_E
+	=(FA)[v]_E=F(A[v]_E).
+	\]
+	Значит, $[\alpha v]_F=A[v]_E$.
+\end{proof}
+
+\subsection{Композиция линейных отображений}
+
+Пусть заданы линейные отображения
+\[
+V \xrightarrow{\alpha} W \xrightarrow{\beta} U,
+\]
+а также базисы $E$ в $V$, $F$ в $W$ и $G$ в $U$.
+
+\begin{Theorem}{Матрица композиции}{}
+	Для композиции $\beta\alpha\colon V\to U$ выполнено
+	\[
+	[\beta\alpha]_{E,G}
+	=
+	[\beta]_{F,G}[\alpha]_{E,F}.
+	\]
+\end{Theorem}
+
+\begin{proof}
+	Пусть $[\alpha]_{E,F}=A$, $[\beta]_{F,G}=B$. Тогда
+	$\alpha E=FA$ и $\beta F=GB$. Поэтому
+	\[
+	(\beta\alpha)E
+	=
+	\beta(\alpha E)
+	=
+	\beta(FA)
+	=
+	(\beta F)A
+	=
+	(GB)A
+	=
+	G(BA).
+	\]
+	Следовательно, $[\beta\alpha]_{E,G}=BA=[\beta]_{F,G}[\alpha]_{E,F}$.
+\end{proof}
+
+\subsection{Замена базисов}
+
+\begin{Definition}{Матрица перехода}{}
+	Пусть $E,E'$ --- два базиса одного пространства $V$.
+	Матрицей перехода от $E'$ к $E$ называется матрица
+	\[
+	C_{E'\to E}:=[\operatorname{id}_V]_{E',E}.
+	\]
+	Она переводит координаты в базисе $E'$ в координаты в базисе $E$:
+	$[v]_E=C_{E'\to E}[v]_{E'}$.
+\end{Definition}
+
+\begin{Theorem}{Формула замены базисов}{}
+	Пусть $\alpha\colon V\to W$, $E,E'$ --- базисы $V$, а $F,F'$ --- базисы $W$.
+	Тогда
+	\[
+	[\alpha]_{E',F'}
+	=
+	C_{F\to F'}[\alpha]_{E,F}C_{E'\to E}.
+	\]
+\end{Theorem}
+
+\begin{proof}
+	Используем формулу для композиции:
+	\[
+	\alpha
+	=
+	\operatorname{id}_W\circ \alpha\circ \operatorname{id}_V.
+	\]
+	Тогда
+	\[
+	[\alpha]_{E',F'}
+	=
+	[\operatorname{id}_W]_{F,F'}
+	[\alpha]_{E,F}
+	[\operatorname{id}_V]_{E',E}
+	=
+	C_{F\to F'}[\alpha]_{E,F}C_{E'\to E}.
+	\]
+\end{proof}
+
+\begin{Corollary}{Замена базиса для оператора}{}
+	Пусть $\alpha\in \End V$, $E,E'$ --- базисы $V$, $[\alpha]_E=A$ и $C=C_{E'\to E}$.
+	Тогда
+	\[
+	[\alpha]_{E'}=C^{-1}AC.
+	\]
+\end{Corollary}
+
+\begin{Definition}{Подобные матрицы}{}
+	Матрицы $A,A'\in M_n(K)$ называются подобными, если существует $C\in GL_n(K)$ такое, что
+	$A'=C^{-1}AC$.
+\end{Definition}
+
+\begin{Remark}{Смысл подобия}{}
+	Подобные матрицы --- это матрицы одного и того же линейного оператора в разных базисах.
+\end{Remark}
+
+\subsection{Нормальный вид матрицы линейного отображения}
+
+\begin{Theorem}{Нормальный вид линейного отображения}{}
+	Пусть $\alpha\colon V\to W$ --- линейное отображение,
+	$\dim V=n$, $\dim W=m$, $\rk\alpha=r$.
+	Тогда существуют базисы $E$ в $V$ и $F$ в $W$ такие, что
+	\[
+	[\alpha]_{E,F}
+	=
+	\begin{pmatrix}
+		I_r & 0\\
+		0 & 0
+	\end{pmatrix}.
+	\]
+\end{Theorem}
+
+\begin{proof}
+	Выберем базис $f_1,\ldots,f_r$ пространства $\Im\alpha$.
+	Для каждого $i=1,\ldots,r$ выберем $e_i\in V$ так, что $\alpha e_i=f_i$.
+	
+	Пусть $e_{r+1},\ldots,e_n$ --- базис $\Ker\alpha$.
+	Тогда $e_1,\ldots,e_n$ --- базис $V$.
+	
+	Действительно, если
+	$a_1e_1+\cdots+a_re_r+b_{r+1}e_{r+1}+\cdots+b_ne_n=0$,
+	то после применения $\alpha$ получаем
+	$a_1f_1+\cdots+a_rf_r=0$.
+	Значит, $a_1=\cdots=a_r=0$, а затем и все $b_i=0$.
+	
+	Дополним $f_1,\ldots,f_r$ до базиса $F=(f_1,\ldots,f_m)$ пространства $W$.
+	В базисах $E=(e_1,\ldots,e_n)$ и $F$ имеем:
+	$\alpha e_i=f_i$ при $i\le r$ и $\alpha e_i=0$ при $i>r$.
+	Отсюда получается указанная матрица.
+\end{proof}
+
+\begin{Corollary}{Ранг линейного отображения и ранг матрицы}{}
+	Для любых базисов $E,F$ выполнено
+	\[
+	\rk \alpha=\rk [\alpha]_{E,F}.
+	\]
+\end{Corollary}
+
+\subsection{Пространство линейных отображений}
+
+\begin{Definition}{Пространство $\Hom(V,W)$}{}
+	Множество всех линейных отображений из $V$ в $W$ обозначается через $\Hom(V,W)$.
+	
+	Оно является линейным пространством относительно операций
+	\[
+	(\alpha+\beta)(v)=\alpha v+\beta v,
+	\qquad
+	(\lambda\alpha)(v)=\lambda\alpha v.
+	\]
+\end{Definition}
+
+\begin{Theorem}{Матрицы как координаты линейных отображений}{}
+	Пусть $E$ --- базис $V$, $F$ --- базис $W$.
+	Отображение
+	\[
+	\Phi\colon \Hom(V,W)\to M_{m\times n}(K),
+	\qquad
+	\Phi(\alpha)=[\alpha]_{E,F},
+	\]
+	является изоморфизмом линейных пространств.
+\end{Theorem}
+
+\begin{proof}
+	Линейность следует из равенств
+	\[
+	[\alpha+\beta]_{E,F}=[\alpha]_{E,F}+[\beta]_{E,F},
+	\qquad
+	[\lambda\alpha]_{E,F}=\lambda[\alpha]_{E,F}.
+	\]
+	
+	Покажем, что $\Phi$ биективно.
+	Матрица $[\alpha]_{E,F}$ полностью определяется векторами
+	$\alpha e_1,\ldots,\alpha e_n$.
+	
+	Обратно, если дана произвольная матрица $A=(a_1,\ldots,a_n)$,
+	где $a_i\in K^m$ --- её столбцы, то можно единственным образом задать линейное отображение $\alpha$ формулами
+	$\alpha e_i=Fa_i$.
+	Тогда $[\alpha]_{E,F}=A$.
+\end{proof}
+
+\begin{Corollary}{Размерность пространства линейных отображений}{}
+	Если $\dim V=n$, $\dim W=m$, то
+	\[
+	\dim \Hom(V,W)=mn.
+	\]
+\end{Corollary}
+
+\subsection{Линейные операторы и матричная алгебра}
+
+\begin{Definition}{Линейный оператор}{}
+	Линейным оператором на $V$ называется линейное отображение из $V$ в себя.
+	Множество всех таких операторов обозначается
+	\[
+	\End V:=\Hom(V,V).
+	\]
+\end{Definition}
+
+\begin{Proposition}{Алгебра операторов и матриц}{}
+	Пусть $E$ --- базис $V$, $\dim V=n$.
+	Отображение
+	\[
+	\xi_E\colon \End V\to M_n(K),
+	\qquad
+	\xi_E(\alpha)=[\alpha]_E,
+	\]
+	является изоморфизмом алгебр:
+	\[
+	[\alpha+\beta]_E=[\alpha]_E+[\beta]_E,
+	\qquad
+	[\lambda\alpha]_E=\lambda[\alpha]_E,
+	\qquad
+	[\beta\alpha]_E=[\beta]_E[\alpha]_E.
+	\]
+\end{Proposition}
+
+\begin{Remark}{Единица в $\End V$}{}
+	В алгебре $\End V$ единицей является тождественный оператор $\operatorname{id}_V$.
+	Ему соответствует единичная матрица $I_n$.
+\end{Remark}
+
+\subsection{Инвариантные подпространства}
+
+\begin{Definition}{Инвариантное подпространство}{}
+	Пусть $\alpha\in \End V$ и $W\le V$.
+	Подпространство $W$ называется инвариантным относительно $\alpha$, если
+	\[
+	\alpha W\subset W.
+	\]
+\end{Definition}
+
+\begin{Theorem}{Блочный вид при инвариантном подпространстве}{}
+	Пусть $W\le V$, $\dim W=m$, и
+	$E=(e_1,\ldots,e_n)$ --- базис $V$ такой, что
+	$e_1,\ldots,e_m$ --- базис $W$.
+	
+	Тогда $W$ инвариантно относительно $\alpha$ тогда и только тогда, когда
+	\[
+	[\alpha]_E=
+	\begin{pmatrix}
+		B & *\\
+		0 & C
+	\end{pmatrix},
+	\]
+	где $B\in M_m(K)$.
+\end{Theorem}
+
+\begin{proof}
+	Если $W$ инвариантно, то для $j=1,\ldots,m$ имеем $\alpha e_j\in W$.
+	Значит, в координатах по базису $E$ у вектора $\alpha e_j$ последние $n-m$ координат равны нулю.
+	Именно поэтому в первых $m$ столбцах матрицы снизу стоит нулевой блок.
+	
+	Обратно, если матрица имеет такой блочный вид, то для $j=1,\ldots,m$ вектор $\alpha e_j$ лежит в $\langle e_1,\ldots,e_m\rangle=W$.
+	Следовательно, $\alpha W\subset W$.
+\end{proof}
+
+\begin{Corollary}{Инвариантность прямых слагаемых}{}
+	Пусть $V=W_1\oplus W_2$,
+	$e_1,\ldots,e_m$ --- базис $W_1$, а $e_{m+1},\ldots,e_n$ --- базис $W_2$.
+	Для $E=(e_1,\ldots,e_n)$ следующие условия эквивалентны:
+	
+	\begin{enumerate}
+		\item $W_1$ и $W_2$ инвариантны относительно $\alpha$;
+		\item матрица оператора имеет блочно-диагональный вид
+		\[
+		[\alpha]_E=
+		\begin{pmatrix}
+			B & 0\\
+			0 & C
+		\end{pmatrix}.
+		\]
+	\end{enumerate}
+\end{Corollary}
+
+\begin{Definition}{Индуцированный оператор на факторпространстве}{}
+	Пусть $W$ инвариантно относительно $\alpha\in\End V$.
+	Тогда на факторпространстве $V/W$ корректно задаётся оператор
+	\[
+	\overline{\alpha}\colon V/W\to V/W,
+	\qquad
+	\overline{\alpha}(v+W)=\alpha v+W.
+	\]
+\end{Definition}
+
+\begin{proof}
+	Проверим корректность. Если $v+W=v'+W$, то $v-v'\in W$.
+	Так как $W$ инвариантно, $\alpha(v-v')\in W$.
+	Значит, $\alpha v+W=\alpha v'+W$.
+\end{proof}
+
+\begin{Remark}{Связь блоков с ограничением и фактороператором}{}
+	В условиях теоремы о блочном виде блок $B$ является матрицей ограничения
+	$\alpha|_W\colon W\to W$ в базисе $e_1,\ldots,e_m$.
+	
+	Если $\overline e_{m+1},\ldots,\overline e_n$ --- базис $V/W$, где
+	$\overline e_i=e_i+W$, то блок $C$ является матрицей индуцированного оператора
+	$\overline{\alpha}$.
+\end{Remark}
+

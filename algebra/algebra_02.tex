@@ -334,7 +334,7 @@ BoldItalicFont = cmunbso.otf
 			align=left
 			]
 			at ($(current page.west)+(2cm,4.5cm)$) {%
-				{\fontsize{82}{58}\fontseries{bx}\selectfont #2\par}
+				{\fontsize{60}{58}\fontseries{bx}\selectfont #2\par}
 				\vspace{0.4cm}
 				{\fontsize{45}{36}\selectfont\bfseries #3\par}
 			};
@@ -467,12 +467,9 @@ BoldItalicFont = cmunbso.otf
 % -------------------------------------------------
 \begin{document}
 	
-	\makecover{AlgebraColor}{Конспект \: лекций \: по Алгебре}{}{Жуков И. Б.}
+	\makecover{AlgebraColor}{Конспект \: лекций \: по \; Алгебре}{}{Жуков И. Б.}
 	
 	\makestaffandcontents
-	
-	\setcounter{tocdepth}{1}
-	\tableofcontents
 	
 	\newpage
 	

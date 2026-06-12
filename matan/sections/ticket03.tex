@@ -1,0 +1,288 @@
+% !TEX root = ../matan.tex
+
+\section{Числовые ряды}
+
+\subsection{Основные определения}
+
+\begin{Definition}{Числовой ряд}{series}
+	Пусть дана числовая последовательность $(a_k)_{k=1}^{\infty}$, где $a_k \in \mathbb{R}$ или $a_k \in \mathbb{C}$. Выражение
+	\[
+	\sum_{k=1}^{\infty} a_k
+	\]
+	называется \textbf{числовым рядом}.
+\end{Definition}
+
+\begin{Definition}{Частичные суммы ряда}{partial-sums}
+	Для ряда $\sum\limits_{k=1}^{\infty} a_k$ его $n$-й \textbf{частичной суммой} называется число
+	\[
+	S_n = \sum_{k=1}^{n} a_k.
+	\]
+	Таким образом, каждому ряду соответствует последовательность частичных сумм $(S_n)$.
+\end{Definition}
+
+\begin{Definition}{Сходимость ряда}{convergence}
+	Ряд $\sum\limits_{k=1}^{\infty} a_k$ называется \textbf{сходящимся}, если существует конечный предел последовательности частичных сумм:
+	\[
+	\exists S \in \mathbb{R} \colon \lim_{n\to\infty} S_n = S.
+	\]
+	В этом случае пишут $\sum\limits_{k=1}^{\infty} a_k = S$, а число $S$ называют \textbf{суммой ряда}.
+	
+	Если такого конечного предела нет, ряд называется \textbf{расходящимся}.
+\end{Definition}
+
+\begin{Remark}{}{series-is-sequence}
+	Важно: исследовать ряд $\sum a_k$ на сходимость означает исследовать последовательность его частичных сумм $S_n = a_1 + \dots + a_n$.
+\end{Remark}
+
+\begin{Example}{Телескопический ряд}{telescopic}
+	Рассмотрим ряд $\sum\limits_{k=1}^{\infty} \frac{1}{k(k+1)}$.
+	
+	Так как $\frac{1}{k(k+1)} = \frac1k - \frac{1}{k+1}$, то
+	\[
+	S_n
+	=
+	\sum_{k=1}^{n} \frac{1}{k(k+1)}
+	=
+	\sum_{k=1}^{n} \left(\frac1k - \frac{1}{k+1}\right)
+	=
+	1 - \frac{1}{n+1}.
+	\]
+	Следовательно, $S_n \to 1$, поэтому
+	\[
+	\sum_{k=1}^{\infty} \frac{1}{k(k+1)} = 1.
+	\]
+\end{Example}
+
+\begin{Example}{Геометрический ряд}{geometric}
+	Рассмотрим ряд $\sum\limits_{k=1}^{\infty} q^k$, где $q > 0$.
+	
+	Если $q \neq 1$, то
+	\[
+	S_n = q + q^2 + \dots + q^n = \frac{q(1-q^n)}{1-q}.
+	\]
+	
+	Если $0 < q < 1$, то $q^n \to 0$, поэтому $S_n \to \frac{q}{1-q}$, то есть
+	\[
+	\sum_{k=1}^{\infty} q^k = \frac{q}{1-q}, \qquad 0 < q < 1.
+	\]
+	
+	Если $q \ge 1$, то $q^k \not\to 0$, значит ряд расходится.
+\end{Example}
+
+\begin{Example}{Гармонический ряд}{harmonic}
+	Гармонический ряд
+	\[
+	\sum_{k=1}^{\infty} \frac1k
+	\]
+	расходится.
+	
+	Сгруппируем слагаемые:
+	\[
+	1 + \frac12
+	+
+	\left(\frac13+\frac14\right)
+	+
+	\left(\frac15+\frac16+\frac17+\frac18\right)
+	+\dots
+	\]
+	В каждой скобке сумма не меньше $\frac12$: например, $\frac13+\frac14 \ge \frac14+\frac14 = \frac12$, а $\frac15+\frac16+\frac17+\frac18 \ge 4\cdot\frac18 = \frac12$.
+	
+	Значит, частичные суммы неограниченно растут. Поэтому ряд $\sum\limits_{k=1}^{\infty} \frac1k$ расходится.
+\end{Example}
+
+\subsection{Линейность}
+
+\begin{Proposition}{Линейность сходящихся рядов}{linearity}
+	Если ряды $\sum\limits_{k=1}^{\infty} a_k$ и $\sum\limits_{k=1}^{\infty} b_k$ сходятся, причём $\sum a_k = A$ и $\sum b_k = B$, то для любых $\lambda,\mu \in \mathbb{R}$ ряд $\sum\limits_{k=1}^{\infty}(\lambda a_k+\mu b_k)$ сходится, и
+	\[
+	\sum_{k=1}^{\infty}(\lambda a_k+\mu b_k)
+	=
+	\lambda A+\mu B.
+	\]
+\end{Proposition}
+
+\begin{proof}
+	Пусть $A_n = \sum\limits_{k=1}^{n} a_k$, $B_n = \sum\limits_{k=1}^{n} b_k$. Тогда частичная сумма ряда $\sum(\lambda a_k+\mu b_k)$ равна $\lambda A_n+\mu B_n$. Так как $A_n \to A$ и $B_n \to B$, то $\lambda A_n+\mu B_n \to \lambda A+\mu B$.
+\end{proof}
+
+\subsection{Необходимое условие сходимости}
+
+\begin{Proposition}{Необходимое условие сходимости ряда}{necessary-condition}
+	Если ряд $\sum\limits_{k=1}^{\infty} a_k$ сходится, то $a_k \to 0$ при $k \to \infty$.
+\end{Proposition}
+
+\begin{proof}
+	Пусть $S_n = \sum\limits_{k=1}^{n} a_k$. Если ряд сходится, то $S_n \to S$ для некоторого $S$. Но $a_n = S_n - S_{n-1}$. Поскольку $S_n \to S$ и $S_{n-1} \to S$, получаем $a_n \to S-S=0$.
+\end{proof}
+
+\begin{Remark}{}{necessary-not-sufficient}
+	Условие $a_k \to 0$ является только необходимым, но не достаточным.
+	
+	Например, $\frac1k \to 0$, но гармонический ряд $\sum\limits_{k=1}^{\infty}\frac1k$ расходится.
+\end{Remark}
+
+\subsection{Критерий Коши для рядов}
+
+\begin{Theorem}{Критерий Коши для сходимости ряда}{cauchy-series}
+	Ряд $\sum\limits_{k=1}^{\infty} a_k$ сходится тогда и только тогда, когда
+	\[
+	\forall \varepsilon > 0 \ \exists N(\varepsilon) \in \mathbb{N}
+	\quad
+	\forall n \ge N(\varepsilon),\ \forall m \in \mathbb{N}
+	\quad
+	\left|\sum_{k=n+1}^{n+m} a_k\right| < \varepsilon.
+	\]
+\end{Theorem}
+
+\begin{proof}
+	Ряд $\sum a_k$ сходится тогда и только тогда, когда сходится последовательность его частичных сумм $S_n = \sum\limits_{k=1}^{n} a_k$.
+	
+	По критерию Коши для последовательностей это равносильно условию: для любого $\varepsilon > 0$ существует $N(\varepsilon)$ такое, что для всех $p,q \ge N(\varepsilon)$ выполнено $|S_p-S_q|<\varepsilon$.
+	
+	Пусть $p=n+m$, $q=n$. Тогда
+	\[
+	S_{n+m}-S_n
+	=
+	\sum_{k=n+1}^{n+m} a_k.
+	\]
+	Поэтому условие Коши для последовательности $(S_n)$ переписывается как
+	\[
+	\left|\sum_{k=n+1}^{n+m} a_k\right| < \varepsilon.
+	\]
+	Это и есть критерий Коши для ряда.
+\end{proof}
+
+\subsection{Абсолютная сходимость}
+
+\begin{Definition}{Абсолютная и условная сходимость}{absolute-convergence}
+	Ряд $\sum\limits_{k=1}^{\infty} a_k$ называется \textbf{абсолютно сходящимся}, если сходится ряд $\sum\limits_{k=1}^{\infty} |a_k|$.
+	
+	Если ряд $\sum a_k$ сходится, но ряд $\sum |a_k|$ расходится, то ряд $\sum a_k$ называется \textbf{условно сходящимся}.
+\end{Definition}
+
+\begin{Theorem}{Абсолютная сходимость влечёт сходимость}{absolute-implies-convergence}
+	Если ряд $\sum\limits_{k=1}^{\infty} |a_k|$ сходится, то ряд $\sum\limits_{k=1}^{\infty} a_k$ тоже сходится.
+\end{Theorem}
+
+\begin{proof}
+	Пусть $\sum |a_k|$ сходится. По критерию Коши для рядов $ \forall \varepsilon>0$ $\exists$ $N(\varepsilon)$  $: \forall$ $n\ge N(\varepsilon)$ $\forall$ $m\in\mathbb N$ выполнено $\sum\limits_{k=n+1}^{n+m}|a_k|<\varepsilon$.
+	
+	Тогда
+	\[
+	\left|\sum_{k=n+1}^{n+m} a_k\right|
+	\le
+	\sum_{k=n+1}^{n+m}|a_k|
+	<
+	\varepsilon.
+	\]
+	По критерию Коши ряд $\sum a_k$ сходится.
+\end{proof}
+
+\subsection{Признак сравнения}
+
+\begin{Theorem}{Признак сравнения для неотрицательных рядов}{comparison}
+	Пусть $0 \le a_k \le b_k$ для всех $k \ge k_0$.
+	
+	Тогда:
+	
+	\begin{enumerate}
+		\item если $\sum\limits_{k=1}^{\infty} b_k$ сходится, то $\sum\limits_{k=1}^{\infty} a_k$ тоже сходится;
+		\item если $\sum\limits_{k=1}^{\infty} a_k$ расходится, то $\sum\limits_{k=1}^{\infty} b_k$ тоже расходится.
+	\end{enumerate}
+\end{Theorem}
+
+\begin{proof}
+	Докажем первый пункт. Так как $a_k \ge 0$, частичные суммы ряда $\sum a_k$ монотонно возрастают. При этом для всех $n \ge k_0$ имеем $\sum\limits_{k=k_0}^{n} a_k \le \sum\limits_{k=k_0}^{n} b_k \le \sum\limits_{k=k_0}^{\infty} b_k$. Значит, частичные суммы ряда $\sum a_k$ монотонны и ограничены сверху, следовательно, имеют конечный предел.
+	
+	Второй пункт следует от противного: если бы $\sum b_k$ сходился, то по первому пункту сходился бы и $\sum a_k$, что противоречит условию.
+\end{proof}
+
+\begin{Corollary}{Признак сравнения для рядов с произвольными членами}{comparison-absolute}
+	Пусть $|a_k| \le b_k$ для всех $k \ge k_0$, где $b_k \ge 0$. Если ряд $\sum b_k$ сходится, то ряд $\sum a_k$ сходится абсолютно, а значит, сходится.
+\end{Corollary}
+
+\begin{proof}
+	Из $|a_k| \le b_k$ и сходимости $\sum b_k$ по признаку сравнения следует сходимость $\sum |a_k|$. Значит, $\sum a_k$ сходится абсолютно.
+\end{proof}
+
+\subsection{Предельный признак сравнения}
+
+\begin{Theorem}{Предельный признак сравнения}{limit-comparison}
+	Пусть $a_k \ge 0$, $b_k > 0$ и существует предел
+	\[
+	\lim_{k\to\infty} \frac{a_k}{b_k} = c,
+	\qquad
+	0 < c < +\infty.
+	\]
+	Тогда ряды $\sum a_k$ и $\sum b_k$ сходятся или расходятся одновременно.
+\end{Theorem}
+
+\begin{proof}
+	Так как $\frac{a_k}{b_k} \to c$ и $c>0$, то начиная с некоторого номера $k_0$ выполнено, например,
+	\[
+	\frac c2 \le \frac{a_k}{b_k} \le \frac{3c}{2}.
+	\]
+	Отсюда $\frac c2 b_k \le a_k \le \frac{3c}{2}b_k$ для всех $k\ge k_0$. Поэтому сходимость одного ряда равносильна сходимости другого по обычному признаку сравнения.
+\end{proof}
+
+\subsection{Признак Даламбера}
+
+\begin{Theorem}{Признак Даламбера}{dalambert}
+	Пусть $a_k > 0$ и существует предел
+	\[
+	\lim_{k\to\infty} \frac{a_{k+1}}{a_k} = q.
+	\]
+	Тогда:
+	
+	\begin{enumerate}
+		\item если $q<1$, то ряд $\sum a_k$ сходится;
+		\item если $q>1$, то ряд $\sum a_k$ расходится;
+		\item если $q=1$, признак не даёт ответа.
+	\end{enumerate}
+\end{Theorem}
+
+\begin{proof}
+	Пусть $q<1$. Выберем $r$ так, что $q<r<1$. Так как $\frac{a_{k+1}}{a_k}\to q$, то существует $k_0$, что при всех $k\ge k_0$ выполнено $\frac{a_{k+1}}{a_k}\le r$, то есть $a_{k+1}\le r a_k$.
+	
+	Тогда последовательно получаем $a_{k_0+m}\le a_{k_0}r^m$. Так как геометрический ряд $\sum a_{k_0}r^m$ сходится, то по признаку сравнения сходится и $\sum a_k$.
+	
+	Пусть теперь $q>1$. Выберем $r$ так, что $1<r<q$. Тогда начиная с некоторого $k_0$ имеем $\frac{a_{k+1}}{a_k}\ge r$, то есть $a_{k+1}\ge r a_k$. Следовательно, $a_k$ не стремится к нулю. По необходимому условию сходимости ряд $\sum a_k$ расходится.
+\end{proof}
+
+\begin{Remark}{Случай $q=1$}{dalambert-one}
+	Если $q=1$, признак Даламбера не работает.
+	
+	Например, для $a_k=\frac1k$ имеем $\frac{a_{k+1}}{a_k}=\frac{k}{k+1}\to 1$, но ряд $\sum \frac1k$ расходится.
+	
+	Для $a_k=\frac1{k^2}$ имеем $\frac{a_{k+1}}{a_k}=\frac{k^2}{(k+1)^2}\to 1$, но ряд $\sum \frac1{k^2}$ сходится.
+\end{Remark}
+
+\subsection{Радикальный признак Коши}
+
+\begin{Theorem}{Радикальный признак Коши}{root-cauchy}
+	Пусть $a_k \ge 0$ и существует предел
+	\[
+	\lim_{k\to\infty} \sqrt[k]{a_k} = q.
+	\]
+	Тогда:
+	
+	\begin{enumerate}
+		\item если $q<1$, то ряд $\sum a_k$ сходится;
+		\item если $q>1$, то ряд $\sum a_k$ расходится;
+		\item если $q=1$, признак не даёт ответа.
+	\end{enumerate}
+\end{Theorem}
+
+\begin{proof}
+	Пусть $q<1$. Выберем $r$ так, что $q<r<1$. Тогда начиная с некоторого $k_0$ выполнено $\sqrt[k]{a_k}\le r$, то есть $a_k\le r^k$. Так как геометрический ряд $\sum r^k$ сходится, то по признаку сравнения сходится и $\sum a_k$.
+	
+	Пусть $q>1$. Выберем $r$ так, что $1<r<q$. Тогда начиная с некоторого $k_0$ выполнено $\sqrt[k]{a_k}\ge r$, то есть $a_k\ge r^k$. Так как $r^k\to+\infty$, то $a_k\not\to0$. Следовательно, ряд $\sum a_k$ расходится.
+\end{proof}
+
+\begin{Remark}{Случай $q=1$}{root-cauchy-one}
+	Если $q=1$, радикальный признак Коши не даёт ответа.
+	
+	Например, $\sqrt[k]{1/k}\to1$, но $\sum\frac1k$ расходится.
+	
+	Также $\sqrt[k]{1/k^2}\to1$, но $\sum\frac1{k^2}$ сходится.
+\end{Remark}

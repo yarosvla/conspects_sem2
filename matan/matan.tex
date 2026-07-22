@@ -251,6 +251,21 @@ BoldItalicFont = cmunbso.otf
 	borderline west={1.1pt}{0pt}{corFrame}
 }{cor}
 
+\definecolor{reqcolor}{HTML}{C81E2E}
+\tcbset{
+	required/.style={
+		borderline west={1.8pt}{0pt}{reqcolor},
+		overlay unbroken and first={
+			\node[
+			anchor=north east, 
+			inner sep=0pt, 
+			font=\bfseries\large, 
+			text=reqcolor
+			] at ([xshift=-8pt, yshift=-12pt]frame.north west) {(!)};
+		},
+	}
+}
+
 % -----------------------
 % интервалы
 % -----------------------
@@ -434,27 +449,8 @@ BoldItalicFont = cmunbso.otf
 	
 	\begin{center}
 		\nameghblock{Владимир Кравцов}{tortedCtrl}
-		\hspace{0.05\textwidth}
-		\nameghblock{Александр Поданёв}{alex-pods}
 	\end{center}
 	
-	\vspace{0.28cm}
-	
-	\begin{center}
-		\nameghblock{Даниил Лысый}{DanLyss}
-		\hspace{0.035\textwidth}
-		\nameghblock{Кирилл Пирогов}{NothingToThink}
-		\hspace{0.035\textwidth}
-		\nameghblock{Варвара Сарычева}{Margaritca2008}
-	\end{center}
-	
-	\vspace{0.28cm}
-	
-	\begin{center}
-		\nameghblock{Дмитрий Брит}{pe5ok}
-		\hspace{0.05\textwidth}
-		\nameghblock{Валентина Млтыхян}{robertvlasov}
-	\end{center}
 	
 	\vspace{0.92cm}
 	
@@ -485,8 +481,8 @@ BoldItalicFont = cmunbso.otf
 \begin{document}
 	\makecover
 	{AnalysisColor}
-	{Конспект  \: лекций \: по Математическому анализу}
-	{}
+	{Математический анализ}
+	{Билеты}
 	{Мозоляко П. А.}
 	
 	\makestaffandcontents
@@ -495,9 +491,56 @@ BoldItalicFont = cmunbso.otf
 	
 	\part*{Второй семестр}
 	
-	\ticket{sections/}{ticket01.tex}
-	\ticket{sections/}{ticket02.tex}
-	\ticket{sections/}{ticket06.tex}
-	\ticket{sections/}{ticket07.tex}
-	\ticket{sections/}{ticket08.tex}
+	\ticket{sections/}{question01.tex}
+	\ticket{sections/}{question02.tex}
+	\ticket{sections/}{question03.tex}
+	\ticket{sections/}{question04.tex}
+	\ticket{sections/}{question05.tex}
+	\ticket{sections/}{question06.tex}
+	\ticket{sections/}{question07.tex}
+	\ticket{sections/}{question08.tex}
+	\ticket{sections/}{question09.tex}
+	\ticket{sections/}{question10.tex}
+	\ticket{sections/}{question11.tex}
+	\ticket{sections/}{question12.tex}
+	\ticket{sections/}{question13.tex}
+	\ticket{sections/}{question14.tex}
+	\ticket{sections/}{question15.tex}
+	\ticket{sections/}{question16.tex}
+	\ticket{sections/}{question17.tex}
+	\ticket{sections/}{question18.tex}
+	\ticket{sections/}{question19.tex}
+	\ticket{sections/}{question20.tex}
+	\ticket{sections/}{question21.tex}
+	\ticket{sections/}{question22.tex}
+	\ticket{sections/}{question23.tex}
+	\ticket{sections/}{question24.tex}
+	\ticket{sections/}{question25.tex}
+	\ticket{sections/}{question26.tex}
+	\ticket{sections/}{question27.tex}
+	\ticket{sections/}{question28.tex}
+	\ticket{sections/}{question29.tex}
+	\ticket{sections/}{question30.tex}
+	\ticket{sections/}{question31.tex}
+	\ticket{sections/}{question32.tex}
+	\ticket{sections/}{question33.tex}
+	%\ticket{sections/}{question34.tex}
+	\ticket{sections/}{question35.tex}
+	\ticket{sections/}{question36.tex}
+	\ticket{sections/}{question37.tex}
+	\ticket{sections/}{question38.tex}
+	\ticket{sections/}{question39.tex}
+	\ticket{sections/}{question40.tex}
+	\ticket{sections/}{question41.tex}
+	\ticket{sections/}{question42.tex}
+	\ticket{sections/}{question43.tex}
+	\ticket{sections/}{question44.tex}
+	%\ticket{sections/}{question45.tex}
+	\ticket{sections/}{question46.tex}
+	\ticket{sections/}{question47.tex}
+	\ticket{sections/}{question48.tex}
+	\ticket{sections/}{question49.tex}
+	\ticket{sections/}{question50.tex}
+	\ticket{sections/}{question51.tex}
+	
 \end{document}
